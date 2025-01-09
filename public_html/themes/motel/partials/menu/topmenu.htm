@@ -1,0 +1,42 @@
+[viewBag]
+
+[staticMenu topMenu]
+code = "topmenu"
+==
+<ul class="main-menu js-main-menu">
+    {% for item in topMenu.menuItems %}
+    
+    {% if item.isActive %}
+    
+    <li class="main-menu__item">
+        <a href="{{ item.url }}" class="main-menu__link">{{ item.title }}</a>
+        
+        {% if item.items %}
+            <ul>
+            {% for subitem in item.items %}
+            <li {% if subitem.viewBag.cssClass %}class="{{ subitem.viewBag.cssClass }}"{% endif %}><a href="{{ subitem.url }}">{{ subitem.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        
+    </li>
+    
+	{% else %}
+	
+	<li class="main-menu__item">
+	    <a href="{{ item.url }}" class="main-menu__link">{{ item.title }}</a>
+	    
+	    {% if item.items %}
+            <ul>
+            {% for subitem in item.items %}
+				{% if subitem.viewBag.isHidden == 0 %}<li {% if subitem.viewBag.cssClass %}class="{{ subitem.viewBag.cssClass }}"{% endif %}><a href="{{ subitem.url }}">{{ subitem.title }}</a></li>{% endif %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+        
+	</li>
+	
+    {% endif %}
+    
+    {% endfor %}
+</ul>

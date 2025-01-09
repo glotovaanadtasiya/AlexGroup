@@ -1,0 +1,10 @@
+name: Rooms
+form: $/ro/rooms/models/hotels/fields.yaml
+modelClass: Ro\Rooms\Models\Hotels
+defaultRedirect: ro/rooms/rooms
+create:
+    redirect: 'ro/rooms/rooms/update/:id'
+    redirectClose: ro/rooms/rooms
+update:
+    redirect: ro/rooms/rooms
+    redirectClose: ro/rooms/rooms

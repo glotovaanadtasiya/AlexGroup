@@ -1,0 +1,187 @@
+1735041919a:1:{s:7:"404.htm";a:6:{s:8:"fileName";s:7:"404.htm";s:7:"content";s:2575:"description = "Шаблон 404 ошибки"
+==
+<?php
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+  {% partial "basic/head" %}
+  
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darkblurtheme">
+      <div class="s-error section">
+        
+        <!-- Sky -->
+        <div class="s-error__stars starry-sky-canvas">
+          <div class="starry-sky js-starry-sky" data-stars-amount="15"></div>
+        </div>
+        <!-- /Sky -->
+        <div class="s-error__container container">
+          <!-- Moon -->
+          <div class="s-error__moon">
+            <div class="moon js-moon">
+              <div class="moon__inner moon__inner_bottom-right">
+                <img src="/themes/motel/assets/img/moon.svg" alt="" class="moon__image">
+              </div>
+            </div>
+          </div>
+          <!-- /Moon -->
+          
+          <div class="s-error__box">
+            <div class="s-error__illustration">
+              <!-- Retina img -->
+              <img src="/themes/motel/assets/img/error-illustration.png" srcset="/themes/motel/assets/img/error-illustration@2x.png 2x, /themes/motel/assets/img/error-illustration@1.5x.png 1.5x" alt="error image" class="s-error__illustration-img">
+            </div>
+            <div class="s-error__descr">
+              <div class="s-error__number">404</div>
+              <div class="s-error__text">отказ оборудования</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:5:"mtime";i:1602672583;s:6:"markup";s:1898:"<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+  {% partial "basic/head" %}
+  
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darkblurtheme">
+      <div class="s-error section">
+        
+        <!-- Sky -->
+        <div class="s-error__stars starry-sky-canvas">
+          <div class="starry-sky js-starry-sky" data-stars-amount="15"></div>
+        </div>
+        <!-- /Sky -->
+        <div class="s-error__container container">
+          <!-- Moon -->
+          <div class="s-error__moon">
+            <div class="moon js-moon">
+              <div class="moon__inner moon__inner_bottom-right">
+                <img src="/themes/motel/assets/img/moon.svg" alt="" class="moon__image">
+              </div>
+            </div>
+          </div>
+          <!-- /Moon -->
+          
+          <div class="s-error__box">
+            <div class="s-error__illustration">
+              <!-- Retina img -->
+              <img src="/themes/motel/assets/img/error-illustration.png" srcset="/themes/motel/assets/img/error-illustration@2x.png 2x, /themes/motel/assets/img/error-illustration@1.5x.png 1.5x" alt="error image" class="s-error__illustration-img">
+            </div>
+            <div class="s-error__descr">
+              <div class="s-error__number">404</div>
+              <div class="s-error__text">отказ оборудования</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:4:"code";s:615:"function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}";s:11:"description";s:29:"Шаблон 404 ошибки";}}

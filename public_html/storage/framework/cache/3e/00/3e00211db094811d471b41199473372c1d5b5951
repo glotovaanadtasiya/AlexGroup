@@ -1,0 +1,418 @@
+1735042373a:1:{s:24:"blocks/booking-popup.htm";a:7:{s:8:"fileName";s:24:"blocks/booking-popup.htm";s:7:"content";s:11824:"description = "Всплывающий блок с бонированием"
+
+[viewBag]
+==
+
+<!-- Booking Popup -->
+    <div class="booking js-booking new22032021" id="booking">
+      <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking__inner section">
+            <div class="booking__container container">
+              <div class="booking__content">
+                <div class="booking__title h1">Бронирование отеля</div>
+                
+                <form class="booking__form" data-request="onSubmitBooking"
+                        			        data-request-validate
+                        			        data-request-success="$.magnificPopup.close(); openSuccessPopup(); if(isCheck('connect-type').value==1) startChat(); "
+
+                        			        >
+                  <div class="booking__form-content">
+                    <div class="booking__col">
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-hotel-select" required>
+                            <option disabled hidden value="">Отель</option>
+                            {% for hotel in hotels %}
+                            <option data-hotel-id="{{hotel.id}}" value="{{hotel.slug}}">{{hotel.name}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-roomtype-select" required>
+                            <option disabled hidden value="">Тип номера</option>
+                            <option selected value="standard">Cтандарт</option>
+                            <option value="suite">Полу-люкс</option>
+                            <option value="lux">Люкс</option>
+                          </select>
+                        </div>
+                      </div>
+					  
+					  
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+						  <div class="booking-line-title">Время заезда</div>
+						  <div class="floatright">
+							<option disabled hidden value="">часов</option>
+							<select class="booking__select select select_bot-border select-notfullwidth" name="booking-hours">
+								{% for i in 0..23 %}
+								<option value="{% if i<10 %}0{% endif %}{{ i }}">{% if i<10 %}0{% endif %}{{ i }}</option>
+								{% endfor %}
+							</select>
+							:
+							<select class="booking__select select select_bot-border  select-notfullwidth" name="booking-minutes">
+								{% for i in 0..11 %}
+								<option value="{% if i<2 %}0{% endif %}{{ i*5 }}">{% if i<2 %}0{% endif %}{{ i*5 }}</option>
+								{% endfor %}
+							</select>
+						  </div>
+                        </div>
+                      </div>
+
+                      
+                      <div class="booking__field form-field">
+                        <input type="text" class="booking__input js-datepicker input select select_bot-border" placeholder="Дата заезда" name="arrival_date" required>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-time-select" required>                            
+                            <option disabled hidden value="">Время бронирования</option>
+                            {% for standart_prop in hotels.first.standart_prop %}
+                                {% for standart_price in standart_prop.tariffs %}
+									{% if not standart_price.price_hide %}
+									<option value="{{ standart_price.price_name }}" {% if loop.first %}selected{% endif %}>{{ standart_price.price_name }}</option>
+									{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                          </select>
+						  <script>
+								var i = setInterval(function() {
+								if ($) {
+								clearInterval(i);
+								 
+								$(function () {
+									var form = $('.js-booking');
+									form.on('change', 'select[name="booking-time-select"]',function () {
+										$(".booking-time-select-desc").hide();
+										if($(this).val()=="12 часов «Ночной»") {
+											$(".booking-time-select-desc").show();
+									     }										
+									});
+								});	
+								
+								 }
+								}, 1000)
+
+								
+								
+
+					     </script>
+						 <div class="booking-time-select-desc" style="display: none; padding-top: 5px; font-size: 12px;">Тариф «Ночной» действует с воскресенья по четверг с 23:00 до 13:00. Не действует в праздничные и предпраздничные дни.</div>
+                        </div>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-rp-select">                                                  
+                            <option disabled selected hidden>Романтическое оформление номера</option>
+
+                            <option>Без романтического предложения</option>
+                            <option data-price="1500" value="Bronze">Романт. предл. Bronze (1500р)</option>
+                            <option data-price="1200" value="Silver">Романт. предл. Silver (1200р)</option>
+                            <option data-price="2000" value="Gold">Романт. предл. Gold (2000р)</option>
+                          </select>
+                        </div>
+                      </div>
+					  
+					  
+					  <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-smocking">
+                            <option disabled hidden selected value="">Номер для курящих?</option>
+                            <option>не важно</option>
+                            <option>для курящих</option>
+                            <option>для не курящих</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      
+                    </div>
+                    <div class="booking__col">
+                      <div class="booking__field form-field">
+                        <input type="text" class="booking__input input" placeholder="Имя" name="fname" required>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <input type="tel" class="booking__input js-phone-mask input" placeholder="Телефон" name="phone" required>
+                      </div>
+					  
+					  <div class="booking__field form-field">
+                        <input type="email" class="booking__input input" placeholder="E-mail" name="email">
+                      </div>
+					  
+					  
+					  <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+						  <h3>Подтверждение бронирования</h3>
+						  <p class="radiobutton-line"><input name="connect-type" type="radio" id="r1" value="0" checked="checked"> <label for="r1">По телефону</label></p>
+						  <p class="radiobutton-line"><input name="connect-type" type="radio" id="r2" value="1"> <label for="r2">Онлайн (в чате)</label></p>
+						  
+						  <style>
+						  .radiobutton-line {margin: 10px 0; font-size: 20px;}
+						  </style>
+
+						  <!--
+						 <select class="booking__select select select_bot-border" name="connect-type">
+                            <option disabled hidden selected value="">Подтвердить бронирование</option>
+                            <option value="phone">Подтверждение по телефону</option>
+                            <option value="chat">Подтверждение Online (в чате)</option>
+                          </select>
+						  -->
+                        </div>
+                      </div>				  
+                      
+					  
+					  
+                      <div class="booking__price">
+                        <span class="booking__price-title">Итого</span>
+                        
+                        <span class="booking__price-sum">
+                          <span class="booking__price-num">5 000</span>
+                          <span class="booking__price-currency">рублей</span>
+                        </span>
+                      </div>
+					  
+
+						<p style="margin-top: 20px;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/">правилах проживания пункт 7</a></p>  
+					  
+                      
+                      <div class="booking__send-wrap">
+                        <button onclick=" yaCounter23472043.reachGoal('bronSubmit'); ga('send', 'pageview','/bronSubmit'); fbq('track','bronSubmit'); return true;" class="booking__send-btn button button_ghost">Бронировать</button>
+                      </div>
+                      
+                      <div class="booking__check-wrap">
+                        <label class="checkbox">
+                          <input type="checkbox" class="checkbox__input visually-hidden" required="" checked="">
+                          <span class="checkbox__content">
+                            Нажимая кнопку «Бронировать» Вы даете согласие на обработку своих персональных данных и соглашаетесь 
+                            с <a href="/privacy-policy/" class="checkbox__link" target="_blank">политикой конфиденциальности</a>
+                          </span>
+                        </label>
+                      </div>
+                      
+                    </div>
+                  </div>            
+                </form>
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+    <!-- /Booking Popup -->";s:5:"mtime";i:1717732068;s:6:"markup";s:11728:"<!-- Booking Popup -->
+    <div class="booking js-booking new22032021" id="booking">
+      <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking__inner section">
+            <div class="booking__container container">
+              <div class="booking__content">
+                <div class="booking__title h1">Бронирование отеля</div>
+                
+                <form class="booking__form" data-request="onSubmitBooking"
+                        			        data-request-validate
+                        			        data-request-success="$.magnificPopup.close(); openSuccessPopup(); if(isCheck('connect-type').value==1) startChat(); "
+
+                        			        >
+                  <div class="booking__form-content">
+                    <div class="booking__col">
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-hotel-select" required>
+                            <option disabled hidden value="">Отель</option>
+                            {% for hotel in hotels %}
+                            <option data-hotel-id="{{hotel.id}}" value="{{hotel.slug}}">{{hotel.name}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-roomtype-select" required>
+                            <option disabled hidden value="">Тип номера</option>
+                            <option selected value="standard">Cтандарт</option>
+                            <option value="suite">Полу-люкс</option>
+                            <option value="lux">Люкс</option>
+                          </select>
+                        </div>
+                      </div>
+					  
+					  
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+						  <div class="booking-line-title">Время заезда</div>
+						  <div class="floatright">
+							<option disabled hidden value="">часов</option>
+							<select class="booking__select select select_bot-border select-notfullwidth" name="booking-hours">
+								{% for i in 0..23 %}
+								<option value="{% if i<10 %}0{% endif %}{{ i }}">{% if i<10 %}0{% endif %}{{ i }}</option>
+								{% endfor %}
+							</select>
+							:
+							<select class="booking__select select select_bot-border  select-notfullwidth" name="booking-minutes">
+								{% for i in 0..11 %}
+								<option value="{% if i<2 %}0{% endif %}{{ i*5 }}">{% if i<2 %}0{% endif %}{{ i*5 }}</option>
+								{% endfor %}
+							</select>
+						  </div>
+                        </div>
+                      </div>
+
+                      
+                      <div class="booking__field form-field">
+                        <input type="text" class="booking__input js-datepicker input select select_bot-border" placeholder="Дата заезда" name="arrival_date" required>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-time-select" required>                            
+                            <option disabled hidden value="">Время бронирования</option>
+                            {% for standart_prop in hotels.first.standart_prop %}
+                                {% for standart_price in standart_prop.tariffs %}
+									{% if not standart_price.price_hide %}
+									<option value="{{ standart_price.price_name }}" {% if loop.first %}selected{% endif %}>{{ standart_price.price_name }}</option>
+									{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                          </select>
+						  <script>
+								var i = setInterval(function() {
+								if ($) {
+								clearInterval(i);
+								 
+								$(function () {
+									var form = $('.js-booking');
+									form.on('change', 'select[name="booking-time-select"]',function () {
+										$(".booking-time-select-desc").hide();
+										if($(this).val()=="12 часов «Ночной»") {
+											$(".booking-time-select-desc").show();
+									     }										
+									});
+								});	
+								
+								 }
+								}, 1000)
+
+								
+								
+
+					     </script>
+						 <div class="booking-time-select-desc" style="display: none; padding-top: 5px; font-size: 12px;">Тариф «Ночной» действует с воскресенья по четверг с 23:00 до 13:00. Не действует в праздничные и предпраздничные дни.</div>
+                        </div>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-rp-select">                                                  
+                            <option disabled selected hidden>Романтическое оформление номера</option>
+
+                            <option>Без романтического предложения</option>
+                            <option data-price="1500" value="Bronze">Романт. предл. Bronze (1500р)</option>
+                            <option data-price="1200" value="Silver">Романт. предл. Silver (1200р)</option>
+                            <option data-price="2000" value="Gold">Романт. предл. Gold (2000р)</option>
+                          </select>
+                        </div>
+                      </div>
+					  
+					  
+					  <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-smocking">
+                            <option disabled hidden selected value="">Номер для курящих?</option>
+                            <option>не важно</option>
+                            <option>для курящих</option>
+                            <option>для не курящих</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      
+                    </div>
+                    <div class="booking__col">
+                      <div class="booking__field form-field">
+                        <input type="text" class="booking__input input" placeholder="Имя" name="fname" required>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <input type="tel" class="booking__input js-phone-mask input" placeholder="Телефон" name="phone" required>
+                      </div>
+					  
+					  <div class="booking__field form-field">
+                        <input type="email" class="booking__input input" placeholder="E-mail" name="email">
+                      </div>
+					  
+					  
+					  <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+						  <h3>Подтверждение бронирования</h3>
+						  <p class="radiobutton-line"><input name="connect-type" type="radio" id="r1" value="0" checked="checked"> <label for="r1">По телефону</label></p>
+						  <p class="radiobutton-line"><input name="connect-type" type="radio" id="r2" value="1"> <label for="r2">Онлайн (в чате)</label></p>
+						  
+						  <style>
+						  .radiobutton-line {margin: 10px 0; font-size: 20px;}
+						  </style>
+
+						  <!--
+						 <select class="booking__select select select_bot-border" name="connect-type">
+                            <option disabled hidden selected value="">Подтвердить бронирование</option>
+                            <option value="phone">Подтверждение по телефону</option>
+                            <option value="chat">Подтверждение Online (в чате)</option>
+                          </select>
+						  -->
+                        </div>
+                      </div>				  
+                      
+					  
+					  
+                      <div class="booking__price">
+                        <span class="booking__price-title">Итого</span>
+                        
+                        <span class="booking__price-sum">
+                          <span class="booking__price-num">5 000</span>
+                          <span class="booking__price-currency">рублей</span>
+                        </span>
+                      </div>
+					  
+
+						<p style="margin-top: 20px;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/">правилах проживания пункт 7</a></p>  
+					  
+                      
+                      <div class="booking__send-wrap">
+                        <button onclick=" yaCounter23472043.reachGoal('bronSubmit'); ga('send', 'pageview','/bronSubmit'); fbq('track','bronSubmit'); return true;" class="booking__send-btn button button_ghost">Бронировать</button>
+                      </div>
+                      
+                      <div class="booking__check-wrap">
+                        <label class="checkbox">
+                          <input type="checkbox" class="checkbox__input visually-hidden" required="" checked="">
+                          <span class="checkbox__content">
+                            Нажимая кнопку «Бронировать» Вы даете согласие на обработку своих персональных данных и соглашаетесь 
+                            с <a href="/privacy-policy/" class="checkbox__link" target="_blank">политикой конфиденциальности</a>
+                          </span>
+                        </label>
+                      </div>
+                      
+                    </div>
+                  </div>            
+                </form>
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+    <!-- /Booking Popup -->";s:4:"code";N;s:11:"description";s:59:"Всплывающий блок с бонированием";s:7:"viewBag";a:0:{}}}

@@ -1,0 +1,14 @@
+description = "Список типов номеров"
+
+[viewBag]
+==
+<option disabled selected hidden>Тип номера</option>
+{% if hotel.lux_prop %}
+<option value="lux">Люкс</option>
+{% endif %}
+{% if hotel.suite_prop %}
+<option value="suite">Полу-люкс</option>
+{% endif %}
+{% if hotel.standart_prop %}
+<option value="standard">Cтандарт</option>
+{% endif %}

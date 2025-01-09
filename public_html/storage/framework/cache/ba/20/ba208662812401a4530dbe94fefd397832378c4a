@@ -1,0 +1,4 @@
+1712144501a:1:{s:6:"fields";a:1:{s:7:"content";a:7:{s:5:"label";s:10:"robots.txt";s:18:"oc.commentPosition";s:0:"";s:4:"size";s:5:"large";s:8:"language";s:10:"plain_text";s:4:"span";s:4:"full";s:4:"type";s:10:"codeeditor";s:7:"default";s:65:"User-agent: *
+Allow: /
+Host: $domain
+Sitemap: $domain/sitemap.xml";}}}

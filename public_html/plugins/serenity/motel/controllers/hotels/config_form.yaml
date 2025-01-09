@@ -1,0 +1,16 @@
+name: Отель
+modelClass: Serenity\Motel\Models\Hotel
+form: $/serenity/motel/models/hotel/fields.yaml
+defaultRedirect: serenity/motel/hotels
+create:
+    title: 'Создание отеля'
+    redirect: 'serenity/motel/hotels/update/:id'
+    redirectClose: serenity/motel/hotels
+    flashSave: 'Отель сохранён'
+update:
+    title: 'Редактирование отеля'
+    redirect: serenity/motel/hotels
+    redirectClose: serenity/motel/hotels
+    flashDelete: 'Отель удалён'
+preview:
+    title: 'Просмотр отеля'

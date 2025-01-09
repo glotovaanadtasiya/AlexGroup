@@ -1,0 +1,1051 @@
+1735042528a:1:{s:8:"main.htm";a:7:{s:8:"fileName";s:8:"main.htm";s:7:"content";s:20980:"description = "Шаблон главной страницы"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Name;
+function onStart()
+{
+    $this['hotels'] = Hotel::all();
+}
+
+function onChangeHotel(){
+    $hotel_id = Input::get('hotel_id');
+    //$hotel_type = Input::get('hotel_type');
+    
+    $hotel = Hotel::find($hotel_id);
+    if($hotel){
+        return [
+            //'.find-room__field select' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+            '[name="roomtype-select"]' => $this->renderPartial('blocks/roomtypeselect.htm', ['hotel' => $hotel]),
+        ];
+    }
+}
+
+function onSubmitBooking(){
+    
+    
+    $vars = [
+		'type' => 1, /*запись в crm*/
+		'connect-type' => Input::get('connect-type'), 
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+		'booking_hours' => Input::get('booking-hours'),
+		'booking_minutes' => Input::get('booking-minutes'),
+		'booking_smocking' => Input::get('booking-smocking'),
+		'email' => Input::get('email')
+		
+        ];
+		
+		
+	/*отправка в crm*/
+	
+	$url = 'http://suz.motelspb.com/_321/backend/save.php';
+	$params = $vars;
+	$result = file_get_contents($url, false, stream_context_create(array(
+    'http' => array(
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
+        'content' => http_build_query($params)
+		)
+	)));
+
+	
+	
+	
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+	
+	
+
+	
+    
+	/*логирование данных*/
+	$file_log = $_SERVER["DOCUMENT_ROOT"] . "/1/log.log";
+	date_default_timezone_set('Europe/Moscow');
+    $fw = fopen($file_log, "a");
+	fwrite($fw, date("H:i:s  d.m.y")." from site VARS " . var_export($vars, true));	
+    fclose($fw);
+	/**/
+
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+{variable name="block1_text_1" label="Заголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_2" label="Подзаголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_3" label="Текст" tab="Блок 1" type="textarea"}{/variable}
+
+{variable name="block2_text_1" label="Заголовок" tab="Блок 2" type="textarea"}{/variable}
+{variable name="block2_text_2" label="Текст" tab="Блок 2" type="textarea"}{/variable}
+
+{repeater name="offer_items" prompt="Добавить" tab="Блок 2"}
+    {variable name="offer_items_img" label="Иконка" type="mediafinder" mode="image"}{/variable}
+    {variable name="offer_item_desc" label="Текст" type="text"}{/variable}
+    {variable name="offer_item_name" label="Название" type="text"}{/variable}
+{/repeater}
+
+{repeater name="gallery" prompt="Добавить фото" tab="Галерея"}
+  {variable name="photo" label="Галерея" type="mediafinder" mode="image"}{/variable}
+{/repeater}
+
+{variable name="secial_title" label="Заголовок" tab="Спецпредложение" type="text"}{/variable}
+{variable name="secial_text" label="Текст" tab="Спецпредложение" type="richeditor"}{/variable}
+{variable name="secial_url" label="Ссылка" tab="Спецпредложение" type="text"}{/variable}
+
+{repeater name="succes" prompt="Добавить" tab="Бронирование" maxItems="3"}
+    {variable name="icon" label="Иконка" type="mediafinder" mode="image"}{/variable}
+    {variable name="title" label="Заголовок" type="text"}{/variable}
+    {variable name="subtitle" label="Подзаголовок" type="text"}{/variable}
+    {variable name="text" label="Текст" type="textarea"}{/variable}
+    {variable name="text2" label="Текст 2" type="textarea"}{/variable}
+{/repeater}
+
+{variable name="seo_text" label="SEO текст" tab="SEO текст" type="richeditor"}{/variable}
+
+{variable name="linkblock" label="Блок ссылок" tab="Блок ссылок" type="richeditor"}{/variable}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+
+
+  <title>{% if this.page.meta_title %}{{ this.page.meta_title }}{% else %}Снять номер в мини отель на час с джакузи в Санкт-Петербурге{% endif %}</title>
+  <meta name="description" content="{% if this.page.meta_description %}{{ this.page.meta_description }}{% else %}Мини отель на час в Санкт-Петербурге, Гостиница с почасовой оплатой, Снять номер на час в СПб, Апартаменты на час, Отель на час с джакузи в Питере Цена номера в отеле на час в любом районе Saint Petersburg 1900 руб за 12 часов забронировать по номеру  8 (812) 468-77-77{% endif %}">
+  
+  
+  <meta name="keywords" content="Отель на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="google-site-verification" content="eIupZehJt_v6i1-Ze7VwR5x-DhtRdIP1Zz8jfpmnBfo" />
+  <meta name="yandex-verification" content="399ee3ca9aaabaaf" />
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+  <meta name="apple-itunes-app" content="app-id=1029435175">
+  <meta name="google-play-app" content="app-id=com.wideweb.motelspb">
+  <link rel="stylesheet" href="/themes/motel/assets/css/jquery.smartbanner.css" type="text/css" media="screen">
+
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  
+ <link rel="stylesheet" href="/themes/motel/assets/css/main.min.css" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  <!-- Main content -->
+  <main class="main">
+  
+  <div class="darkcommontheme darkblurtheme">
+    
+    <div class="header-group">
+        <!-- Header -->
+        {% partial "basic/header" %}
+        <!-- /Header -->
+        
+        <!-- Booking -->
+        {% partial "blocks/booking" %}  
+        <!-- /Booking -->
+    </div>
+	
+	
+	<a href="/goapp.php" class="temp_banner">
+			<img src="/themes/motel/assets/img/banner_intext1.png">
+	</a>
+	
+	<style>
+		.temp_banner {display: none;}
+		@media (max-width: 799px) {
+			.temp_banner {display: block; padding: 0 20px; margin: 20px auto 0; text-align: center;}
+			.temp_banner img {max-width: 100%; }
+		}
+	</style>
+ 
+
+ 
+	
+
+<div style="" class="linkblock s-map__title h3">		
+{{ linkblock | raw }}	  
+</div>
+
+<style>
+.linkblock { max-width: 1080px; margin: 50px auto 0px; padding: 0 20px; position: relative; text-align: center; text-decoration: underline; color: #fff; }
+
+.linkblock p {margin-bottom: 25px;}
+
+</style>
+
+        <!-- Map Section -->
+        <div class="s-map section">		  
+		  
+          
+          <div class="s-map__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+          </div>
+          
+          <div class="s-map__inner js-map__inner">
+            <div class="s-map__container container">
+              
+              <div class="map-box">                
+                <div class="map-box__hint js-map-hint">Кликните на кристалл</div>
+                
+                <div class="map js-map">
+                  <img src="/themes/motel/assets/img/map-spb.png" srcset="/themes/motel/assets/img/map-spb@2x.png 2x" alt="" class="map__img">
+                  
+                  <div class="map__markers js-map__markers">
+                    <!-- Just for fix first crystall animation speed bug in Edge -->
+                    <div class="marker js-map-marker map__marker visually-hidden" data-hotel="fake-for-edge">
+                      <img src="/themes/motel/assets/img/map-crystall.svg" alt="" class="marker__img map__marker-img js-svg">
+                      <div class="marker__canvas-wrap">
+                        <canvas class="marker__canvas js-marker-canvas"></canvas>
+                      </div>
+                    </div>
+                    <!-- Just for fix first crystall animation speed bug in Edge -->
+
+                    {% for hotel in hotels %}
+                    <div class="marker js-map-marker map__marker {% if hotel.new %}map__marker_pending{% endif %}" data-hotel="{{ hotel.slug }}">
+					  {% if hotel.low_price %}<div class="map-on-main-discount">%</div>{% endif %}
+					  {% if hotel.new %}<!--<div class="map-on-main-new">new</div>-->{% endif %}
+                      <img src="/themes/motel/assets/img/map-crystall.svg" alt="" class="marker__img map__marker-img js-svg">
+                      <div class="marker__canvas-wrap">
+                        <canvas class="marker__canvas js-marker-canvas {% if hotel.low_price %}js-marker-pending-canvas{% endif %}"></canvas>
+                      </div>
+                    </div>
+                    {% endfor %}
+					
+					
+					<!---temp ohta
+					<div class="marker js-map-marker map__marker" data-hotel="ohta">
+					<img src="/themes/motel/assets/img/map-crystall.svg" alt="" class="marker__img map__marker-img js-svg map__marker_pending">
+                    <div class="marker__canvas-wrap">
+                    <canvas class="marker__canvas js-marker-canvas js-marker-pending-canvas"></canvas>
+                    </div>
+                    </div>
+					/temp ohta--->
+					
+					
+					
+                    
+	
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+              
+            </div>
+            
+            <svg class="s-map__inner-svg js-map-inner-svg hidden">
+              <defs>
+                <linearGradient id="paint0_linear_line">
+                  <stop offset="0" stop-color="#FFD64C"/>
+                  <stop offset="1" stop-color="white"/>
+                </linearGradient>
+              </defs>
+              <line class="s-map__inner-line js-map-line" stroke="url(#paint0_linear_line)"></line>
+            </svg>
+          </div>
+          
+          <div class="s-map__cards-box js-s-map-cards-box">
+            <div class="s-map__cards-container container">
+            
+            {% for hotel in hotels %}
+            {% partial "blocks/hotelCardOnMapMain" hotel=hotel %}
+            {% endfor %}
+			
+			<!-------------------------temp--------------------------->
+			            <!-- Hotel Card 
+<div class="map-card js-map-card s-map__card js-s-map-card" data-hotel="ohta">
+    <div class="map-card__box">
+        <button class="map-card__close js-map-card__close">
+            <img src="/themes/motel/assets/img/close.svg" alt="" class="map-card__close-icon js-svg">
+        </button>
+        <div class="map-card__title"><a href="/news/post/otkrytie-otelya-aleks-novaya-ohta/">Отель Новая Охта<br>открытие в 2025 году</a></div>
+        <div class="map-card__metro">
+        <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon metro-icon_red js-svg">
+			<span class="map-card__metro-name">Гражданский проспект</span>            
+        </div>
+        <div class="map-card__address">Даниила Хармса ул., 4</div>
+        <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="map-card__phone">+7-812-468-77-77</a>
+
+        
+        <a href="/news/post/otkrytie-otelya-aleks-novaya-ohta/" class="map-card__btn button button_medium button_ghost">подробнее <img src="/themes/motel/assets/img/arrow-right.svg" alt="" class="map-card__btn-img js-svg"></a>
+    </div>
+</div>
+ /Hotel Card -->   
+			<!-------------------------temp--------------------------->			
+			
+			
+			
+			
+			
+            
+            <!--
+            <div class="map-card js-map-card s-map__card js-s-map-card" data-hotel="fontanka">
+              <div class="map-card__box">
+                <button class="map-card__close js-map-card__close">
+                  <img src="/themes/motel/assets/img/close.svg" alt="" class="map-card__close-icon js-svg">
+                </button>
+                <div class="map-card__title">Отель на Фонтанке</div>
+                <div class="map-card__metro">
+                  <span class="map-card__metro-name">Гостиный двор</span>
+                  <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon metro-icon_green js-svg">
+                </div>
+                <div class="map-card__address">открытие 11 декабря 2019</div>
+                <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="map-card__phone">+7 (812) 468-77-77</a>
+              </div>
+            </div>
+			-->
+			
+			<!--
+            <div class="map-card js-map-card s-map__card js-s-map-card" data-hotel="frunzenskaya">
+              <div class="map-card__box">
+                <button class="map-card__close js-map-card__close">
+                  <img src="/themes/motel/assets/img/close.svg" alt="" class="map-card__close-icon js-svg">
+                </button>
+                <div class="map-card__title">Отель на Фрунзенской</div>
+                <div class="map-card__metro">
+                  <span class="map-card__metro-name">Фрунзенская</span>
+                  <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon metro-icon_blue js-svg">
+                </div>
+                <div class="map-card__address">открытие июнь 2020</div>
+                <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="map-card__phone">+7 (812) 468-77-77</a>
+				<img src="/fru.jpg" style="width: 100%;">
+              </div>
+            </div>			
+			-->
+            
+            </div> 
+          </div>
+          
+          
+          <!-- Flame offer block -->
+          <div class="s-map__offer">
+          {% partial "blocks/special_offer" %}
+          </div>
+          <!-- /Flame offer block -->
+          
+          
+        </div>
+        <!-- /Map Section -->
+		
+
+		
+<div style="max-width: 800px; margin: 50px auto 0px; padding: 0 20px;">		
+         
+		  <h2 class="s-map__title h3">Сеть романтических отелей №1<br>в Петербурге</h2>
+	
+</div>	
+		
+        
+        
+        <div class="s-main-about section">
+          <div class="s-main-about__container container">
+            
+            <div class="main-about">
+              <h1 class="main-about__title h1">{{ block1_text_1 }}</h1>
+              <div class="main-about__subtitle h3">{{ block1_text_2 }}</div>
+              <div class="main-about__text plaintext">
+                {{ block1_text_3 | raw }}
+              </div>
+              
+              
+               <div class="main-about__heroes">
+                <div class="main-about__man">
+                  <div class="main-about__man-head">
+                    <canvas class="main-about__man-canvas js-man-head"></canvas>
+                  </div>
+                  <img src="/themes/motel/assets/img/man.png" srcset="/themes/motel/assets/img/man@2x.png 2x" alt="" class="main-about__man-image">
+                </div>
+                
+                <div class="main-about__woman">
+                  <div class="main-about__woman-head">
+                    <canvas class="main-about__woman-canvas js-woman-head"></canvas>
+                  </div>
+                  <img src="/themes/motel/assets/img/woman.png" srcset="/themes/motel/assets/img/woman@2x.png 2x" alt="" class="main-about__woman-image">
+                </div>
+              </div>
+              
+              
+            </div>
+          </div>
+        </div>
+        
+        <div class="s-main-why section">
+          <!-- Sky -->
+          <div class="s-main-why__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="15"></div>
+          </div>
+          <!-- /Sky -->
+          <div class="s-main-why__container container">
+            <div class="main-why">
+              <div class="main-why__title h2">{{ block2_text_1 }}</div>
+              <div class="main-why__text plaintext">
+                {{ block2_text_2 | raw }}
+              </div>
+            </div>
+          </div>
+          
+          <div class="offer-items">
+            <div class="offer-items__container container">
+              <div class="offer-items__row row">
+              
+              {% for offer_item in offer_items %}
+                  <div class="offer-items__col col-md-4 col-sm-12">
+                      <div class="offer-item">
+                        <div class="offer-item__icon-wrap">
+                          <img src="{{ offer_item.offer_items_img|media }}" alt="" class="offer-item__icon">
+                        </div>
+                        <div class="offer-item__descr">
+                          <div class="offer-item__title">{{ offer_item.offer_item_name }}</div>
+                          <div class="offer-item__txt">{{ offer_item.offer_item_desc }}</div>
+                        </div>
+                      </div>
+                    </div>
+              {% endfor %}
+
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    
+    <div class="photo-slider js-photo-slider owl-carousel"  data-desktop-dots="1">
+
+      {% for photo in gallery %}
+		<img src="{{ (photo.photo | media) | resize(1920) }}" srcset="{{ (photo.photo | media) | resize(320) }} 320w,
+														   {{ (photo.photo | media) | resize(640) }} 640w,
+														   {{ (photo.photo | media) | resize(1024) }} 1024w,
+														   {{ (photo.photo | media) | resize(1920) }} 1920w"
+														   
+														   alt="{{ (photo.photo | media) }}" class="photo-slider__img ">
+
+		  
+
+      {% endfor %}
+
+    </div>
+    
+    {% partial "blocks/reviews_slider" %}
+    
+    <div class="darkcommontheme darkblurtheme">
+        {% partial "blocks/faq_list_on_main" %}
+    
+        {% partial "blocks/news_slider" %}
+    </div>
+	
+{% if seo_text %}	
+<div class="s-main-about section">
+	<div class="s-main-about__container container">
+		<div class="read-more special-text">
+			{{ seo_text | raw }}
+			<p class="prompt"><a href="#">читать дальше</a></p>
+		</div>
+	</div>
+</div>
+{% endif %} 
+    
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  <!-- Modals -->
+  <div class="modals hidden">    
+    
+    {% partial "blocks/booking-popup" %}    
+  </div>
+  <!-- /Modals -->  
+  
+
+  {% partial "basic/scripts" %}
+  
+  <script>
+    $('[name="hotel-select"]').on('change', function(){
+        $.request('onChangeHotel', {data: {hotel_id: $(this).find('option:selected').attr('hotelid')}})
+    });
+  </script>
+  
+</body>
+</html>";s:5:"mtime";i:1734952152;s:6:"markup";s:17828:"{variable name="block1_text_1" label="Заголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_2" label="Подзаголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_3" label="Текст" tab="Блок 1" type="textarea"}{/variable}
+
+{variable name="block2_text_1" label="Заголовок" tab="Блок 2" type="textarea"}{/variable}
+{variable name="block2_text_2" label="Текст" tab="Блок 2" type="textarea"}{/variable}
+
+{repeater name="offer_items" prompt="Добавить" tab="Блок 2"}
+    {variable name="offer_items_img" label="Иконка" type="mediafinder" mode="image"}{/variable}
+    {variable name="offer_item_desc" label="Текст" type="text"}{/variable}
+    {variable name="offer_item_name" label="Название" type="text"}{/variable}
+{/repeater}
+
+{repeater name="gallery" prompt="Добавить фото" tab="Галерея"}
+  {variable name="photo" label="Галерея" type="mediafinder" mode="image"}{/variable}
+{/repeater}
+
+{variable name="secial_title" label="Заголовок" tab="Спецпредложение" type="text"}{/variable}
+{variable name="secial_text" label="Текст" tab="Спецпредложение" type="richeditor"}{/variable}
+{variable name="secial_url" label="Ссылка" tab="Спецпредложение" type="text"}{/variable}
+
+{repeater name="succes" prompt="Добавить" tab="Бронирование" maxItems="3"}
+    {variable name="icon" label="Иконка" type="mediafinder" mode="image"}{/variable}
+    {variable name="title" label="Заголовок" type="text"}{/variable}
+    {variable name="subtitle" label="Подзаголовок" type="text"}{/variable}
+    {variable name="text" label="Текст" type="textarea"}{/variable}
+    {variable name="text2" label="Текст 2" type="textarea"}{/variable}
+{/repeater}
+
+{variable name="seo_text" label="SEO текст" tab="SEO текст" type="richeditor"}{/variable}
+
+{variable name="linkblock" label="Блок ссылок" tab="Блок ссылок" type="richeditor"}{/variable}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+
+
+  <title>{% if this.page.meta_title %}{{ this.page.meta_title }}{% else %}Снять номер в мини отель на час с джакузи в Санкт-Петербурге{% endif %}</title>
+  <meta name="description" content="{% if this.page.meta_description %}{{ this.page.meta_description }}{% else %}Мини отель на час в Санкт-Петербурге, Гостиница с почасовой оплатой, Снять номер на час в СПб, Апартаменты на час, Отель на час с джакузи в Питере Цена номера в отеле на час в любом районе Saint Petersburg 1900 руб за 12 часов забронировать по номеру  8 (812) 468-77-77{% endif %}">
+  
+  
+  <meta name="keywords" content="Отель на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="google-site-verification" content="eIupZehJt_v6i1-Ze7VwR5x-DhtRdIP1Zz8jfpmnBfo" />
+  <meta name="yandex-verification" content="399ee3ca9aaabaaf" />
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+  <meta name="apple-itunes-app" content="app-id=1029435175">
+  <meta name="google-play-app" content="app-id=com.wideweb.motelspb">
+  <link rel="stylesheet" href="/themes/motel/assets/css/jquery.smartbanner.css" type="text/css" media="screen">
+
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  
+ <link rel="stylesheet" href="/themes/motel/assets/css/main.min.css" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  <!-- Main content -->
+  <main class="main">
+  
+  <div class="darkcommontheme darkblurtheme">
+    
+    <div class="header-group">
+        <!-- Header -->
+        {% partial "basic/header" %}
+        <!-- /Header -->
+        
+        <!-- Booking -->
+        {% partial "blocks/booking" %}  
+        <!-- /Booking -->
+    </div>
+	
+	
+	<a href="/goapp.php" class="temp_banner">
+			<img src="/themes/motel/assets/img/banner_intext1.png">
+	</a>
+	
+	<style>
+		.temp_banner {display: none;}
+		@media (max-width: 799px) {
+			.temp_banner {display: block; padding: 0 20px; margin: 20px auto 0; text-align: center;}
+			.temp_banner img {max-width: 100%; }
+		}
+	</style>
+ 
+
+ 
+	
+
+<div style="" class="linkblock s-map__title h3">		
+{{ linkblock | raw }}	  
+</div>
+
+<style>
+.linkblock { max-width: 1080px; margin: 50px auto 0px; padding: 0 20px; position: relative; text-align: center; text-decoration: underline; color: #fff; }
+
+.linkblock p {margin-bottom: 25px;}
+
+</style>
+
+        <!-- Map Section -->
+        <div class="s-map section">		  
+		  
+          
+          <div class="s-map__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+          </div>
+          
+          <div class="s-map__inner js-map__inner">
+            <div class="s-map__container container">
+              
+              <div class="map-box">                
+                <div class="map-box__hint js-map-hint">Кликните на кристалл</div>
+                
+                <div class="map js-map">
+                  <img src="/themes/motel/assets/img/map-spb.png" srcset="/themes/motel/assets/img/map-spb@2x.png 2x" alt="" class="map__img">
+                  
+                  <div class="map__markers js-map__markers">
+                    <!-- Just for fix first crystall animation speed bug in Edge -->
+                    <div class="marker js-map-marker map__marker visually-hidden" data-hotel="fake-for-edge">
+                      <img src="/themes/motel/assets/img/map-crystall.svg" alt="" class="marker__img map__marker-img js-svg">
+                      <div class="marker__canvas-wrap">
+                        <canvas class="marker__canvas js-marker-canvas"></canvas>
+                      </div>
+                    </div>
+                    <!-- Just for fix first crystall animation speed bug in Edge -->
+
+                    {% for hotel in hotels %}
+                    <div class="marker js-map-marker map__marker {% if hotel.new %}map__marker_pending{% endif %}" data-hotel="{{ hotel.slug }}">
+					  {% if hotel.low_price %}<div class="map-on-main-discount">%</div>{% endif %}
+					  {% if hotel.new %}<!--<div class="map-on-main-new">new</div>-->{% endif %}
+                      <img src="/themes/motel/assets/img/map-crystall.svg" alt="" class="marker__img map__marker-img js-svg">
+                      <div class="marker__canvas-wrap">
+                        <canvas class="marker__canvas js-marker-canvas {% if hotel.low_price %}js-marker-pending-canvas{% endif %}"></canvas>
+                      </div>
+                    </div>
+                    {% endfor %}
+					
+					
+					<!---temp ohta
+					<div class="marker js-map-marker map__marker" data-hotel="ohta">
+					<img src="/themes/motel/assets/img/map-crystall.svg" alt="" class="marker__img map__marker-img js-svg map__marker_pending">
+                    <div class="marker__canvas-wrap">
+                    <canvas class="marker__canvas js-marker-canvas js-marker-pending-canvas"></canvas>
+                    </div>
+                    </div>
+					/temp ohta--->
+					
+					
+					
+                    
+	
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+              
+            </div>
+            
+            <svg class="s-map__inner-svg js-map-inner-svg hidden">
+              <defs>
+                <linearGradient id="paint0_linear_line">
+                  <stop offset="0" stop-color="#FFD64C"/>
+                  <stop offset="1" stop-color="white"/>
+                </linearGradient>
+              </defs>
+              <line class="s-map__inner-line js-map-line" stroke="url(#paint0_linear_line)"></line>
+            </svg>
+          </div>
+          
+          <div class="s-map__cards-box js-s-map-cards-box">
+            <div class="s-map__cards-container container">
+            
+            {% for hotel in hotels %}
+            {% partial "blocks/hotelCardOnMapMain" hotel=hotel %}
+            {% endfor %}
+			
+			<!-------------------------temp--------------------------->
+			            <!-- Hotel Card 
+<div class="map-card js-map-card s-map__card js-s-map-card" data-hotel="ohta">
+    <div class="map-card__box">
+        <button class="map-card__close js-map-card__close">
+            <img src="/themes/motel/assets/img/close.svg" alt="" class="map-card__close-icon js-svg">
+        </button>
+        <div class="map-card__title"><a href="/news/post/otkrytie-otelya-aleks-novaya-ohta/">Отель Новая Охта<br>открытие в 2025 году</a></div>
+        <div class="map-card__metro">
+        <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon metro-icon_red js-svg">
+			<span class="map-card__metro-name">Гражданский проспект</span>            
+        </div>
+        <div class="map-card__address">Даниила Хармса ул., 4</div>
+        <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="map-card__phone">+7-812-468-77-77</a>
+
+        
+        <a href="/news/post/otkrytie-otelya-aleks-novaya-ohta/" class="map-card__btn button button_medium button_ghost">подробнее <img src="/themes/motel/assets/img/arrow-right.svg" alt="" class="map-card__btn-img js-svg"></a>
+    </div>
+</div>
+ /Hotel Card -->   
+			<!-------------------------temp--------------------------->			
+			
+			
+			
+			
+			
+            
+            <!--
+            <div class="map-card js-map-card s-map__card js-s-map-card" data-hotel="fontanka">
+              <div class="map-card__box">
+                <button class="map-card__close js-map-card__close">
+                  <img src="/themes/motel/assets/img/close.svg" alt="" class="map-card__close-icon js-svg">
+                </button>
+                <div class="map-card__title">Отель на Фонтанке</div>
+                <div class="map-card__metro">
+                  <span class="map-card__metro-name">Гостиный двор</span>
+                  <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon metro-icon_green js-svg">
+                </div>
+                <div class="map-card__address">открытие 11 декабря 2019</div>
+                <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="map-card__phone">+7 (812) 468-77-77</a>
+              </div>
+            </div>
+			-->
+			
+			<!--
+            <div class="map-card js-map-card s-map__card js-s-map-card" data-hotel="frunzenskaya">
+              <div class="map-card__box">
+                <button class="map-card__close js-map-card__close">
+                  <img src="/themes/motel/assets/img/close.svg" alt="" class="map-card__close-icon js-svg">
+                </button>
+                <div class="map-card__title">Отель на Фрунзенской</div>
+                <div class="map-card__metro">
+                  <span class="map-card__metro-name">Фрунзенская</span>
+                  <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon metro-icon_blue js-svg">
+                </div>
+                <div class="map-card__address">открытие июнь 2020</div>
+                <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="map-card__phone">+7 (812) 468-77-77</a>
+				<img src="/fru.jpg" style="width: 100%;">
+              </div>
+            </div>			
+			-->
+            
+            </div> 
+          </div>
+          
+          
+          <!-- Flame offer block -->
+          <div class="s-map__offer">
+          {% partial "blocks/special_offer" %}
+          </div>
+          <!-- /Flame offer block -->
+          
+          
+        </div>
+        <!-- /Map Section -->
+		
+
+		
+<div style="max-width: 800px; margin: 50px auto 0px; padding: 0 20px;">		
+         
+		  <h2 class="s-map__title h3">Сеть романтических отелей №1<br>в Петербурге</h2>
+	
+</div>	
+		
+        
+        
+        <div class="s-main-about section">
+          <div class="s-main-about__container container">
+            
+            <div class="main-about">
+              <h1 class="main-about__title h1">{{ block1_text_1 }}</h1>
+              <div class="main-about__subtitle h3">{{ block1_text_2 }}</div>
+              <div class="main-about__text plaintext">
+                {{ block1_text_3 | raw }}
+              </div>
+              
+              
+               <div class="main-about__heroes">
+                <div class="main-about__man">
+                  <div class="main-about__man-head">
+                    <canvas class="main-about__man-canvas js-man-head"></canvas>
+                  </div>
+                  <img src="/themes/motel/assets/img/man.png" srcset="/themes/motel/assets/img/man@2x.png 2x" alt="" class="main-about__man-image">
+                </div>
+                
+                <div class="main-about__woman">
+                  <div class="main-about__woman-head">
+                    <canvas class="main-about__woman-canvas js-woman-head"></canvas>
+                  </div>
+                  <img src="/themes/motel/assets/img/woman.png" srcset="/themes/motel/assets/img/woman@2x.png 2x" alt="" class="main-about__woman-image">
+                </div>
+              </div>
+              
+              
+            </div>
+          </div>
+        </div>
+        
+        <div class="s-main-why section">
+          <!-- Sky -->
+          <div class="s-main-why__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="15"></div>
+          </div>
+          <!-- /Sky -->
+          <div class="s-main-why__container container">
+            <div class="main-why">
+              <div class="main-why__title h2">{{ block2_text_1 }}</div>
+              <div class="main-why__text plaintext">
+                {{ block2_text_2 | raw }}
+              </div>
+            </div>
+          </div>
+          
+          <div class="offer-items">
+            <div class="offer-items__container container">
+              <div class="offer-items__row row">
+              
+              {% for offer_item in offer_items %}
+                  <div class="offer-items__col col-md-4 col-sm-12">
+                      <div class="offer-item">
+                        <div class="offer-item__icon-wrap">
+                          <img src="{{ offer_item.offer_items_img|media }}" alt="" class="offer-item__icon">
+                        </div>
+                        <div class="offer-item__descr">
+                          <div class="offer-item__title">{{ offer_item.offer_item_name }}</div>
+                          <div class="offer-item__txt">{{ offer_item.offer_item_desc }}</div>
+                        </div>
+                      </div>
+                    </div>
+              {% endfor %}
+
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    
+    <div class="photo-slider js-photo-slider owl-carousel"  data-desktop-dots="1">
+
+      {% for photo in gallery %}
+		<img src="{{ (photo.photo | media) | resize(1920) }}" srcset="{{ (photo.photo | media) | resize(320) }} 320w,
+														   {{ (photo.photo | media) | resize(640) }} 640w,
+														   {{ (photo.photo | media) | resize(1024) }} 1024w,
+														   {{ (photo.photo | media) | resize(1920) }} 1920w"
+														   
+														   alt="{{ (photo.photo | media) }}" class="photo-slider__img ">
+
+		  
+
+      {% endfor %}
+
+    </div>
+    
+    {% partial "blocks/reviews_slider" %}
+    
+    <div class="darkcommontheme darkblurtheme">
+        {% partial "blocks/faq_list_on_main" %}
+    
+        {% partial "blocks/news_slider" %}
+    </div>
+	
+{% if seo_text %}	
+<div class="s-main-about section">
+	<div class="s-main-about__container container">
+		<div class="read-more special-text">
+			{{ seo_text | raw }}
+			<p class="prompt"><a href="#">читать дальше</a></p>
+		</div>
+	</div>
+</div>
+{% endif %} 
+    
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  <!-- Modals -->
+  <div class="modals hidden">    
+    
+    {% partial "blocks/booking-popup" %}    
+  </div>
+  <!-- /Modals -->  
+  
+
+  {% partial "basic/scripts" %}
+  
+  <script>
+    $('[name="hotel-select"]').on('change', function(){
+        $.request('onChangeHotel', {data: {hotel_id: $(this).find('option:selected').attr('hotelid')}})
+    });
+  </script>
+  
+</body>
+</html>";s:4:"code";s:3034:"use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Name;
+function onStart()
+{
+    $this['hotels'] = Hotel::all();
+}
+
+function onChangeHotel(){
+    $hotel_id = Input::get('hotel_id');
+    //$hotel_type = Input::get('hotel_type');
+    
+    $hotel = Hotel::find($hotel_id);
+    if($hotel){
+        return [
+            //'.find-room__field select' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+            '[name="roomtype-select"]' => $this->renderPartial('blocks/roomtypeselect.htm', ['hotel' => $hotel]),
+        ];
+    }
+}
+
+function onSubmitBooking(){
+    
+    
+    $vars = [
+		'type' => 1, /*запись в crm*/
+		'connect-type' => Input::get('connect-type'), 
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+		'booking_hours' => Input::get('booking-hours'),
+		'booking_minutes' => Input::get('booking-minutes'),
+		'booking_smocking' => Input::get('booking-smocking'),
+		'email' => Input::get('email')
+		
+        ];
+		
+		
+	/*отправка в crm*/
+	
+	$url = 'http://suz.motelspb.com/_321/backend/save.php';
+	$params = $vars;
+	$result = file_get_contents($url, false, stream_context_create(array(
+    'http' => array(
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
+        'content' => http_build_query($params)
+		)
+	)));
+
+	
+	
+	
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+	
+	
+
+	
+    
+	/*логирование данных*/
+	$file_log = $_SERVER["DOCUMENT_ROOT"] . "/1/log.log";
+	date_default_timezone_set('Europe/Moscow');
+    $fw = fopen($file_log, "a");
+	fwrite($fw, date("H:i:s  d.m.y")." from site VARS " . var_export($vars, true));	
+    fclose($fw);
+	/**/
+
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}";s:11:"description";s:44:"Шаблон главной страницы";s:10:"staticPage";a:2:{s:10:"useContent";s:1:"1";s:7:"default";s:1:"0";}}}

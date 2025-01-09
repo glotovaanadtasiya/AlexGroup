@@ -1,0 +1,53 @@
+1735042528a:1:{s:13:"basic/nav.htm";a:6:{s:8:"fileName";s:13:"basic/nav.htm";s:7:"content";s:1350:"[viewBag]
+==
+<nav class="main-menu-nav js-main-menu-nav">
+      <div class="main-menu-nav__inner">
+        <div class="main-menu-nav__container container">			
+          <!-- Menu -->
+          {% partial 'menu/topmenu' %}
+          <!-- /Menu -->
+          
+          <div class="main-menu-nav__mobile-box">
+            <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-menu-nav__phone">8 (812) 468-77-77</a>
+            <div class="main-menu-nav__social social">
+              <a href="https://vk.com/public9671914" class="social__item" target="_blank">
+                <img src="/themes/motel/assets/img/vk.svg" alt="" class="social__icon js-svg">
+              </a>
+              <!--
+			  <a href="https://www.instagram.com/motelspb/" class="social__item" target="_blank">
+                <img src="/themes/motel/assets/img/inst.svg" alt="" class="social__icon js-svg">
+              </a>
+			  -->
+			  <a href="https://api.whatsapp.com/send?phone=79812400110" class="social__item" target="_blank">
+                <img src="/themes/motel/assets/img/whatsapp.svg" alt="" class="social__icon js-svg">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>";s:5:"mtime";i:1694077042;s:6:"markup";s:1337:"<nav class="main-menu-nav js-main-menu-nav">
+      <div class="main-menu-nav__inner">
+        <div class="main-menu-nav__container container">			
+          <!-- Menu -->
+          {% partial 'menu/topmenu' %}
+          <!-- /Menu -->
+          
+          <div class="main-menu-nav__mobile-box">
+            <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-menu-nav__phone">8 (812) 468-77-77</a>
+            <div class="main-menu-nav__social social">
+              <a href="https://vk.com/public9671914" class="social__item" target="_blank">
+                <img src="/themes/motel/assets/img/vk.svg" alt="" class="social__icon js-svg">
+              </a>
+              <!--
+			  <a href="https://www.instagram.com/motelspb/" class="social__item" target="_blank">
+                <img src="/themes/motel/assets/img/inst.svg" alt="" class="social__icon js-svg">
+              </a>
+			  -->
+			  <a href="https://api.whatsapp.com/send?phone=79812400110" class="social__item" target="_blank">
+                <img src="/themes/motel/assets/img/whatsapp.svg" alt="" class="social__icon js-svg">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>";s:4:"code";N;s:7:"viewBag";a:0:{}}}

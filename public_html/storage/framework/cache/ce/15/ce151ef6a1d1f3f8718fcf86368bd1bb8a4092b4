@@ -1,0 +1,58 @@
+1735042086a:1:{s:7:"faq.htm";a:10:{s:8:"fileName";s:7:"faq.htm";s:7:"content";s:1760:"title = "Часто задаваемые вопросы"
+url = "/faq/:page?"
+layout = "faq"
+is_hidden = 0
+
+[builderList faqList]
+modelClass = "Serenity\Motel\Models\Question"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+recordsPerPage = 5
+pageNumber = "{{ :page }}"
+==
+<?php
+function onLoadMore() {
+    // получаем номер страницы
+    $pageNumber = Input::get('page') + 1;
+    // обращаемся к компоненту Posts с alias allPosts: 
+    // выставляем номер страницы и готовим данные
+    $this->components['faqList']->setProperty('pageNumber', $pageNumber);
+    $this->components['faqList']->onRun();
+    if ($pageNumber < $this->components['faqList']->records->lastPage()) {
+        // для простоты мы генерируем html, но в принципе можно сделать и отдельный паршл для кнопки
+        $more_link = '<div class="pagination__more-btn"><button class="pagination__more-btn-text" data-request="onLoadMore" data-request-data="page: ' . $pageNumber . '">ЕЩЕ</button></div>';
+    } else {
+        // если мы достигли последней страницы, кнопка больше не нужна
+        $more_link = '';
+    }
+    return [
+        // если перед селектором стоит @, новое содержимое будет добавляться в конец, а не заменять старое
+        '@#all-posts-content' => $this->components['faqList']->renderPartial('blocks/faqListForeach.htm'),
+        '#load-more-button' => $more_link,
+    ];
+}
+?>
+==";s:5:"mtime";i:1589270756;s:6:"markup";s:0:"";s:4:"code";s:1380:"function onLoadMore() {
+    // получаем номер страницы
+    $pageNumber = Input::get('page') + 1;
+    // обращаемся к компоненту Posts с alias allPosts: 
+    // выставляем номер страницы и готовим данные
+    $this->components['faqList']->setProperty('pageNumber', $pageNumber);
+    $this->components['faqList']->onRun();
+    if ($pageNumber < $this->components['faqList']->records->lastPage()) {
+        // для простоты мы генерируем html, но в принципе можно сделать и отдельный паршл для кнопки
+        $more_link = '<div class="pagination__more-btn"><button class="pagination__more-btn-text" data-request="onLoadMore" data-request-data="page: ' . $pageNumber . '">ЕЩЕ</button></div>';
+    } else {
+        // если мы достигли последней страницы, кнопка больше не нужна
+        $more_link = '';
+    }
+    return [
+        // если перед селектором стоит @, новое содержимое будет добавляться в конец, а не заменять старое
+        '@#all-posts-content' => $this->components['faqList']->renderPartial('blocks/faqListForeach.htm'),
+        '#load-more-button' => $more_link,
+    ];
+}";s:5:"title";s:46:"Часто задаваемые вопросы";s:3:"url";s:11:"/faq/:page?";s:6:"layout";s:3:"faq";s:9:"is_hidden";s:1:"0";s:19:"builderList faqList";a:9:{s:10:"modelClass";s:30:"Serenity\Motel\Models\Question";s:5:"scope";s:1:"-";s:10:"scopeValue";s:12:"{{ :scope }}";s:13:"displayColumn";s:2:"id";s:16:"noRecordsMessage";s:16:"No records found";s:11:"detailsPage";s:1:"-";s:19:"detailsUrlParameter";s:2:"id";s:14:"recordsPerPage";s:1:"5";s:10:"pageNumber";s:11:"{{ :page }}";}}}

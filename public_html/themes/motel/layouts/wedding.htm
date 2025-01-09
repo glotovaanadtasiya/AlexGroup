@@ -1,0 +1,320 @@
+description = "Светлая страница"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Name;
+function onStart()
+{
+    $this['hotels'] = Hotel::all();
+}
+
+function onChangeHotel(){
+    $hotel_id = Input::get('hotel_id');
+    //$hotel_type = Input::get('hotel_type');
+    
+    $hotel = Hotel::find($hotel_id);
+    if($hotel){
+        return [
+            //'.find-room__field select' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+            '[name="roomtype-select"]' => $this->renderPartial('blocks/roomtypeselect.htm', ['hotel' => $hotel]),
+        ];
+    }
+}
+
+function onSubmitBooking(){
+    
+    $vars = [
+		'type' => 1, /*запись в crm*/
+		'connect-type' => Input::get('connect-type'), 
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+		'booking_hours' => Input::get('booking-hours'),
+		'booking_minutes' => Input::get('booking-minutes'),
+		'booking_smocking' => Input::get('booking-smocking'),
+		'email' => Input::get('email')
+		
+        ];
+	
+	
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+	
+	
+	/*отправка в crm*/
+	
+	$url = 'http://suz.motelspb.com/_321/backend/save.php';
+	$params = $vars;
+	$result = file_get_contents($url, false, stream_context_create(array(
+    'http' => array(
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
+        'content' => http_build_query($params)
+		)
+	)));
+	
+    
+	/*логирование данных*/
+	$file_log = $_SERVER["DOCUMENT_ROOT"] . "/1/log.log";
+	date_default_timezone_set('Europe/Moscow');
+    $fw = fopen($file_log, "a");
+	fwrite($fw, date("H:i:s  d.m.y")." from site VARS " . var_export($vars, true));	
+    fclose($fw);
+	/**/
+
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+{variable name="block1_text_1" label="Заголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_2" label="Подзаголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_3" label="Текст" tab="Блок 1" type="textarea"}{/variable}
+
+{variable name="block2_text_1" label="Заголовок" tab="Блок 2" type="textarea"}{/variable}
+{variable name="block2_text_2" label="Текст" tab="Блок 2" type="textarea"}{/variable}
+
+{repeater name="offer_items" prompt="Добавить" tab="Блок 2"}
+    {variable name="offer_items_img" label="Иконка" type="mediafinder" mode="image"}{/variable}
+    {variable name="offer_item_desc" label="Текст" type="text"}{/variable}
+    {variable name="offer_item_name" label="Название" type="text"}{/variable}
+{/repeater}
+
+{repeater name="gallery" prompt="Добавить фото" tab="Галерея"}
+  {variable name="photo" label="Галерея" type="mediafinder" mode="image"}{/variable}
+{/repeater}
+
+{variable name="secial_title" label="Заголовок" tab="Спецпредложение" type="text"}{/variable}
+{variable name="secial_text" label="Текст" tab="Спецпредложение" type="richeditor"}{/variable}
+{variable name="secial_url" label="Ссылка" tab="Спецпредложение" type="text"}{/variable}
+
+{repeater name="succes" prompt="Добавить" tab="Бронирование" maxItems="3"}
+    {variable name="icon" label="Иконка" type="mediafinder" mode="image"}{/variable}
+    {variable name="title" label="Заголовок" type="text"}{/variable}
+    {variable name="subtitle" label="Подзаголовок" type="text"}{/variable}
+    {variable name="text" label="Текст" type="textarea"}{/variable}
+    {variable name="text2" label="Текст 2" type="textarea"}{/variable}
+{/repeater}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Снять номер в мини отель на час с джакузи в Санкт-Петербурге </title>
+  <meta name="description" content="Мини отель на час в Санкт-Петербурге, Гостиница с почасовой оплатой, Снять номер на час в СПб, Апартаменты на час, Отель на час с джакузи в Питере Цена номера в отеле на час в любом районе Saint Petersburg 1900 руб за 12 часов забронировать по номеру  8 (812) 468-77-77">
+  <meta name="keywords" content="Отель на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="google-site-verification" content="eIupZehJt_v6i1-Ze7VwR5x-DhtRdIP1Zz8jfpmnBfo" />
+  <meta name="yandex-verification" content="399ee3ca9aaabaaf" />
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#f5f5dc">
+  <!-- Custom Browsers Color End -->
+  
+  <meta name="apple-itunes-app" content="app-id=1029435175">
+  <meta name="google-play-app" content="app-id=com.wideweb.motelspb">
+  <link rel="stylesheet" href="/themes/motel/assets/css/jquery.smartbanner.css" type="text/css" media="screen">
+
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  
+ <link rel="stylesheet" href="/themes/motel/assets/css/main.min.css" />
+  <!-- <link rel="stylesheet" href="/themes/motel/assets/css/light.css" /> -->
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body lighttheme">
+  
+  <!-- Main content -->
+  <main class="main animated-hearts-bg" style="background: url(/i/hearts-bg.jpg);">
+  
+  <style>
+
+  .animated-hearts-bg	{ 
+  -webkit-animation: bg-scrolling 30s infinite; 
+  -moz-animation:    bg-scrolling 30s infinite; 
+  -o-animation:      bg-scrolling 30s infinite;
+  animation:         bg-scrolling 30s infinite; 
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function:    linear;
+  -o-animation-timing-function:      linear;
+  animation-timing-function:         linear;
+  }
+  
+  @keyframes bg-scrolling {
+  0% { background-position: -1920px 1175px; }
+	}
+  </style>
+  
+  <div class="darkcommontheme">
+    
+    <div class="header-group">
+        <!-- Header -->
+        {% partial "basic/header" %}
+        <!-- /Header -->
+        
+
+    </div>
+	
+	<div class="container" style="">
+			<div style="text-align: center; z-index:9999;position: relative"><img src="/i/rings.png" style="margin-top: -5%; width: 15%; margin-bottom: -0%;"></div>
+		</div>
+	
+    <div class="photo-slider js-photo-slider owl-carousel">
+
+      {% for photo in gallery %}
+        <div class="photo-slider__item">
+          <img data-src="{{ (photo.photo | media) | resize(1920) }}" alt="" class="photo-slider__img owl-lazy">
+        </div>
+      {% endfor %}
+
+    </div>	
+        
+
+	
+
+		
+		<div class="container" style="height: 0;">
+			<div style="text-align: center; z-index:9999;position: relative"><img src="/i/twohearts.png" style="margin-top: -23%; width: 25%;"></div>
+		</div>
+        
+        
+        <div class="s-main-about section">
+          <div class="s-main-about__container container">
+            
+            <div class="main-about">
+              <h1 class="main-about__title h1">{{ block1_text_1 }}</h1>
+              <div class="main-about__subtitle h3" style="max-width: 100%;">{{ block1_text_2 }}</div>
+     
+              
+
+              {{ staticPage.content | raw }}
+			  
+             <div class="main-about__subtitle h3">{{ block1_text_3 }}</div>			  
+              
+            </div>
+          </div>
+        </div>
+		
+		
+		<!--
+        <div class="s-program__container container">
+          <div class="s-program__box">
+            <div class="program-item">
+              <img src="/themes/motel/assets/img/program1_1.jpg" alt="" class="program-item__img">
+              <div class="program-item__darken"></div>
+              <div class="program-item__content">
+                <div class="program-item__title h4">
+                  Номер люкс с джакузи
+                </div>
+                <div class="program-item__details">
+                  <span class="program-item__details-text">Подробнее</span>
+                  <img src="/themes/motel/assets/img/arrow-right.svg" class="program-item__details-arrow js-svg" alt="">
+                </div>
+              </div>
+              <a href="https://alexhotels.ru/specs/5060/" class="program-item__fill-link fill-link"></a>
+            </div>
+            
+            <div class="program-item">
+              <img src="/themes/motel/assets/img/program2.jpg" alt="" class="program-item__img">
+              <div class="program-item__darken"></div>
+              <div class="program-item__content">
+                <div class="program-item__title h4">
+                  Премиум-автомобиль + отель
+                </div>
+                <div class="program-item__details">
+                  <span class="program-item__details-text">Подробнее</span>
+                  <img src="/themes/motel/assets/img/arrow-right.svg" class="program-item__details-arrow js-svg" alt="">
+                </div>
+              </div>
+              <a href="https://alexhotels.ru/specs/2562" class="program-item__fill-link fill-link"></a>
+            </div>
+          </div>
+        </div>		
+		-->
+		
+		
+      </div>
+    
+
+    
+
+    
+    
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  <!-- Modals -->
+  <div class="modals hidden">    
+    
+    {% partial "blocks/booking-popup" %}   
+  </div>
+  <!-- /Modals -->  
+  
+
+  {% partial "basic/scripts" %}
+  
+  <script>
+    $('[name="hotel-select"]').on('change', function(){
+        $.request('onChangeHotel', {data: {hotel_id: $(this).find('option:selected').attr('hotelid')}})
+    });
+  </script>
+  
+</body>
+</html>

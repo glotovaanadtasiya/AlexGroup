@@ -1,0 +1,24 @@
+title: Имена
+modelClass: Serenity\Motel\Models\Name
+list: $/serenity/motel/models/name/columns.yaml
+recordUrl: 'serenity/motel/names/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+defaultSort:
+    column: name
+    direction: asc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+filter:
+    scopes:
+        gender:
+            label: 'Пол'
+            type: group
+            conditions: gender in (:filtered)
+            options:
+                men: 'Мужчина'
+                women: 'Женщина'

@@ -1,0 +1,84 @@
+description = "Шаблон страницы вопросов и ответов"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  {% partial "basic/head" %}
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darkblurtheme">
+      <div class="question section">
+
+          <!-- Sky -->
+          <div class="question__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="35"></div>
+          </div>
+          <!-- /Sky -->
+          
+          <div class="question__offer">
+            {% partial 'blocks/special_offer' %}
+          </div>
+          
+          {% partial 'blocks/faqList' %}
+          
+          
+      </div>
+    </div>
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>

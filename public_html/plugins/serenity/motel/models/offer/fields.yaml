@@ -1,0 +1,15 @@
+fields:
+    name:
+        label: Название
+        span: auto
+        type: text
+    price:
+        label: Цена
+        span: auto
+        type: number
+    services:
+        label: Услуги
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation

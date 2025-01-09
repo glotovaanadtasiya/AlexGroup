@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lady animation</title>
+</head>
+<body>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+
+  
+  <div id="animation_container2" style="width:1521px; height:2000px">
+		<canvas id="canvas2" width="1521" height="2000" style="position: absolute; display: block"></canvas>
+		<div id="dom_overlay_container2" style="pointer-events:none; overflow:hidden; width:1521px; height:2000px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+  </div>
+  
+  
+  
+  <!-- Lady animation -->
+  <script src="libs/createjs/createjs-2015.11.26.min.js"></script>
+  <script src="js/src/_lady-animation.js"></script>
+  <!-- <script>
+    var myWorker = new Worker("js/src/_lady-animation.js");
+  </script> -->
+</body>
+</html>

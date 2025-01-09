@@ -1,0 +1,1 @@
+1729937024a:1:{s:6:"fields";a:2:{s:4:"name";a:3:{s:5:"label";s:16:"Название";s:4:"span";s:4:"auto";s:4:"type";s:4:"text";}s:5:"image";a:7:{s:5:"label";s:22:"Изображение";s:4:"mode";s:5:"image";s:10:"imageWidth";s:3:"200";s:10:"useCaption";b:1;s:12:"thumbOptions";a:2:{s:4:"mode";s:4:"crop";s:9:"extension";s:4:"auto";}s:4:"span";s:4:"auto";s:4:"type";s:10:"fileupload";}}}

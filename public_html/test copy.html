@@ -1,0 +1,609 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<link rel="stylesheet" href="/test/jquery-ui.min.css">
+<link rel="stylesheet" href="/test/jquery-ui-timepicker-addon.css">
+<script src="/test/jquery.js"></script>
+<script src="/test/jquery-ui.min.js"></script>
+<script src="/test/date.format.js"></script>
+<script src="/test/jquery-ui-timepicker-addon.js"></script>
+<script src="/test/web_book1_lib.js"></script>
+<script src="/test/web_book1_1.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+	body {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: smaller;
+	}
+
+	input[type=checkbox] {
+		cursor: pointer;
+	}
+
+	label {
+		cursor: pointer;
+	}
+
+	.tbl_select_room_hdr {
+		background-color: silver;
+	}
+
+	.tbl_adds {
+		margin: 0 auto;
+	}
+
+	.tbl_adds_hdr {
+		background-color: silver;
+	}
+
+	.tbl_contacts {
+		border: 0px solid black;
+		border-collapse: collapse;
+	}
+
+	.tbl_payment {
+		border: 0px solid black;
+		border-collapse: collapse;
+	}
+	.darkcommontheme {
+		min-height: 100vh !important;
+	}
+	#json_out_title, #json_in_title, #json_out, #json_in {
+		background: #fff;
+	}
+	
+	select {
+		margin-bottom: 37px !important;
+		background: url(../img/arrow-down.svg) no-repeat 98% 50%, rgba(255,255,255,0.05) !important; 
+	}
+	label {
+		margin-bottom: 15px !important;
+	}
+	
+	#stage_title {
+		display: none !important;
+	}
+	
+	.booking__input {
+		background: rgba(255,255,255,0.05);
+		padding: 12px 14px;
+	}
+	
+	.pre_result_table, .tbl_adds {
+		width: 100%;
+	}
+	.pre_result_table td, .tbl_adds td {
+		padding: 10px 8px;
+		border-bottom: 1px solid rgba(255,255,255,0.2);
+	}
+	
+	.tbl_adds td:last-child {text-align: right;}
+	.tbl_adds tr:last-child td {border: none;}
+	
+	
+	.h2_form_title {
+		margin: 25px 0 15px;
+		font-size: 20px;
+		font-weight: 500;
+		text-align: center;
+		color: #fbb03b;
+	}
+
+	/* room cards*/
+	.tbl_select_room {
+		display: flex;
+		justify-content: center;  
+		flex-wrap: wrap;
+		}
+	.room_card {
+		max-width: 600px;
+		overflow: hidden;
+		box-shadow: 0 0 15px #000;
+		background: #3b3b3b;
+		border: 1px solid #858585;
+		margin: 10px;
+	}
+	@media only screen and (max-width: 600px) {
+		.room_card {margin: 10px 0;}
+	}
+	
+	.room_card img { 
+		max-width: 100%;
+		margin-bottom: 15px;
+	}
+	.room_title	{
+		margin: 15px;
+	}
+	.room_price	{
+		margin: 0 15px 15px;
+		float: right;
+	}
+	.hotel_name_on_card {display: block; margin: 15px;}
+	
+	.room_card_choose_btn {
+		margin: 15px !important;
+		display: block !important;
+		}
+		
+ .container	{max-width: 1900px !important;}
+ .booking__col { width: 90% !important; margin: 0 auto !important; max-width: 600px !important;}
+ 
+ #div_filter, #div_filter_static, #div_contacts, #div_room_adds_static { 
+	max-width: 600px; 
+	margin: 0 auto;
+    position: relative;
+    max-width: 100%;
+ }
+ #div_filter_static table {margin: 0 auto;}
+ 
+ .booking__send-btn {max-width: 100% !important; max-width: 600px; margin-left: auto; margin-right: auto; display: block !important;}
+ 
+ 
+ 
+ @media only screen and (max-width: 600px) {
+	 .booking__send-btn {font-size: 12px !important; }
+ }
+
+ .stage_back {color: #fff; margin: 10px 0 10px; display: block; margin: 20px auto;}
+ 
+ .booking__col {display: block !important;}
+ 
+ td .form-field, td .select {margin-bottom: 0 !important;}
+ td .input,  td .select { width: auto !important;} 
+ 
+ .date-select_div {display: inline-block; padding: 15px; border: 1px solid rgba(255,255,255,.3); margin: 10px;}
+  .date-select_div:hover {cursor: pointer; border: 1px solid #fea213;}
+	
+ .date-selected {border: 1px solid #fea213; background: #fea213; color: #333;}
+ .date-select:hover {border: 1px solid #fea213;cursor: ; }
+ 
+	#div_payment {display: none;}
+</style>
+
+
+	<meta charset="UTF-8">
+	<title></title>
+ <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+  <meta name="apple-itunes-app" content="app-id=1029435175">
+  <meta name="google-play-app" content="app-id=com.wideweb.motelspb">
+  <link rel="stylesheet" href="/themes/motel/assets/css/jquery.smartbanner.css" type="text/css" media="screen">
+
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  
+ <link rel="stylesheet" href="/themes/motel/assets/css/main.min.css" />
+ 
+
+ 
+</head>
+
+ 
+<body onload="WeStarted();">
+
+ <!--оформление-->
+<div class="booking js-booking new22032021" id="booking">
+  <div class="darkcommontheme darkblurtheme">
+
+	  <div class="booking__stars starry-sky-canvas">
+		<div class="starry-sky js-starry-sky" data-stars-amount="50">              
+		</div>
+	  </div>
+	  
+	  <div class="booking__inner section">
+		<div class="booking__container container">
+		  <div class="booking__content">
+			<div class="booking__title h1">Бронирование отеля</div>
+			
+			<form class="booking__form">
+				<div class="booking__form-content" style="  justify-content: center;">
+                    <div class="booking__col" >
+<!--/оформление-->
+	  
+
+	<input type="hidden" id="session" />
+	<input type="hidden" id="stage" />
+
+
+
+
+	<div id="stage_title"></div>
+	<div id="div_set_mode" style="display: none;">
+		<table>
+			<tr>
+				<td>
+					<button onclick="SetMode('short');"
+						title="Порождение action='set_mode', mode='short'">&nbsp;Короткие&nbsp;</button>
+					<button onclick="SetMode('long');"
+						title="Порождение action='set_mode', mode='long'">&nbsp;Длинные&nbsp;</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="div_filter">
+		<input type="hidden" id="filter_hid_time_in" />
+		
+		
+		
+				<label for="filter_hotel_id">Отель</label>
+				<select id="filter_hotel_id" class="filter_hotel_id select select_bot-border" required>
+                </select>
+
+				<label for="filter_room_cat">Категория номера</label>
+				<select id="filter_room_cat" class="filter_room_cat select select_bot-border"></select>
+				
+				
+				<input id="filter_time_in" type="hidden" class="booking__input input"/>
+				
+				<label for="filter_time_in">Дата</label>
+				<div class="booking__field form-field">
+						
+				<div class="date-select_div" data-date="" data-day=""></div>
+				<div class="date-select_div" data-date="" data-day=""></div>
+				<div class="date-select_div" data-date="" data-day=""></div>
+						
+						 
+						 
+
+                 </div>
+				 
+				 <div class="booking__field form-field">
+						  <div class="booking-line-title">Время заезда</div>
+						  <div class="floatright">
+							<option disabled="" hidden="" value="">часов</option>
+							<select class="booking__select select select_bot-border select-notfullwidth" name="booking-hours" id="filter_hours_in_new" onchange="recalcFullDate();">
+																<option value="00">00</option>
+																<option value="01">01</option>
+																<option value="02">02</option>
+																<option value="03">03</option>
+																<option value="04">04</option>
+																<option value="05">05</option>
+																<option value="06">06</option>
+																<option value="07">07</option>
+																<option value="08">08</option>
+																<option value="09">09</option>
+																<option value="10">10</option>
+																<option value="11">11</option>
+																<option value="12">12</option>
+																<option value="13">13</option>
+																<option value="14">14</option>
+																<option value="15">15</option>
+																<option value="16">16</option>
+																<option value="17">17</option>
+																<option value="18">18</option>
+																<option value="19">19</option>
+																<option value="20">20</option>
+																<option value="21">21</option>
+																<option value="22">22</option>
+																<option value="23">23</option>
+															</select>
+							:
+							<select class="booking__select select select_bot-border  select-notfullwidth" name="booking-minutes" id="filter_minutes_in_new" onchange="recalcFullDate();">
+																<option value="00">00</option>
+																<option value="05">05</option>
+																<option value="10">10</option>
+																<option value="15">15</option>
+																<option value="20">20</option>
+																<option value="25">25</option>
+																<option value="30">30</option>
+																<option value="35">35</option>
+																<option value="40">40</option>
+																<option value="45">45</option>
+																<option value="50">50</option>
+																<option value="55">55</option>
+															</select>
+                    </div>
+                 </div>
+				 
+				 <label for="filter_time_in">Продолжительность, часов</label>
+				 <div class="booking__field form-field">
+					<input id="filter_dur_units" type="number" size="6" onchange="FilterDoAction('set_duration');"
+						  class="booking__input input" />
+				</div>
+				
+				
+				<label for="filter_smoking">Номер для курящих</label>
+				<select id="filter_smoking" class="filter_smoking select select_bot-border" ></select>
+					  
+					  
+
+				<button type="button" onclick="return FindRooms();" class="booking__send-btn button">Искать&nbsp;доступные&nbsp;номера&nbsp;&gt;&gt;&nbsp;</button>
+						
+
+
+			</tr>
+		</table>
+	</div>
+	<div id="div_filter_static">
+		<h2 class="h2_form_title">Вы выбрали</h2>
+		<table class="pre_result_table">
+			<tr>
+				<td>Отель</td>
+				<td class="filter_hotel_name"></td>
+			</tr>		
+			<tr>
+				<td>Заезд</td>
+				<td><span class="filter_time_in"></span></td>
+			</tr>
+			<tr>
+				<td>Продолжительность</td>
+				<td><span class="filter_dur_hours"></span> ч.</td>
+			</tr>			
+
+			<tr>
+				<td>Категория номера</td>
+				<td><span class="filter_room_cat_name"></span></td>
+			</tr>
+			<tr>
+				<td>Для курящих</td>
+				<td><span class="filter_smoking_name"></span></td>
+			</tr>
+			<tr>
+				<td>Номер</td>
+				<td><span class="filter_nomer"></span></td>
+			</tr>			
+		</table>
+	</div>
+
+	
+	
+	
+	
+	
+	<div id="div_room_adds">
+		<input id="selected_hotel_id" type="hidden" />
+		<input id="selected_room_id" type="hidden" />
+
+		<div id="room_select">
+			<h2 class="h2_form_title">Доступные номера</h2>
+			<div id="rooms" class="tbl_select_room"></div>
+			
+			
+			<div id="alt_rooms" class="tbl_select_room"></div>
+			
+			
+			<button type="button" onclick="StageBack();" class="stage_back"
+			title="Порождение action='stage_back'">&lt;&lt; Назад</button>
+		</div>
+
+		
+
+
+
+		<div id="room_calc" style="display: none;">
+			<h2 class="h2_form_title">Расчет стоимости номера</h2>
+			<div class="free_breakfast" style="font-weight:bold; color:blue" hidden>Халявный завтрак</div>
+			<div class="decoration" style="font-weight:bold; color:blue" hidden>Украшение (По тарифу или РП)</div>
+			<table id="adds" class="tbl_adds pre_result_table"></table>
+			
+			<!--<p /><label><input type="checkbox" id="booking_changes_prohibited" title="Пассивный" checked disabled />&quot;Не менять&quot; (толи номер толи хз что)</label>-->
+			<p /><label id="lbl_booking_bath_fill"><input type="checkbox" id="booking_bath_fill" title="Пассивный" /> Набирать ванну/джакузи</label>
+			<div class="idiotic_bath" style="font-weight:bold; color:red" hidden>ванна наполняется только сотрудниками</div>
+
+			
+			<button type="button" id="btn_go_contacts" onclick="GoContacts();" class="booking__send-btn button">Бронировать номер &gt;&gt;</button>
+			
+			
+			
+			<button type="button" onclick="StageBack();" class="stage_back"
+			title="Порождение action='stage_back'">&lt;&lt; Назад</button>
+		</div>
+	</div>
+	<div id="div_room_adds_static">
+		<table class="pre_result_table">
+			<tr>
+				<td>Отель</td>
+				<td class="filter_hotel_name"></td>
+			</tr>		
+			<tr>
+				<td>Заезд</td>
+				<td><span class="filter_time_in"></span></td>
+			</tr>
+			<tr>
+				<td>Продолжительность</td>
+				<td><span class="filter_dur_hours"></span> ч.</td>
+			</tr>			
+
+			<tr>
+				<td>Категория номера</td>
+				<td><span class="filter_room_cat_name"></span></td>
+			</tr>
+			<tr>
+				<td>Для курящих</td>
+				<td><span class="filter_smoking_name"></span></td>
+			</tr>			
+		</table>
+		<h2 class="h2_form_title">Стоимость номера<h2>
+		<div class="free_breakfast" style="font-weight:bold; color:blue" hidden>Бесплатный завтрак</div>
+		<div class="decoration" style="font-weight:bold; color:blue" hidden>Украшение (По тарифу или РП)</div>
+		<table id="adds_static" class="tbl_adds"></table>
+		<!--<div>Не менять хз что: <span class="booking_changes_prohibited"></span></div>-->
+		<!--<div>Набирать ванну/джакузи: <span class="booking_bath_fill"></span></div>-->
+		<!--<div class="idiotic_bath" style="font-weight:bold; color:red" hidden>Дурацкая ванна, наполняется только сотрудниками</div>-->
+	</div>
+
+	<div id="div_contacts">
+		<div id="contacts" class="tbl_contacts"></div>
+		  <button id="btn_go_pay" type="button" onclick="GoPayment(); " class="booking__send-btn button" title="Порождение action='book'">Забронировать &gt;&gt;</button>
+			
+			
+			
+		<button type="button" onclick="StageBack();" class="stage_back"
+			title="Порождение action='stage_back'">&lt;&lt; Назад</button>
+	</div>
+	
+	
+	<!--
+	<div id="div_contacts_static">
+		
+		<h2 class="h2_form_title">Контактные данные</h2>	
+		<table>
+			<tr>
+				<td>Контактное лицо:&nbsp;</td>
+				<td><span class="contact_fld_f"></span> <span class="contact_fld_i"></span> <span
+						class="contact_fld_o"></span>. Тел. <span class="contact_fld_phone"></span></td>
+			</tr>
+			<tr>
+				<td>Доп. контакт:&nbsp;</td>
+				<td><span class="contact_fld_fio2"></span>. Тел. <span class="contact_fld_phone2"></span></td>
+			</tr>
+			<tr>
+				<td>Комментарий:&nbsp;</td>
+				<td><span class="contact_fld_comment"></span></td>
+			</tr>
+		</table>
+	</div>
+	-->
+
+	<div id="div_payment">
+		<hr>
+		<table class="tbl_payment">
+			<tr>
+				<td>Валидация (плат.система)</td>
+				<td><input id="payment_valid_by" value='1'/></td>
+			</tr>
+			<tr>
+				<td>Оплата - плат.система</td>
+				<td><input id="payment_paid_by" value='1'/></td>
+			</tr>
+			<tr>
+				<td>Оплата - деньги</td>
+				<td><input id="payment_money" /></td>
+			</tr>
+			<tr>
+				<td>Транзакция - время</td>
+				<td><input id="payment_time" /></td>
+			</tr>
+			<tr>
+				<td>Транзакция - подробности</td>
+				<td><input id="payment_details" /></td>
+			</tr>
+		</table>
+		<p /><button type="button" onclick="StageBack();" class="stage_back"
+			title="Порождение action='stage_back'">&lt;&lt; Назад</button> <button
+			id="btn_payment" onclick="GoBook();"
+			title="Порождение action='payment'">&nbsp;Оплачено&nbsp;&gt;&gt;</button>
+	</div>
+	<div id="div_booked">
+		<h2 class="h2_form_title">Номер забронирован</h2>
+		<table  class="pre_result_table">
+			<tr>
+				<td>Отель</td>
+				<td class="filter_hotel_name"></td>
+			</tr>		
+			<tr>
+				<td>Номер</td>
+				<td><span class="filter_nomer"></span></td>
+			</tr>
+			<tr>
+				<td>Заезд</td>
+				<td><span class="booking_time_in"></span></td>
+			</tr>
+			<tr>
+				<td>Выезд</td>
+				<td><span class="booking_time_out"></span></td>
+			</tr>
+			<tr>
+				<td>Набирать ванну/джакузи</td>
+				<td class="booking_bath_fill"></td>
+			</tr>
+			<tr>
+				<td>Забронировано на имя</td>
+				<td><span class="contact_fld_f"></span> <span class="contact_fld_i"></span> <span class="contact_fld_o"></span></td>
+			</tr>
+			<tr>
+				<td>Телефон</td>
+				<td><span class="contact_fld_phone"></span></td>
+			</tr>			
+			<!--tr>
+				<td>Доп. контакт:&nbsp;</td>
+				<td><span class="contact_fld_fio2"></span>. Тел. <span class="contact_fld_phone2"></span></td>
+			</tr-->
+			<tr>
+				<td>Комментарий:&nbsp;</td>
+				<td>
+					<span class="contact_fld_comment"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>Стоимость:&nbsp;</td>
+				<td><span class="add_total_total"></span> рублей <!--Оплачено: <span
+						class="add_prepay_total"></span>.
+					<span class="add_valid_total"></span>-->
+				</td>
+			</tr>
+			<tr style="display: none;" class="13plusAdds">
+				<td colspan=2>
+					<p>В стоимость входит завтрак и бутилированная вода</p>
+				</td>
+			</tr>			
+
+			<!--tr>
+				<td colspan="2">
+					</p>Всякая хрень про снятие брони, контактный телефон СБ и т.п.</td>
+			</tr-->
+		</table>
+		<p />
+		<!--<p /><button onclick="WeStarted();">&nbsp;Начать новое бронирование&nbsp;</button>-->
+	</div>
+
+	
+<!--оформление-->
+					  </div>
+					</div>	
+                </form>
+              </div>
+            </div>
+          </div>
+
+	</div>
+</div>	
+<!--/оформление-->	
+	
+
+
+<div class="debug" style="display:none">
+
+	<font color="red" size="smaller">
+		<div id="message" style="height:4em;"></div>
+	</font>
+
+	<div id="json_out_title"></div>
+	<div id="json_out"></div>
+	<div id="json_in_title"></div>
+	<div id="json_in"></div>
+	<div id="resp_div"></div>
+	
+	<div id="hidden_trash" style="display:block">
+		<select id="select_source_rp" style="display:none"></select>
+
+		Скрытый мусор:
+		<button onclick="FakeAction('nothing');" title="Порождение action='nothing'">&nbsp;Делаем
+			"ничего"&nbsp;</button>
+		<button onclick="FakeAction('session_kill');" title="Порождение action='session_kill'">&nbsp;"Убей меня
+			нахрен"&nbsp;</button>
+	</div>
+	
+</div>
+	
+</body>
+  
+   
+   
+   
+   
+  
+
+
+
+
+
+
+
+
+
+</html>

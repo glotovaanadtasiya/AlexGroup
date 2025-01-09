@@ -1,0 +1,311 @@
+1735042528a:1:{s:23:"blocks/successPopup.htm";a:6:{s:8:"fileName";s:23:"blocks/successPopup.htm";s:7:"content";s:6397:"[viewBag]
+==
+<?php
+use RainLab\Pages\Classes\Page;
+function onStart() {
+    $this['mainpage'] = Page::loadCached($this->theme, 'index');
+}
+?>
+==
+{% if name.first.gender == 'women' %}
+    {% for item in mainpage.succes %}
+    {% if loop.index == 1 %}
+    <!-- Success Popup 1 -->
+    <div class="booking-success js-success-window">
+      <div class="darkgradtheme">
+        <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking-success__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking-success__inner section">
+            <div class="booking-success__container container">
+              <div class="booking-success__content">
+                <div class="booking-success__title h1">{{ item.title | raw }}</div>
+                <div class="booking-success__subtitle">
+                  {{ item.subtitle | raw }}
+                </div>
+                
+                <div class="booking-success__row row">
+                  <div class="booking-success__col col-xl-5">
+                    <div class="booking-success__txt plaintext">
+                       <!-- {{ item.text | raw }} -->
+                    </div>
+                  </div>
+                  <div class="booking-success__col col-xl-7">
+                    <div class="booking-success__graphics">
+                      <div class="booking-success__say booking-success__say_1 say">
+                        <div class="say__txt">
+                          {{ item.text2 | raw }}
+                        </div>
+                      </div>
+                      <div class="booking-success__pic booking-success__pic_1">
+                        <img src="{{ item.icon | media }}" srcset="{{ item.icon | media }} 2x" alt="" class="booking-success__pic-img">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <!-- /Success Popup 1 -->
+    {% endif %}
+    {% endfor %}
+{% elseif name.first.gender == 'men' %}
+
+{% for item in mainpage.succes %}
+    {% if loop.index == 2 %}
+    <!-- Success Popup 2 -->
+    <div class="booking-success js-success-window">
+      <div class="darkgradtheme">
+        <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking-success__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking-success__inner section">
+            <div class="booking-success__container container">
+              <div class="booking-success__content">
+                <div class="booking-success__title h1">{{ item.title | raw }}</div>
+                <div class="booking-success__subtitle">
+                  {{ item.subtitle | raw }}
+                </div>
+                
+                <div class="booking-success__row row">
+                  <div class="booking-success__col col-xl-5">
+                    <div class="booking-success__txt plaintext">
+                      <!-- {{ item.text | raw }}  -->
+                    </div>
+                  </div>
+                  <div class="booking-success__col col-xl-7">
+                    <div class="booking-success__graphics">
+                      <div class="booking-success__say booking-success__say_2 say">
+                        <div class="say__txt">
+                          {{ item.text2 | raw }}
+                        </div>
+                      </div>
+                      <div class="booking-success__pic booking-success__pic_2">
+                        <img src="{{ item.icon | media }}" srcset="{{ item.icon | media }} 2x" alt="" class="booking-success__pic-img">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <!-- /Success Popup 2 -->
+    {% endif %}
+    {% endfor %}
+{% else %}
+
+{% for item in mainpage.succes %}
+    {% if loop.index == 3 %}
+    <!-- Success Popup 3 -->
+    <div class="booking-success js-success-window">
+      <div class="darkgradtheme">
+        <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking-success__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking-success__inner section">
+            <div class="booking-success__container container">
+              <div class="booking-success__content">
+                <div class="booking-success__title h1">{{ item.title | raw }}</div>
+                <div class="booking-success__subtitle">
+                  {{ item.subtitle | raw }}
+                </div>
+                
+                <div class="booking-success__row row">
+                  <div class="booking-success__col col-xl-5">
+                    <div class="booking-success__txt plaintext">
+                      <!-- {{ item.text | raw }}  -->
+                    </div>
+                  </div>
+                  <div class="booking-success__col col-xl-7">
+                    <div class="booking-success__graphics">
+                      <div class="booking-success__say booking-success__say_3 say">
+                        <div class="say__txt">
+                          {{ item.text2 | raw }}
+                        </div>
+                      </div>
+                      <div class="booking-success__pic booking-success__pic_3">
+                        <img src="{{ item.icon | media }}" srcset="{{ item.icon | media }} 2x" alt="" class="booking-success__pic-img">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <!-- /Success Popup 3 -->
+    {% endif %}
+    {% endfor %}
+{% endif %}";s:5:"mtime";i:1618210260;s:6:"markup";s:6249:"{% if name.first.gender == 'women' %}
+    {% for item in mainpage.succes %}
+    {% if loop.index == 1 %}
+    <!-- Success Popup 1 -->
+    <div class="booking-success js-success-window">
+      <div class="darkgradtheme">
+        <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking-success__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking-success__inner section">
+            <div class="booking-success__container container">
+              <div class="booking-success__content">
+                <div class="booking-success__title h1">{{ item.title | raw }}</div>
+                <div class="booking-success__subtitle">
+                  {{ item.subtitle | raw }}
+                </div>
+                
+                <div class="booking-success__row row">
+                  <div class="booking-success__col col-xl-5">
+                    <div class="booking-success__txt plaintext">
+                       <!-- {{ item.text | raw }} -->
+                    </div>
+                  </div>
+                  <div class="booking-success__col col-xl-7">
+                    <div class="booking-success__graphics">
+                      <div class="booking-success__say booking-success__say_1 say">
+                        <div class="say__txt">
+                          {{ item.text2 | raw }}
+                        </div>
+                      </div>
+                      <div class="booking-success__pic booking-success__pic_1">
+                        <img src="{{ item.icon | media }}" srcset="{{ item.icon | media }} 2x" alt="" class="booking-success__pic-img">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <!-- /Success Popup 1 -->
+    {% endif %}
+    {% endfor %}
+{% elseif name.first.gender == 'men' %}
+
+{% for item in mainpage.succes %}
+    {% if loop.index == 2 %}
+    <!-- Success Popup 2 -->
+    <div class="booking-success js-success-window">
+      <div class="darkgradtheme">
+        <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking-success__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking-success__inner section">
+            <div class="booking-success__container container">
+              <div class="booking-success__content">
+                <div class="booking-success__title h1">{{ item.title | raw }}</div>
+                <div class="booking-success__subtitle">
+                  {{ item.subtitle | raw }}
+                </div>
+                
+                <div class="booking-success__row row">
+                  <div class="booking-success__col col-xl-5">
+                    <div class="booking-success__txt plaintext">
+                      <!-- {{ item.text | raw }}  -->
+                    </div>
+                  </div>
+                  <div class="booking-success__col col-xl-7">
+                    <div class="booking-success__graphics">
+                      <div class="booking-success__say booking-success__say_2 say">
+                        <div class="say__txt">
+                          {{ item.text2 | raw }}
+                        </div>
+                      </div>
+                      <div class="booking-success__pic booking-success__pic_2">
+                        <img src="{{ item.icon | media }}" srcset="{{ item.icon | media }} 2x" alt="" class="booking-success__pic-img">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <!-- /Success Popup 2 -->
+    {% endif %}
+    {% endfor %}
+{% else %}
+
+{% for item in mainpage.succes %}
+    {% if loop.index == 3 %}
+    <!-- Success Popup 3 -->
+    <div class="booking-success js-success-window">
+      <div class="darkgradtheme">
+        <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking-success__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking-success__inner section">
+            <div class="booking-success__container container">
+              <div class="booking-success__content">
+                <div class="booking-success__title h1">{{ item.title | raw }}</div>
+                <div class="booking-success__subtitle">
+                  {{ item.subtitle | raw }}
+                </div>
+                
+                <div class="booking-success__row row">
+                  <div class="booking-success__col col-xl-5">
+                    <div class="booking-success__txt plaintext">
+                      <!-- {{ item.text | raw }}  -->
+                    </div>
+                  </div>
+                  <div class="booking-success__col col-xl-7">
+                    <div class="booking-success__graphics">
+                      <div class="booking-success__say booking-success__say_3 say">
+                        <div class="say__txt">
+                          {{ item.text2 | raw }}
+                        </div>
+                      </div>
+                      <div class="booking-success__pic booking-success__pic_3">
+                        <img src="{{ item.icon | media }}" srcset="{{ item.icon | media }} 2x" alt="" class="booking-success__pic-img">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <!-- /Success Popup 3 -->
+    {% endif %}
+    {% endfor %}
+{% endif %}";s:4:"code";s:122:"use RainLab\Pages\Classes\Page;
+function onStart() {
+    $this['mainpage'] = Page::loadCached($this->theme, 'index');
+}";s:7:"viewBag";a:0:{}}}

@@ -1,0 +1,727 @@
+description = "TEST Шаблон страницы прайс-листа"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Name;
+use Serenity\Motel\Models\Service;
+use Serenity\Motel\Models\Offer;
+function onStart()
+{
+    $this['hotels'] = Hotel::all();
+    $this['services'] = Service::all();
+    $this['offers'] = Offer::all();
+}
+
+function onChangeHotel(){
+    $hotel_id = Input::get('hotel_id');
+    $hotel_type = Input::get('hotel_type');
+    
+    $hotel = Hotel::find($hotel_id);
+    if($hotel){
+		return [
+            '[data-number-type="lux"] .s-hotel-info__tariffs .js-tar-table .table__body' => $this->renderPartial('blocks/tariffsForPrice.htm', ['hotel' => $hotel, 'type' => 'lux']),
+            '.booking__form [name="booking-time-select"]' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => 'lux']),
+            '[data-number-type="suite"] .s-hotel-info__tariffs .js-tar-table .table__body' => $this->renderPartial('blocks/tariffsForPrice.htm', ['hotel' => $hotel, 'type' => 'suite']),
+            '.booking__form [name="booking-time-select"]' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => 'suite']),
+            '[data-number-type="standard"] .s-hotel-info__tariffs .js-tar-table .table__body' => $this->renderPartial('blocks/tariffsForPrice.htm', ['hotel' => $hotel, 'type' => 'standard']),
+            '.booking__form [name="booking-time-select"]' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => 'standard']),			
+        ];
+		/*
+        return [
+            '[data-number-type="'.$hotel_type.'"] .s-hotel-info__tariffs .js-tar-table .table__body' => $this->renderPartial('blocks/tariffsForPrice.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+            '.booking__form [name="booking-time-select"]' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+        ];*/
+    }
+}
+
+
+
+function onSubmitBooking(){
+    
+    $vars = [
+		'type' => 1, /*запись в crm*/
+		'connect-type' => Input::get('connect-type'), 
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+		'booking_hours' => Input::get('booking-hours'),
+		'booking_minutes' => Input::get('booking-minutes'),
+		'booking_smocking' => Input::get('booking-smocking'),
+		'email' => Input::get('email')
+		
+        ];
+	
+	
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+	
+	
+	/*отправка в crm*/
+	
+	$url = 'http://suz.motelspb.com/_321/backend/save.php';
+	$params = $vars;
+	$result = file_get_contents($url, false, stream_context_create(array(
+    'http' => array(
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
+        'content' => http_build_query($params)
+		)
+	)));
+	
+    
+	/*логирование данных*/
+	$file_log = $_SERVER["DOCUMENT_ROOT"] . "/1/log.log";
+	date_default_timezone_set('Europe/Moscow');
+    $fw = fopen($file_log, "a");
+	fwrite($fw, date("H:i:s  d.m.y")." from site VARS " . var_export($vars, true));	
+    fclose($fw);
+	/**/
+
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Забронировать номер на час с джакузи в Санкт-Петербурге </title>
+  <meta name="description" content="Рейтинг ⭐⭐⭐⭐⭐ 5  на основе ‎326 голосов. Забронировать недорогой номер в мини отеле на час с джакузи во всех районах города Санкт-Петербурга по лучшей доступной и всегда актуальной цене 12 часов 2900 рублей.">
+  <meta name="keywords" content="Забронировать номер на час в Мотель Спб">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}?{{ "now"|date("YmdH") }}" />
+ 
+{% partial "basic/head-scripts" %} 
+  
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme darkblurtheme">
+      
+    <div class="header-group">
+      <!-- Header -->
+      {% partial "basic/header" %}
+      <!-- /Header -->
+    </div>
+    
+  </div>
+
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    
+    <div class="darkcommontheme darkblurtheme">      
+      
+      <div class="s-hotel-info s-hotel-info_indent">   
+        
+        <!-- Flame offer block (desktop) -->
+        <div class="s-hotel-info__offer s-hotel-info__offer_reset">
+          {% partial "blocks/special_offer" %}
+        </div>
+        <!-- /Flame offer block (desktop) -->
+        
+        <div class="container">
+          <h1 class="s-hotel-info__heading h1">Цены на проживание</h1>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="tabs js-tabs">         
+          <!-- Tabs Buttons -->
+          <div class="hotel-tabs-switches-wrap tabs__switches-wrap">
+            <div class="s-hotel-info__container tabs__switches-container container">
+              <div class="hotel-tabs-switches tabs__switches">
+                <div class="tabs__switch js-tabs__switch active" data-number-type="standard"><span class="d-none d-md-inline">Номера</span> стандарт</div>
+                <div class="tabs__switch js-tabs__switch" data-number-type="suite"><span class="d-none d-md-inline">Номера</span> полу-люкс</div>
+                <div class="tabs__switch js-tabs__switch" data-number-type="lux"><span class="d-none d-md-inline">Номера</span> люкс</div>
+              </div>
+            </div>
+          </div>         
+          <!-- /Tabs Buttons -->
+          
+          <div class="tabs__contents">
+            <!-- Standard Tab Content -->
+            <div class="hotel-tabs-content tabs__content js-tabs__content active" data-number-type="standard">
+              
+              
+              <div class="s-hotel-info__container container">
+                
+                <div class="s-hotel-info__select-row">
+                  <div class="s-hotel-info__select-wrap select-wrap js-find-room">
+                    <select class="select js-select-price" name="hotel-select" onchange="document.getElementsByClassName('s-hotel-info__about-link')[0].setAttribute('href', '/hotels/' + this.value);" autocomplete="off">
+                      <option disabled hidden value="">Отель</option>
+                      {% for hotel in hotels %}
+                      <option hotelid="{{hotel.id}}" value="{{hotel.slug}}">Отель \n {{hotel.name}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  
+                  <a href="/hotels/{{hotels.first.slug}}" class="s-hotel-info__about-link">
+                    <span class="s-hotel-info__about-link-text">Об отеле</span>
+                    <img src="/themes/motel/assets/img/arrow-right.svg" alt="" class="s-hotel-info__about-link-arrow js-svg">
+                  </a>
+                </div>
+                
+                <div class="s-hotel-info__calc-wrap js-calc-wrap">  
+                 
+                  <div class="s-hotel-info__title h4">Выберите тариф</div>
+				  
+					  
+                  
+                  <div class="s-hotel-info__tariffs">
+                    <div class="tar-table js-tar-table table" data-sum="0">
+                      <div class="table__head">
+                        <div class="table__tr table__tr_head">
+                          <div class="tar-table__main-col table__th">
+                            Основные тарифы
+                          </div>
+                          <div class="tar-table__data-col table__th">
+                            Вс-Чт
+                          </div>
+                          <div class="tar-table__data-col table__th">
+                            ПТ-Сб
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table__body">
+                        {% partial 'blocks/tariffsForPrice' hotel=hotels.first type='standard' %}
+                      </div>
+                    </div>
+                    
+                  </div>
+				  
+				  
+	<!---------------------------------------------------------->				
+
+                     <div class="s-hotel-info__tariffs dop-marata" style="display: none;">
+                        <div class="tar-table table" >
+                          <div class="table__head">
+                            <div class="table__tr table__tr_head">
+                              <div class="tar-table__main-col table__th">
+								Дополнительный тариф
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                Стоимость
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table__body">
+<div class="table__tr">
+	<div class="tar-table__main-col table__td"><a href="/stocks/stock/tarif-vyhodnoj/">Выходные дни<br>суббота-воскресенье<br>(цена за 2 суток)</a></div>
+	<div class="tar-table__data-col table__td  js-tar-table-data">5000</div>
+</div>
+</div></div></div>	
+
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/" style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>	<br><br>						  
+	<!----------------------------------------------------------->				  
+				  
+
+                    <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                  <div class="s-hotel-info__title h4">Выберите дополнительтные услуги</div>
+                  {% partial "blocks/additional_services" services=services offers=offers %}
+                    
+                  
+                  <div class="hotel-total-box">
+                    <div class="hotel-total-box__item h4">
+                      <span class="hotel-total-box__text">Итого:</span>
+                      <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                    </div>
+                    
+                    <div class="hotel-total-box__booking-wrap">
+                      <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- /Standard Tab Content -->
+            
+            <!-- Suite Tab Content -->
+            <div class="hotel-tabs-content tabs__content js-tabs__content" data-number-type="suite">
+              
+              <div class="s-hotel-info__container container">
+                
+                <div class="s-hotel-info__select-row">
+                  <div class="s-hotel-info__select-wrap select-wrap js-find-room">
+                    <select class="select js-select-price" name="hotel-select" onchange="document.getElementsByClassName('s-hotel-info__about-link')[1].setAttribute('href', '/hotels/' + this.value);" autocomplete="off">
+                      <option disabled hidden value="">Отель</option>
+                      {% for hotel in hotels %}
+                      <option hotelid="{{hotel.id}}" value="{{hotel.slug}}">Отель \n {{hotel.name}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  
+                  <a href="/hotels/{{hotels.first.slug}}" class="s-hotel-info__about-link">
+                    <span class="s-hotel-info__about-link-text">Об отеле</span>
+                    <img src="/themes/motel/assets/img/arrow-right.svg" alt="" class="s-hotel-info__about-link-arrow js-svg">
+                  </a>
+                </div>
+                
+                <div class="s-hotel-info__calc-wrap js-calc-wrap">   
+            
+                  <div class="s-hotel-info__title h4">Выберите тариф</div>
+				  
+					  
+				  
+                  
+                  <div class="s-hotel-info__tariffs">
+                    <div class="tar-table js-tar-table table" data-sum="0">
+                      <div class="table__head">
+                        <div class="table__tr table__tr_head">
+                          <div class="tar-table__main-col table__th">
+                            Основные тарифы
+                          </div>
+                          <div class="tar-table__data-col table__th">
+                            Вс-Чт
+                          </div>
+                          <div class="tar-table__data-col table__th">
+                            ПТ-Сб
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table__body">
+                        {% partial 'blocks/tariffsForPrice' hotel=hotels.first type='suite' %}
+                      </div>
+                    </div>
+					
+					
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/" style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>
+                    
+                  </div>
+				  
+
+		  
+				  
+
+                  <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                  <div class="s-hotel-info__title h4">Выберите дополнительтные услуги</div>
+
+                  {% partial "blocks/additional_services" services=services offers=offers %}
+                  
+                  <div class="hotel-total-box">
+                    <div class="hotel-total-box__item h4">
+                      <span class="hotel-total-box__text">Итого:</span>
+                      <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                    </div>
+                    
+                    <div class="hotel-total-box__booking-wrap">
+                      <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                    </div>
+                  </div>
+                
+              </div>
+              </div>
+            </div>
+            <!-- /Suite Tab Content -->
+            
+            <!-- Lux Tab Content -->
+            <div class="hotel-tabs-content tabs__content js-tabs__content" data-number-type="lux">
+              <div class="s-hotel-info__container container">
+                
+                <div class="s-hotel-info__select-row">
+                  <div class="s-hotel-info__select-wrap select-wrap js-find-room">
+                    <select class="select js-select-price" name="hotel-select" onchange="document.getElementsByClassName('s-hotel-info__about-link')[2].setAttribute('href', '/hotels/' + this.value);" autocomplete="off">
+                      <option disabled hidden value="">Отель</option>
+                      {% for hotel in hotels %}
+                      <option hotelid="{{hotel.id}}" value="{{hotel.slug}}">Отель \n {{hotel.name}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  
+                  <a href="/hotels/{{hotels.first.slug}}" class="s-hotel-info__about-link">
+                    <span class="s-hotel-info__about-link-text">Об отеле</span>
+                    <img src="/themes/motel/assets/img/arrow-right.svg" alt="" class="s-hotel-info__about-link-arrow js-svg">
+                  </a>
+                </div>
+                
+                <div class="s-hotel-info__calc-wrap js-calc-wrap">    
+  
+                  <div class="s-hotel-info__title h4">Выберите тариф</div>
+				  
+					  
+                  
+                  <div class="s-hotel-info__tariffs">
+                    <div class="tar-table js-tar-table table" data-sum="0">
+                      <div class="table__head">
+                        <div class="table__tr table__tr_head">
+                          <div class="tar-table__main-col table__th">
+                            Основные тарифы
+                          </div>
+                          <div class="tar-table__data-col table__th">
+                            Вс-Чт
+                          </div>
+                          <div class="tar-table__data-col table__th">
+                            ПТ-Сб
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table__body">
+                        {% partial 'blocks/tariffsForPrice' hotel=hotels.first type='lux' %}
+                      </div>
+                    </div>
+					<br>
+					
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/" style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>					
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>
+                    
+                  </div>
+				  
+
+				  
+
+                  <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                  <div class="s-hotel-info__title h4">Выберите дополнительтные услуги</div>
+
+                  {% partial "blocks/additional_services" services=services offers=offers %}
+                  
+                  <div class="hotel-total-box">
+                    <div class="hotel-total-box__item h4">
+                      <span class="hotel-total-box__text">Итого:</span>
+                      <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                    </div>
+                    
+                    <div class="hotel-total-box__booking-wrap">
+                      <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                    </div>
+                  </div>
+                
+              </div>                
+            </div>
+            <!-- /Lux Tab Content -->
+          </div>
+        </div>
+        <!-- /Tabs -->
+        
+      </div>
+      
+    </div>
+  </div>
+    
+ 
+<!-- map - map - map - map - map - map - map - map - map - map - map - map - map - map - map - map -->
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru-RU&amp;apikey=cf3923d1-7a99-4510-8581-f0404b944dc2" type="text/javascript"></script>
+
+  	  
+<script>
+ymaps.ready(init);
+
+function init () {
+    var myMap = new ymaps.Map('map', {
+            center: [59.9376466, 30.3552034],
+            zoom: 10,
+			controls: ['zoomControl']
+        });
+	myMap.behaviors.disable('scrollZoom'); // — это отключает зум колёсиком мышки, всё ок.
+	
+	var collection = new ymaps.GeoObjectCollection(null, {
+        // Запретим появление балуна.
+        hasBalloon: false,
+        iconColor: '#3b5998'
+    });
+
+    // Добавим геообъекты в коллекцию.
+    collection
+    {% for hotel in hotels %}	
+        .add(new ymaps.Placemark( [{{ hotel.coordinates }}], {
+            balloonContent: '{{ hotel.slug }}'
+        },	
+		{
+		
+            // Необходимо указать данный тип макета.
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: '/themes/motel/assets/img/map-crystal.svg',
+            // Размеры метки.
+            iconImageSize: [29, 21],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-15, -21]
+		}
+		))
+	{% endfor %}
+	;
+	
+
+	
+		
+    // Добавим коллекцию на карту.
+    myMap.geoObjects.add(collection);
+
+	
+	
+	collection.events.add('click', function (e) {
+			var curMarker = e.get('target');	
+            var hotelName = curMarker.properties.get('balloonContent');
+            //console.log('Marker ' + hotelName + ' has been clicked');
+			
+            activateMarker(hotelName);
+
+            if (curMarker.status !== 'pending') {
+                $(".js-map-select").val(hotelName).trigger("change");
+            }
+
+            for (var j = 0; j < markers.length; j++) {
+                markers[j].setIcon(normalIcon);
+                markers[j].setAnimation(null);
+
+                if (markers[j].status === "pending") {
+                    markers[j].setIcon(normalIconPending);
+                }
+            }
+
+            this.setIcon(activeIcon);
+
+            if (curMarker.status === 'pending') {
+                curMarker.setIcon(activeIconPending);
+            }
+
+            this.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function() {
+                curMarker.setAnimation(null);
+            }, 1000);
+            // change zIndex of active marker 
+
+            zIndexMarker++;
+            this.setZIndex(zIndexMarker);
+			
+        });
+  
+	
+	/*
+    // Подпишемся на событие клика по коллекции.
+    collection.events.add('click', function (e) {
+        // Получим ссылку на геообъект, по которому кликнул пользователь.
+        var target = e.get('target');
+        // Зададим контент боковой панели.
+        panel.setContent(target.properties.get('balloonContent'));
+        // Переместим центр карты по координатам метки с учётом заданных отступов.
+        map.panTo(target.geometry.getCoordinates(), {useMapMargin: true});
+    });
+	*/
+
+    //['{{ hotel.slug }}', 'Отель {{ hotel.name }}', {{ hotel.coordinates }}, 1, ,{% if hotel.low_price %}'pending'{% endif %}],
+    
+   
+
+}
+</script>	 
+<style>
+.ymaps-2-1-79-ground-pane {
+    -webkit-filter: grayscale(100%) invert(90%);
+	filter: grayscale(100%) invert(90%);
+	
+}
+</style>
+
+
+  <div class="gmap-box darkcommontheme">
+	<div id="map" style="height: 600px; position: absolute; left: 0; top: 0; width: 100%; height: 100%;"></div>
+	<div class="gmap-box__cards-box js-s-map-cards-box">
+      <div class="gmap-box__cards-container container">
+        
+        {% for hotel in hotels %}
+        {% partial "blocks/hotelCardOnMap" hotel=hotel %}
+        {% endfor %}
+
+
+      </div> 
+    </div>
+  </div>
+  <!-- map - map - map - map - map - map - map - map - map - map - map - map - map - map - map - map --> 
+	
+	
+	
+	
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  <!-- Modals -->
+  <div class="modals hidden">    
+    
+    {% partial "blocks/booking-popup" %}   
+  </div>
+  <!-- /Modals -->  
+  
+  <script>
+    // Data for the markers consisting of a name, title, a LatLng, zIndex  and state (optional)
+    var gMapHotels = [
+      {% for hotel in hotels %}
+      ['{{ hotel.slug }}', 'Отель {{ hotel.name }}', {{ hotel.coordinates }}, 1],
+      {% endfor %}
+    ];
+  </script>
+  
+  <!-- google maps api -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAosLw6LPVOHPdiVUr8mClGPM6hKzTt1v4"></script>
+  {% partial "basic/scripts" %}
+  
+  <script>
+  /*repair problem with focus on field outside the popup*/
+  $.magnificPopup.instance._onFocusIn = function(e) {
+            return true;
+			};
+  
+ 
+
+function isCheck(name) {
+    return document.querySelector('input[name="' + name + '"]:checked');
+}
+ 
+  
+  
+  $('[name="hotel-select"]').change(function(){
+  
+  
+      var hotel_id = 0;
+      var hotel_type = $(this).closest('.js-tabs__content').attr('data-number-type');
+	  
+	  
+	  var select_val = $(this).val();
+	  var select_text;
+	  
+	  //set booking hotel
+	   $('.js-booking select[name="booking-hotel-select"]').val(select_val).trigger('change');
+	  
+      $(this).find('option').each(function() {
+          if($(this).prop('selected') == true){
+            hotel_id = $(this).attr('hotelid');
+			select_text = $(this).text();
+          }
+      });
+	  
+	  $('.s-hotel-info__tariffs .js-tar-table .table__body').html('');
+	  
+	  $.request('onChangeHotel',{
+        data:{ hotel_id:hotel_id, hotel_type:hotel_type},
+      });
+	  
+	  if(hotel_id==7) $(".dop-marata").show();
+	  else $(".dop-marata").hide();
+	  
+	  select_text = select_text.replace("\\n", "<br />");
+	  $('.select2-selection__rendered span').html( select_text );
+      $('[name="hotel-select"] option[value="'+ select_val +'"]').prop('selected', true);
+     
+  });
+  
+  //add class to not filled required fields
+  $('.booking__input[required], .booking__select[required]').change(function(){
+  			$('input.booking__input[required]').each(function() {
+				$( this ).removeClass("js-notFill");
+				if( $( this ).val() == "" ) $( this ).addClass("js-notFill");
+			});
+  });
+  $('.booking__send-wrap').on("mouseenter", function(){
+	$( ".js-notFill").addClass("notFill");
+  });
+
+  
+  </script>
+  
+  <style>
+   .mfp-wrap {-webkit-overflow-scrolling: touch}
+   </style>
+  
+</body>
+</html>

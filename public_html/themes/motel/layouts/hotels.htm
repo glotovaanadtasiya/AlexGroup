@@ -1,0 +1,398 @@
+description = "Шаблон страницы списка отелей"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Name;
+function onStart()
+{
+    $this['hotels'] = Hotel::all();
+}
+
+function onChangeHotel(){
+    $hotel_id = Input::get('hotel_id');
+    //$hotel_type = Input::get('hotel_type');
+    
+    $hotel = Hotel::find($hotel_id);
+    if($hotel){
+        return [
+            //'.find-room__field select' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+            '[name="roomtype-select"]' => $this->renderPartial('blocks/roomtypeselect.htm', ['hotel' => $hotel]),
+        ];
+    }
+}
+
+function onSubmitBooking(){
+
+    $vars = [
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+        ];
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+    
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+{repeater name="gallery" prompt="Добавить фото" tab="Галерея"}
+  {variable name="photo" label="Галерея" type="mediafinder" mode="image"}{/variable}
+{/repeater}
+
+{variable name="seo_text" label="SEO текст" tab="SEO текст" type="richeditor"}{/variable}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Мотель спб мини отели на час на карте Санкт-Петербурга</title>
+  <meta name="description" content="Мини отель спб недорого по станциям, отель на ночь для двоих спб, мини отель спб недорого почасовая оплата на карте, сеть отелей спб недорого сутки.">
+  <meta name="keywords" content="Мини отели на час ">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme darkblurtheme">
+    <div class="header-group">
+        <!-- Header -->
+        {% partial "basic/header" %}
+        <!-- /Header -->
+    </div>
+  </div>
+  
+<!-- map - map - map - map - map - map - map - map - map - map - map - map - map - map - map - map -->
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru-RU&amp;apikey=cf3923d1-7a99-4510-8581-f0404b944dc2" type="text/javascript"></script>
+
+  	  
+<script>
+ymaps.ready(init);
+
+function init () {
+    var myMap = new ymaps.Map('map', {
+            center: [59.9376466, 30.3552034],
+            zoom: 10,
+			controls: ['zoomControl']
+        });
+	myMap.behaviors.disable('scrollZoom'); // — это отключает зум колёсиком мышки, всё ок.
+	
+	var collection = new ymaps.GeoObjectCollection(null, {
+        // Запретим появление балуна.
+        hasBalloon: false,
+        iconColor: '#3b5998'
+    });
+
+    // Добавим геообъекты в коллекцию.
+    collection
+    {% for hotel in hotels %}	
+        .add(new ymaps.Placemark( [{{ hotel.coordinates }}], {
+            balloonContent: '{{ hotel.slug }}'
+        },	
+		{
+		
+            // Необходимо указать данный тип макета.
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: '/themes/motel/assets/img/map-crystal{% if hotel.new %}-pending{% endif %}.svg',
+            // Размеры метки.
+            iconImageSize: [29, 21],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-15, -21]
+		}
+		))
+	{% endfor %}
+		
+		/*
+		.add(new ymaps.Placemark( [60.034087, 30.448566], {
+            balloonContent: 'ohta'
+        },	
+		{
+		
+            // Необходимо указать данный тип макета.
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: '/themes/motel/assets/img/map-crystal-pending.svg',
+            // Размеры метки.
+            iconImageSize: [29, 21],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-15, -21]
+		}
+		))*/
+		
+	;
+	
+
+	
+		
+    // Добавим коллекцию на карту.
+    myMap.geoObjects.add(collection);
+
+	
+	
+	collection.events.add('click', function (e) {
+			var curMarker = e.get('target');	
+            var hotelName = curMarker.properties.get('balloonContent');
+            //console.log('Marker ' + hotelName + ' has been clicked');
+			
+            activateMarker(hotelName);
+
+            if (curMarker.status !== 'pending') {
+                $(".js-map-select").val(hotelName).trigger("change");
+            }
+
+            for (var j = 0; j < markers.length; j++) {
+                markers[j].setIcon(normalIcon);
+                markers[j].setAnimation(null);
+
+                if (markers[j].status === "pending") {
+                    markers[j].setIcon(normalIconPending);
+                }
+            }
+
+            this.setIcon(activeIcon);
+
+            if (curMarker.status === 'pending') {
+                curMarker.setIcon(activeIconPending);
+            }
+
+            this.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function() {
+                curMarker.setAnimation(null);
+            }, 1000);
+            // change zIndex of active marker 
+
+            zIndexMarker++;
+            this.setZIndex(zIndexMarker);
+			
+        });
+  
+	
+	/*
+    // Подпишемся на событие клика по коллекции.
+    collection.events.add('click', function (e) {
+        // Получим ссылку на геообъект, по которому кликнул пользователь.
+        var target = e.get('target');
+        // Зададим контент боковой панели.
+        panel.setContent(target.properties.get('balloonContent'));
+        // Переместим центр карты по координатам метки с учётом заданных отступов.
+        map.panTo(target.geometry.getCoordinates(), {useMapMargin: true});
+    });
+	*/
+
+    //['{{ hotel.slug }}', 'Отель {{ hotel.name }}', {{ hotel.coordinates }}, 1, ,{% if hotel.low_price %}'pending'{% endif %}],
+    
+   
+
+}
+</script>	 
+<style>
+.ymaps-2-1-79-ground-pane {
+    -webkit-filter: grayscale(100%) invert(90%);
+	filter: grayscale(100%) invert(90%);
+	
+}
+</style>
+
+
+  <div class="gmap-box darkcommontheme">
+	<div id="map" style="height: 600px; position: absolute; left: 0; top: 0; width: 100%; height: 100%;"></div>
+	<div class="gmap-box__cards-box js-s-map-cards-box">
+      <div class="gmap-box__cards-container container">
+        
+        {% for hotel in hotels %}
+        {% partial "blocks/hotelCardOnMap" hotel=hotel %}
+        {% endfor %}
+
+		<!----------------temp ohta card--------------------------
+		<div class="map-card js-map-card gmap-box__card js-s-map-card" data-hotel="ohta">
+          <div class="map-card__box">
+                  <button class="map-card__close js-map-card__close">
+                    <img src="/themes/motel/assets/img/close.svg" alt="" class="map-card__close-icon js-svg">
+                  </button>
+                  <div class="map-card__title"><a href="/news/post/otkrytie-otelya-aleks-novaya-ohta/">Отель Новая Охта<br>Открытие в 2025 году</a></div>
+
+
+
+
+                  <div class="map-card__address">Даниила Хармса ул., 4</div>
+                  <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="map-card__phone">+7-812-468-77-77</a>
+                 
+                  
+                  <a href="/news/post/otkrytie-otelya-aleks-novaya-ohta/" class="map-card__btn button button_medium button_ghost">Подробнее <img src="/themes/motel/assets/img/arrow-right.svg" alt="" class="map-card__btn-img js-svg"></a>
+                </div>
+        </div>
+		--------------/temp ohta card---------------------------->
+
+      </div> 
+    </div>
+  </div>
+  <!-- map - map - map - map - map - map - map - map - map - map - map - map - map - map - map - map -->
+  
+  
+  
+
+{#
+  <div class="gmap-box darkcommontheme">
+    <div class="gmap js-gmap"></div>
+    
+    <div class="gmap-box__cards-box js-s-map-cards-box">
+      <div class="gmap-box__cards-container container">
+        
+        {% for hotel in hotels %}
+        {% partial "blocks/hotelCardOnMap" hotel=hotel %}
+        {% endfor %}
+		
+      </div> 
+    </div>
+  </div>
+#}
+  
+
+  <!-- Main content -->
+  <main class="main">
+      <div class="darkcommontheme darkblurtheme">        
+        
+        <div class="s-hotels section">
+          <div class="s-hotels__container">
+              <!-- Flame offer block -->
+              <div class="s-hotels__offer">
+                {% partial 'blocks/special_offer' %}
+              </div>
+              <!-- /Flame offer block -->
+
+            <h1 class="s-hotels__title h1">Все отели</h1>
+          </div>          
+
+          <div class="hotel-cards-box">
+            <div class="hotel-cards-box__container container">
+              <div class="hotel-cards-box__inner js-hotel-cards">
+                {% for hotel in hotels %}
+                {% partial "blocks/hotelCard" hotel=hotel %}
+                {% endfor %}
+				
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+ 
+{% if seo_text %}	
+<div class="s-main-about section">
+	<div class="s-main-about__container container">
+		<div class="read-more special-text">
+			{{ seo_text | raw }}
+			<p class="prompt"><a href="#">читать дальше</a></p>
+		</div>
+	</div>
+</div>
+{% endif %} 
+
+
+
+  
+    
+    <div class="photo-slider js-photo-slider owl-carousel">
+{% for photo in gallery %}
+        <div class="photo-slider__item">
+          <img data-src="{{ (photo.photo | media) | resize(1920) }}" alt="" class="photo-slider__img owl-lazy">
+        </div>
+		{% endfor %}
+		
+    </div>
+      
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  <script>
+    // Data for the markers consisting of a name, title, a LatLng, zIndex  and state (optional)
+    var gMapHotels = [
+    {% for hotel in hotels %}
+    ['{{ hotel.slug }}', 'Отель {{ hotel.name }}', {{ hotel.coordinates }}, 1, ,{% if hotel.low_price %}'pending'{% endif %}],
+    {% endfor %}
+	//['frunzenskaya', 'Отель на Фрунзенской', 59.905765, 30.318091, 1, ,'pending'],
+    ];
+  </script>
+  
+  <!-- google maps api -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAosLw6LPVOHPdiVUr8mClGPM6hKzTt1v4"></script>
+  {% partial "basic/scripts" %}
+  
+  <script>
+    $('[name="hotel-select"]').on('change', function(){
+        $.request('onChangeHotel', {data: {hotel_id: $(this).find('option:selected').attr('hotelid')}})
+    });
+  </script>
+  
+</body>
+</html>

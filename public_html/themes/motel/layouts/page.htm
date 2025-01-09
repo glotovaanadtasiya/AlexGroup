@@ -1,0 +1,76 @@
+description = "Шаблон текстовой страницы"
+==
+<?php
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <title>{{ this.page.title }}</title>
+  {% partial "basic/head" %}
+  
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darkblurtheme">
+    <article class="section">
+      <div class="container formated-text">
+          {% page %}
+      </div>
+    </article>
+    </div>
+    
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>

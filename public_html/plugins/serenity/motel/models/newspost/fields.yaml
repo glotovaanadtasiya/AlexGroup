@@ -1,0 +1,59 @@
+fields:
+    name:
+        label: Название
+        span: auto
+        type: text
+    slug:
+        label: URL
+        span: auto
+        preset:
+            field: name
+            type: slug
+        type: text
+    introtext:
+        label: Введение
+        size: giant
+        span: auto
+        type: richeditor
+    content:
+        label: Контент
+        size: giant
+        span: auto
+        type: richeditor
+tabs:
+    fields:
+        slider:
+            label: Слайдер
+            prompt: Добавить
+            span: full
+            type: repeater
+            tab: Слайдер
+            form:
+                fields:
+                    img:
+                        label: Фото
+                        mode: image
+                        span: left
+                        type: mediafinder
+                    text:
+                        label: Текст
+                        span: right
+                        type: text
+secondaryTabs:
+    fields:
+        img_title:
+            label: 'Изображение новости'
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: full
+            type: fileupload
+            tab: 'Tab 1'
+        created_at:
+            label: Дата
+            mode: datetime
+            span: full
+            type: datepicker
+            tab: 'Tab 1'

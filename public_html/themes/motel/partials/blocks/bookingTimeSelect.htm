@@ -1,0 +1,26 @@
+description = "Список времени для бронирования"
+
+[viewBag]
+==
+{% if type == 'standard' %}
+<option disabled hidden value="">Время бронирования</option>
+{% for standart_prop in hotel.standart_prop %}
+    {% for standart_price in standart_prop.tariffs %}
+    <option value="{{ standart_price.price_name }}" {% if loop.first %}selected{% endif %}>{{ standart_price.price_name }}</option>
+    {% endfor %}
+{% endfor %}
+{% elseif type == 'suite' %}
+<option disabled hidden value="">Время бронирования</option>
+{% for suite_prop in hotel.suite_prop %}
+    {% for suite_price in suite_prop.tariffs %}
+    <option value="{{ suite_price.price_name }}" {% if loop.first %}selected{% endif %}>{{ suite_price.price_name }}</option>
+    {% endfor %}
+{% endfor %}
+{% elseif type == 'lux' %}
+<option disabled hidden value="">Время бронирования</option>
+{% for lux_prop in hotel.lux_prop %}
+    {% for lux_price in lux_prop.tariffs %}
+    <option value="{{ lux_price.price_name }}" {% if loop.first %}selected{% endif %}>{{ lux_price.price_name }}</option>
+    {% endfor %}
+{% endfor %}
+{% endif %}

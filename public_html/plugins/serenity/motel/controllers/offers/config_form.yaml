@@ -1,0 +1,17 @@
+name: 'романтические предложения'
+modelClass: Serenity\Motel\Models\Offer
+form: $/serenity/motel/models/offer/fields.yaml
+defaultRedirect: serenity/motel/offers
+create:
+    title: 'Создание романтического предложения'
+    redirect: 'serenity/motel/offers/update/:id'
+    redirectClose: serenity/motel/offers
+    flashSave: Создано
+update:
+    title: 'Редактирование романтического предложения'
+    redirect: serenity/motel/offers
+    redirectClose: serenity/motel/offers
+    flashSave: Сохранено
+    flashDelete: Удалено
+preview:
+    title: 'Просмотр романтического предложения'

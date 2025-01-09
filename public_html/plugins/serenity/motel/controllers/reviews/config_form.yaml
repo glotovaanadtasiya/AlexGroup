@@ -1,0 +1,17 @@
+name: Отзывы
+modelClass: Serenity\Motel\Models\Review
+form: $/serenity/motel/models/review/fields.yaml
+defaultRedirect: serenity/motel/reviews
+create:
+    title: 'Создание отзыва'
+    redirect: 'serenity/motel/reviews/update/:id'
+    redirectClose: serenity/motel/reviews
+    flashSave: 'Отзыв создан'
+update:
+    title: 'Редактирование отзыва'
+    redirect: serenity/motel/reviews
+    redirectClose: serenity/motel/reviews
+    flashSave: 'Отзыв сохранён'
+    flashDelete: 'Отзыв удалён'
+preview:
+    title: 'Просмотр отзыва'

@@ -1,0 +1,11 @@
+columns:
+    id:
+        label: ID
+        type: number
+        invisible: true
+        sortable: true
+        width: 100px
+    name:
+        label: Название
+        type: text
+        searchable: true

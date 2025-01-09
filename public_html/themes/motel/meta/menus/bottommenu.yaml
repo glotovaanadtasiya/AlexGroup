@@ -1,0 +1,106 @@
+name: 'Нижнее меню'
+items:
+    -
+        title: Отели
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: oteli
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: 'О компании'
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: o-kompanii
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: 'Скидки и акции'
+        nesting: ''
+        type: cms-page
+        url: ''
+        code: ''
+        reference: skidki-i-akcii
+        cmsPage: ''
+        replace: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Отзывы
+        nesting: ''
+        type: cms-page
+        url: ''
+        code: ''
+        reference: reviews
+        cmsPage: ''
+        replace: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Контакты
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: kontakty
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Новости
+        nesting: ''
+        type: cms-page
+        url: ''
+        code: ''
+        reference: news
+        cmsPage: ''
+        replace: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Цены
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: ceny
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Меню
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: menu
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'

@@ -1,0 +1,47 @@
+description = "Форма обратной связи"
+
+[viewBag]
+==
+<div class="s-contact-form__container container">
+          
+          <!-- Moon -->
+          <div class="s-contact-form__moon">
+            <div class="moon js-moon">
+              <div class="moon__inner moon__inner_bottom-right">
+                <img src="/themes/motel/assets/img/moon.svg" alt="" class="moon__image">
+              </div>
+            </div>
+          </div>
+          <!-- /Moon -->
+          
+          <h2 class="h2">Напишите нам</h2>
+          <form class="contact-form" data-request="onSubmitContactForm"
+                        			              data-request-validate
+                        			              data-request-flash
+                        			              data-request-success="$('.contact-form input').val('');">
+            <div class="contact-form__field form-field">
+              <input type="text" name="name" placeholder="Имя" class="contact-form__input input">
+            </div>
+            <div class="contact-form__field form-field">
+              <input type="email" name="email" placeholder="E-mail" class="contact-form__input input">
+            </div>
+            <div class="contact-form__field form-field">
+              <input type="tel" name="phone" placeholder="+7" class="contact-form__input input js-phone-mask" required>
+            </div>
+            <div class="contact-form__field form-field">
+              <input type="text" name="question" placeholder="Ваш вопрос" class="contact-form__input input">
+            </div>
+            <div class="contact-form__check-wrap">
+              <label class="checkbox">
+                <input type="checkbox" class="checkbox__input visually-hidden" required checked>
+                <span class="checkbox__content">
+                  Нажимая кнопку «Отправить» Вы даете согласие на обработку своих персональных данных и соглашаетесь 
+                  с <a href="/privacy-policy/" class="checkbox__link" target="_blank">политикой конфиденциальности</a>
+                </span>
+              </label>
+            </div>
+            <div class="contact-form__send-wrap">
+              <button class="contact-form__send-btn button button_ghost">Отправить</button>
+            </div>
+          </form>
+        </div>

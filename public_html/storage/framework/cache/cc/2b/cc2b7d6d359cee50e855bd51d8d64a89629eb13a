@@ -1,0 +1,15 @@
+1735042086a:1:{s:9:"oteli.htm";a:7:{s:8:"fileName";s:9:"oteli.htm";s:7:"content";s:835:"[viewBag]
+title = "Отели"
+url = "/hotels/"
+layout = "hotels"
+is_hidden = 0
+navigation_hidden = 0
+meta_title = "Мотель СПБ - Сеть Мини-Отелей во всех районах в Санкт-Петербурге"
+meta_description = "Сеть мини отелей с джакузи на час в Питере с единой службой бронирования номеров по часово по телефону 8 (812) 468-77-77 цены от 900 за час"
+gallery[0][photo] = "/images/hotels-slider/IMG_6124.jpg"
+gallery[1][photo] = "/images/hotels-slider/IMG_4584.jpg"
+gallery[2][photo] = "/images/hotels-slider/IMG_5999.jpg"
+gallery[3][photo] = "/images/hotels-slider/IMG_6156.jpg"
+gallery[4][photo] = "/images/hotels-slider/IMG_8789.jpg"
+gallery[5][photo] = "/images/hotels-slider/IMG_8854.jpg"
+==";s:5:"mtime";i:1654862751;s:6:"markup";s:0:"";s:4:"code";N;s:7:"viewBag";a:8:{s:5:"title";s:10:"Отели";s:3:"url";s:8:"/hotels/";s:6:"layout";s:6:"hotels";s:9:"is_hidden";s:1:"0";s:17:"navigation_hidden";s:1:"0";s:10:"meta_title";s:116:"Мотель СПБ - Сеть Мини-Отелей во всех районах в Санкт-Петербурге";s:16:"meta_description";s:235:"Сеть мини отелей с джакузи на час в Питере с единой службой бронирования номеров по часово по телефону 8 (812) 468-77-77 цены от 900 за час";s:7:"gallery";a:6:{i:0;a:1:{s:5:"photo";s:34:"/images/hotels-slider/IMG_6124.jpg";}i:1;a:1:{s:5:"photo";s:34:"/images/hotels-slider/IMG_4584.jpg";}i:2;a:1:{s:5:"photo";s:34:"/images/hotels-slider/IMG_5999.jpg";}i:3;a:1:{s:5:"photo";s:34:"/images/hotels-slider/IMG_6156.jpg";}i:4;a:1:{s:5:"photo";s:34:"/images/hotels-slider/IMG_8789.jpg";}i:5;a:1:{s:5:"photo";s:34:"/images/hotels-slider/IMG_8854.jpg";}}}s:12:"parsedMarkup";s:0:"";}}

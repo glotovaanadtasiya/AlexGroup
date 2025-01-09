@@ -1,0 +1,45 @@
+1735042528a:1:{s:26:"blocks/reviewsListItem.htm";a:7:{s:8:"fileName";s:26:"blocks/reviewsListItem.htm";s:7:"content";s:844:"description = "Список отзывов"
+
+[viewBag]
+==
+<div class="s-feedback__items">
+          
+{% for review in reviews %}
+	<div class="feedback-item">
+		<div class="h4">{{ review.author }} {%if review.hotel.name %}— про отель {{ review.hotel.name }}{%endif%}</div>
+		<!--div class="feedback-item__date">
+                {% set mnths = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %}
+                {{ review.created_at|date("j") }} 
+                {{ mnths[review.created_at|date("n")] }} 
+                {{ review.created_at|date("Y") }}
+		</div-->
+		<br/>
+
+		<div class="plaintext">
+                    {{ review.text | raw }}
+		</div>
+	</div>
+
+          {% endfor %}
+
+</div>";s:5:"mtime";i:1689336452;s:6:"markup";s:786:"<div class="s-feedback__items">
+          
+{% for review in reviews %}
+	<div class="feedback-item">
+		<div class="h4">{{ review.author }} {%if review.hotel.name %}— про отель {{ review.hotel.name }}{%endif%}</div>
+		<!--div class="feedback-item__date">
+                {% set mnths = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %}
+                {{ review.created_at|date("j") }} 
+                {{ mnths[review.created_at|date("n")] }} 
+                {{ review.created_at|date("Y") }}
+		</div-->
+		<br/>
+
+		<div class="plaintext">
+                    {{ review.text | raw }}
+		</div>
+	</div>
+
+          {% endfor %}
+
+</div>";s:4:"code";N;s:11:"description";s:27:"Список отзывов";s:7:"viewBag";a:0:{}}}

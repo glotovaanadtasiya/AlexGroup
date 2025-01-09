@@ -1,0 +1,65 @@
+1735042373a:1:{s:25:"blocks/reviews_slider.htm";a:7:{s:8:"fileName";s:25:"blocks/reviews_slider.htm";s:7:"content";s:1264:"description = "Слайдер отзывов"
+
+[viewBag]
+==
+<?php
+use Serenity\Motel\Models\Review;
+function onStart()
+{
+    //$this['reviews'] = Review::all();
+	$this['reviews'] = Review::orderBy('id','desc')->get();
+	
+}
+?>
+==
+<div class="darkcommontheme darktheme">
+      <div class="s-reviews section">
+        <div class="s-reviews__container container">
+          <div class="s-reviews__title h2">О нас говорят</div>
+          <div class="s-reviews__carousel-wrap">
+            <div class="reviews-carousel owl-carousel js-reviews-carousel">
+            {% for review in reviews %}
+                <div class="reviews-carousel__item">
+                    <blockquote class="reviews-carousel__content">
+                        <img src="/themes/motel/assets/img/quote.svg" alt="" class="reviews-carousel__quotes">
+                        <div>{{ review.text | raw }}</div>
+                    </blockquote>
+                </div>
+            {% endfor %}
+            </div>
+          </div>
+          
+          <div class="button-wrap">
+            <a href="/reviews/" class="s-reviews__btn button button_ghost button_medium">Смотреть все отзывы</a>
+          </div>
+        </div>
+      </div>
+    </div>";s:5:"mtime";i:1631598550;s:6:"markup";s:1032:"<div class="darkcommontheme darktheme">
+      <div class="s-reviews section">
+        <div class="s-reviews__container container">
+          <div class="s-reviews__title h2">О нас говорят</div>
+          <div class="s-reviews__carousel-wrap">
+            <div class="reviews-carousel owl-carousel js-reviews-carousel">
+            {% for review in reviews %}
+                <div class="reviews-carousel__item">
+                    <blockquote class="reviews-carousel__content">
+                        <img src="/themes/motel/assets/img/quote.svg" alt="" class="reviews-carousel__quotes">
+                        <div>{{ review.text | raw }}</div>
+                    </blockquote>
+                </div>
+            {% endfor %}
+            </div>
+          </div>
+          
+          <div class="button-wrap">
+            <a href="/reviews/" class="s-reviews__btn button button_ghost button_medium">Смотреть все отзывы</a>
+          </div>
+        </div>
+      </div>
+    </div>";s:4:"code";s:159:"use Serenity\Motel\Models\Review;
+function onStart()
+{
+    //$this['reviews'] = Review::all();
+	$this['reviews'] = Review::orderBy('id','desc')->get();
+	
+}";s:11:"description";s:29:"Слайдер отзывов";s:7:"viewBag";a:0:{}}}

@@ -1,0 +1,1637 @@
+1735042551a:1:{s:9:"hotel.htm";a:6:{s:8:"fileName";s:9:"hotel.htm";s:7:"content";s:38589:"description = "Шаблон страницы отеля"
+==
+<?php
+use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Name;
+use Serenity\Motel\Models\Service;
+use Serenity\Motel\Models\Offer;
+function onInit()
+{
+    $this['hotels'] = Hotel::all();
+    $this['services'] = Service::all();
+    $this['offers'] = Offer::all();
+    
+    $hotel = Hotel::where('slug', $this->param('slug'))->first();
+    if(!$hotel)
+        return $this->controller->run('404');
+    
+    $this['hotel'] = $hotel;
+}
+
+function onSubmitBooking(){
+    
+    $vars = [
+		'type' => 1, /*запись в crm*/
+		'connect-type' => Input::get('connect-type'), 
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+		'booking_hours' => Input::get('booking-hours'),
+		'booking_minutes' => Input::get('booking-minutes'),
+		'booking_smocking' => Input::get('booking-smocking'),
+		'email' => Input::get('email')
+		
+        ];
+	
+
+	/*отправка в crm*/
+	
+	$url = 'http://suz.motelspb.com/_321/backend/save.php';
+	$params = $vars;
+	$result = file_get_contents($url, false, stream_context_create(array(
+    'http' => array(
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
+        'content' => http_build_query($params)
+		)
+	)));
+
+
+	
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+	
+	
+
+	
+    
+	/*логирование данных*/
+	$file_log = $_SERVER["DOCUMENT_ROOT"] . "/1/log.log";
+	date_default_timezone_set('Europe/Moscow');
+    $fw = fopen($file_log, "a");
+	fwrite($fw, date("H:i:s  d.m.y")." from site VARS " . var_export($vars, true));	
+    fclose($fw);
+	/**/
+
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+{% partial "basic/head" %}
+</head>
+
+<body class="js-body">
+    
+    <!-- Main content -->
+  <main class="main">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    <!-- Header -->
+    {% partial "basic/header" %}
+    <!-- /Header -->
+    </div>
+    <div class="hotel-main-descr">
+      <!-- Flame offer block (mobile cloned) -->
+      <div class="hotel-main-descr__offer">
+        {% partial 'blocks/special_offer' %}
+      </div>
+      <!-- /Flame offer block (mobile cloned) -->
+      <div class="hotel-main-descr__container container">
+        <div class="hotel-main-descr__box">
+		
+<div class="beidj-container-on-hotel-page">
+{% if hotel.new %}
+<div class="beidj-new">new</div>
+{% endif %}
+{% if hotel.low_price %}
+<div class="beidj-lowprice">цены снижены</div>
+{% endif %}
+</div>
+		  <h1 class="hotel-main-descr__title">{% if hotel.full_name %}{{hotel.full_name}}{% else %}Отель {{ hotel.name }}{% endif %}</h1>
+
+
+          <div class="hotel-main-descr__address">
+            <div class="hotel-main-descr__metro">
+              <span class="hotel-main-descr__metro-name">{{ hotel.metro }}</span>
+              {% if hotel.metro_line == 1 %}
+                {% set metro_color = 'metro-icon_red' %}
+              {% elseif hotel.metro_line == 2 %}
+                {% set metro_color = 'metro-icon_blue' %}
+              {% elseif hotel.metro_line == 3 %}
+                {% set metro_color = 'metro-icon_green' %}
+              {% elseif hotel.metro_line == 4 %}
+                {% set metro_color = 'metro-icon_orange' %}
+              {% elseif hotel.metro_line == 5 %}
+                {% set metro_color = 'metro-icon_purple' %}
+              {% endif %}
+              <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="hotel-main-descr__metro-icon metro-icon  {{ metro_color }} js-svg">
+            </div>
+            <div class="hotel-main-descr__address-text">{{ hotel.address }}</div>
+          </div>
+
+          <div class="hotel-main-descr__info">
+            <div class="hotel-main-descr__price">От 
+				{% if hotel.min_price %}
+					{{hotel.min_price}}
+				{% else %} 
+					{{ hotel.standart_prop.0.tariffs | first.sun_thu }}
+				{% endif %}
+				<span class="hotel-main-descr__price-currency">рублей</span></div>
+            <div class="hotel-main-descr__time">
+				{% if hotel.min_price %}
+					{{hotel.min_price_tarif_name}}
+				{% else %} 
+					за {{ hotel.standart_prop.0.tariffs | first.price_name }}
+				{% endif %}
+			</div>
+          </div>
+
+          <div class="hotel-main-descr__booking">
+            <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-main-descr__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+	
+{% if hotel.description %}	
+<div class="hotel-main-descr">
+<div class="container text_container plaintext">
+{{hotel.description | raw }}
+	
+</div>	
+</div>	
+{% endif %}	
+
+
+        <div class="s-hotel-info">          
+          
+          <!-- Tabs -->
+          <div class="tabs js-tabs">         
+            <!-- Tabs Buttons -->
+            <div class="hotel-tabs-switches-wrap tabs__switches-wrap">
+              <div class="s-hotel-info__container tabs__switches-container container">
+                <div class="hotel-tabs-switches tabs__switches">
+                  {% if hotel.lux_prop %}<div class="tabs__switch js-tabs__switch active" data-number-type="lux"><span class="d-none d-md-inline">Номера</span> люкс</div>{% endif %}
+                  {% if hotel.suite_prop %}<div class="tabs__switch js-tabs__switch {% if hotel.lux_prop == false %}active{% endif %}" data-number-type="suite"><span class="d-none d-md-inline">Номера</span> полу-люкс</div>{% endif %}
+                  {% if hotel.standart_prop %}<div class="tabs__switch js-tabs__switch" data-number-type="standard"><span class="d-none d-md-inline">Номера</span> стандарт</div>{% endif %}
+                </div>
+              </div>
+            </div>         
+            <!-- /Tabs Buttons -->
+
+            <div class="tabs__contents">
+              {% if hotel.lux_prop %}
+                <!-- Lux Tab Content -->
+                <div class="hotel-tabs-content tabs__content js-tabs__content active" data-number-type="lux">
+
+                  <div class="photo-slider js-photo-slider owl-carousel" data-desktop-dots="1">
+                    {% for slider in hotel.lux_photos %}
+                      <div class="photo-slider__item">
+                        <!-- NOT lazy load image -->
+					  <img src="{{ slider.path | resize() }}" srcset="{{ slider.path | resize(320) }} 320w,
+														   {{ slider.path | resize(640) }} 640w,
+														   {{ slider.path | resize(1024) }} 1024w,
+														   {{ slider.path | resize() }} 1920w"
+														   
+														   alt="{{ slider.path }}" class="photo-slider__img"> 
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="s-hotel-info__container container">
+                    <div class="s-hotel-info__prices-row">
+                      <div class="s-hotel-info__price-item">
+                        <div class="s-hotel-info__price-val">От {{ hotel.lux_prop.0.tariffs | first.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                        <div class="s-hotel-info__price-term">за {{ hotel.lux_prop.0.tariffs | first.price_name }}</div>
+                      </div>
+                      <div class="s-hotel-info__price-item">
+                        <div class="s-hotel-info__price-val">{{ hotel.lux_prop.0.tariffs | last.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                        <div class="s-hotel-info__price-term">за {{ hotel.lux_prop.0.tariffs | last.price_name | lower }}</div>
+                      </div>
+                    </div>
+
+                    <div class="s-hotel-info__text plaintext">
+                      {{ hotel.lux_prop.0.type_description | raw }}
+                    </div>
+
+                    <div class="s-hotel-info__calc-wrap js-calc-wrap">
+
+					<div class="s-hotel-info__title h4">Выберите тариф</div>
+					
+		
+
+                      <div class="s-hotel-info__tariffs">
+                        <div class="tar-table js-tar-table table" data-sum="0">
+                          <div class="table__head">
+                            <div class="table__tr table__tr_head">
+                              <div class="tar-table__main-col table__th">
+								Основные тарифы
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                Вс-Чт
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                ПТ-Сб
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table__body">
+
+                            {% partial 'blocks/tariffsForPrice' hotel=hotel type='lux' %}
+
+                          </div>
+                        </div>
+
+
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/"  style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>
+                      </div>
+					  
+					  
+					  
+
+                    <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                      {% partial "blocks/additional_services" services=services offers=offers %}
+
+                      <div class="hotel-total-box">
+                        <div class="hotel-total-box__item h4">
+                          <span class="hotel-total-box__text">Итого:</span>
+                          <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                        </div>
+
+                        <div class="hotel-total-box__booking-wrap">
+                          <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+                <!-- /Lux Tab Content -->
+              {% endif %}
+
+
+              {% if hotel.suite_prop %}
+              <!-- Suite Tab Content -->
+              <div class="hotel-tabs-content tabs__content js-tabs__content {% if hotel.lux_prop == false %}active{% endif %}" data-number-type="suite">
+
+                <div class="photo-slider js-photo-slider owl-carousel" data-desktop-dots="1">
+                  {% for slider in hotel.suite_photos %}
+                    <div class="photo-slider__item">
+                      <!-- NOT lazy load image -->
+					  <img src="{{ slider.path | resize() }}" srcset="{{ slider.path | resize(320) }} 320w,
+														   {{ slider.path | resize(640) }} 640w,
+														   {{ slider.path | resize(1024) }} 1024w,
+														   {{ slider.path | resize() }} 1920w"
+														   alt="" class="photo-slider__img">   
+                      
+                    </div>
+                  {% endfor %}
+                </div>
+
+                
+
+                <div class="s-hotel-info__container container">
+                  <div class="s-hotel-info__prices-row">
+                    <div class="s-hotel-info__price-item">
+                      <div class="s-hotel-info__price-val">От {{ hotel.suite_prop.0.tariffs | first.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                      <div class="s-hotel-info__price-term">за {{ hotel.suite_prop.0.tariffs | first.price_name }}</div>
+                    </div>
+                    <div class="s-hotel-info__price-item">
+                      <div class="s-hotel-info__price-val">{{ hotel.suite_prop.0.tariffs | last.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                      <div class="s-hotel-info__price-term">за {{ hotel.suite_prop.0.tariffs | last.price_name | lower }}</div>
+                    </div>
+                  </div>
+
+                  <div class="s-hotel-info__text plaintext">
+                  {{ hotel.suite_prop.0.type_description | raw }}
+                  </div>
+
+                  <div class="s-hotel-info__calc-wrap js-calc-wrap">
+				  
+                    <div class="s-hotel-info__title h4">Выберите тариф</div>
+					
+						
+
+                    <div class="s-hotel-info__tariffs">
+                      <div class="tar-table js-tar-table table" data-sum="0">
+                        <div class="table__head">
+                          <div class="table__tr table__tr_head">
+                            <div class="tar-table__main-col table__th">
+								Основные тарифы
+                            </div>
+                            <div class="tar-table__data-col table__th">
+                              Вс-Чт
+                            </div>
+                            <div class="tar-table__data-col table__th">
+                              ПТ-Сб
+                            </div>
+                          </div>
+                        </div>
+                        <div class="table__body">
+
+                        {% partial 'blocks/tariffsForPrice' hotel=hotel type='suite' %}
+
+                        </div>
+                      </div>
+
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/"  style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>
+
+                    </div>	
+
+	
+
+                    <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                    {% partial "blocks/additional_services" services=services offers=offers %}
+
+                    <div class="hotel-total-box">
+                      <div class="hotel-total-box__item h4">
+                        <span class="hotel-total-box__text">Итого:</span>
+                        <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                      </div>
+
+                      <div class="hotel-total-box__booking-wrap">
+                        <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+              <!-- /Suite Tab Content -->
+              {% endif %}
+
+              {% if hotel.standart_prop %}
+                <!-- Standard Tab Content -->
+                <div class="hotel-tabs-content tabs__content js-tabs__content" data-number-type="standard">
+
+                  <div class="photo-slider js-photo-slider owl-carousel" data-desktop-dots="1">
+                    {% for slider in hotel.standart_photos %}
+                      <div class="photo-slider__item">
+                        <!-- NOT lazy load image -->
+					  <img src="{{ slider.path | resize() }}" srcset="{{ slider.path | resize(320) }} 320w,
+														   {{ slider.path | resize(640) }} 640w,
+														   {{ slider.path | resize(1024) }} 1024w,
+														   {{ slider.path | resize() }} 1920w"
+														   alt="" class="photo-slider__img">
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="s-hotel-info__container container">
+                    <div class="s-hotel-info__prices-row">
+                      <div class="s-hotel-info__price-item">
+                        <div class="s-hotel-info__price-val">От {{ hotel.standart_prop.0.tariffs | first.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                        <div class="s-hotel-info__price-term">за {{ hotel.standart_prop.0.tariffs | first.price_name }}</div>
+                      </div>
+                      <div class="s-hotel-info__price-item">
+                        <div class="s-hotel-info__price-val">{{ hotel.standart_prop.0.tariffs | last.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                        <div class="s-hotel-info__price-term">за {{ hotel.standart_prop.0.tariffs | last.price_name | lower }}</div>
+                      </div>
+                    </div>
+
+                    <div class="s-hotel-info__text plaintext">
+                      {{ hotel.standart_prop.0.type_description | raw }}
+                    </div>
+
+                    <div class="s-hotel-info__calc-wrap js-calc-wrap">
+					
+                      <div class="s-hotel-info__title h4">Выберите тариф</div>
+					  
+					  
+
+                      <div class="s-hotel-info__tariffs">
+                        <div class="tar-table js-tar-table table" data-sum="0">
+                          <div class="table__head">
+                            <div class="table__tr table__tr_head">
+                              <div class="tar-table__main-col table__th">
+								Основные тарифы
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                Вс-Чт
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                ПТ-Сб
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table__body">
+
+                            {% partial 'blocks/tariffsForPrice' hotel=hotel type='standard' %}
+
+                          </div>				  
+							
+                        </div>
+						
+                      </div>
+					  
+	<!---------------------------------------------------------->				
+
+{% if hotel.slug == 'marata' %}	
+                      <div class="s-hotel-info__tariffs">
+                        <div class="tar-table table" >
+                          <div class="table__head">
+                            <div class="table__tr table__tr_head">
+                              <div class="tar-table__main-col table__th">
+								Дополнительные тарифы
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                Стоимость
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table__body">
+<div class="table__tr">
+	<div class="tar-table__main-col table__td"><a href="/stocks/stock/tarif-vyhodnoj/">Выходные дни<br>суббота-воскресенье<br>(цена за 2 суток)</a></div>
+	<div class="tar-table__data-col table__td  js-tar-table-data">5000</div>
+</div>
+</div></div></div>	
+{% endif %}
+
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/"  style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>
+
+
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>	<br><br>						  
+	<!----------------------------------------------------------->						  
+
+                    <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                      <div class="s-hotel-info__title h4">Выберите дополнительтные услуги</div>
+
+                      {% partial "blocks/additional_services" services=services offers=offers %}
+
+                      <div class="hotel-total-box">
+                        <div class="hotel-total-box__item h4">
+                          <span class="hotel-total-box__text">Итого:</span>
+                          <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                        </div>
+
+                        <div class="hotel-total-box__booking-wrap">
+                          <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+                <!-- /Standard Tab Content -->
+              {% endif %}
+
+
+            </div>
+          </div>
+          <!-- /Tabs -->
+
+          <div class="hotel-illustration">
+            <!-- Sky -->
+            <div class="hotel-illustration__stars starry-sky-canvas">
+              <div class="starry-sky js-starry-sky" data-stars-amount="25"></div>
+            </div>
+            <!-- /Sky -->
+
+                      
+          
+            <!-- Flame offer block (tablet) -->
+            <div class="hotel-illustration__offer d-none d-md-block d-lg-none">
+              <div class="special-offer-outer js-special-offer-outer js-special-offer-outer-clone">
+                <div class="special-offer js-special-offer">
+                  <div class="special-offer__icon-wrap">
+                    <img src="/themes/motel/assets/img/flame.svg"  class="special-offer__icon js-svg" alt="">
+                  </div>
+                  <div class="special-offer__content">
+                    <div class="special-offer__title">ТАРИФ «ВЫХОДНОЙ»</div>
+                    <div class="special-offer__txt">
+                      <p>12 часовое проживание</p>
+                      <p>Действует в период с 11:00 СБ до 11:00 ПН. Бронирование осуществляется в день заезда или за день до него.</p>
+                    </div>
+                    <a href="#" class="special-offer__link">Подробнее <img src="/themes/motel/assets/img/arrow-right.svg" class="special-offer__link-icon js-svg" alt=""></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Flame offer block (tablet) -->
+
+            <div class="hotel-illustration__container container">
+              <img src="/themes/motel/assets/img/hotel-illustration.png" srcset="/themes/motel/assets/img/hotel-illustration@2x.png 2x" alt="illustration" class="hotel-illustration__img">
+            </div>
+
+          </div>
+
+        </div>
+      
+    </div>
+	
+	
+	<div class="photo-slider js-photo-slider owl-carousel">
+      {% for photo in hotel.slider %}
+        <div class="photo-slider__item">
+					  <img src="{{ photo.path | resize() }}" srcset="{{ photo.path | resize(320) }} 320w,
+														   {{ photo.path | resize(640) }} 640w,
+														   {{ photo.path | resize(1024) }} 1024w,
+														   {{ photo.path | resize() }} 1920w"
+														   alt="" class="photo-slider__img">		  
+        </div>
+      {% endfor %}
+    </div>
+	
+
+    {% partial "blocks/reviews_slider" %}
+
+    <div class="darkcommontheme darkblurtheme">
+      
+      <div class="darkgradtheme__inner-blured">
+        <div class="s-convenience section">
+          <!-- Sky -->
+          <div class="s-convenience__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+          </div>
+          <!-- /Sky -->
+          <div class="s-convenience__container container">
+            <div class="s-convenience__title h2">Удобства отеля</div>
+          </div>
+          
+          <div class="offer-items">
+            <div class="offer-items__container container">
+              <div class="offer-items__row row">
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience1.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Роскошные современные интерьеры</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience2.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">SPA ванны</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience3.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Квалифицированный персонал
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience4.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Почасовая оплата</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience5.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Бар с напитками</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience6.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Кондиционеры</div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="darkcommontheme darkgradtheme">
+                
+      
+      <div class="s-how-get section" id="how-get">
+        <!-- Sky -->
+        <div class="s-how-get__starry starry-sky-canvas">
+          <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+        </div>
+        <!-- /Sky -->
+        <div class="s-how-get__container container">
+          <h2 class="s-how-get__title h2">Как добраться</h2>
+          <div class="s-how-get__box row">
+            <div class="s-how-get__col col-md-6">
+              <div class="s-how-get__hotel-title h5">Отель {{ hotel.name }}</div>
+              <!-- mobile scheme -->
+              <div class="s-how-get__scheme d-md-none">
+                {% if hotel.how_to_get_to_map.path %}
+                <img src="{{ hotel.how_to_get_to_map.path }}" alt="Схема проезда" class="s-how-get__scheme-img">
+                {% endif %}
+              </div>
+              <!-- /mobile scheme -->
+              <div class="s-how-get__hotel-location">
+                <div class="s-how-get__location-title h4">Адрес:</div>
+                <div class="s-how-get__location-info">
+                  <div class="s-how-get__metro">
+                    <span class="s-how-get__metro-name">{{ hotel.metro }}</span>
+
+                      <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="hotel-main-descr__metro-icon metro-icon  {{ metro_color }} js-svg">
+                  </div>
+                  <div class="s-how-get__address">{{ hotel.address }}
+				  
+				<br><br>
+				{% if hotel.yandex_map_link %}
+				<a href="{{ hotel.yandex_map_link }}">на Яндекс картах →</a><br>
+				{% endif %}
+				{% if hotel.google_map_link %}
+				<a href="{{ hotel.google_map_link }}">на Google картах →</a>
+				{% endif %}				  
+				  
+				  </div>
+                </div>
+              </div>
+              <div class="s-how-get__hotel-contact">
+                <span class="s-how-get__contact-title h4">Телефон:</span>
+				<div style="display: inline-block; vertical-align: top;;">
+                <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="s-how-get__contact-phone">+7-812-468-77-77</a><br>
+				<a href="tel:+78124030091" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="s-how-get__contact-phone">+7-812-403-00-91</a>
+				</div>
+				
+              </div>
+              <div class="s-how-get__hotel-note">{{ hotel.comment_how_to_get_to | raw }}</div>
+            </div>
+            <div class="s-how-get__col col-md-6">
+              <!-- desktop scheme -->
+              <div class="s-how-get__scheme d-none d-md-block">
+                {% if hotel.how_to_get_to_map.path %}
+                <img src="{{ hotel.how_to_get_to_map.path }}" alt="Схема проезда" class="s-how-get__scheme-img">
+                {% endif %}
+              </div>
+              <!-- /desktop scheme -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+        {% if hotel.how_to_get_to_photo.path %}
+        <div class="photo-slider__item">
+            <img src="{{ hotel.how_to_get_to_photo.path }}" alt="" class="photo-slider__img">
+        </div>
+        {% endif %}
+
+      
+    </div>
+	
+	{% if hotel.seo_text %}	
+	<div class="s-main-about section">
+		<div class="s-main-about__container container">	
+			<div class="read-more special-text">
+				{{ hotel.seo_text | raw }}
+				<p class="prompt"><a href="#">читать дальше</a></p>
+			</div>
+		</div>	
+	</div>
+	{% endif %}	
+	
+    
+  </main>
+  <!-- /Main content -->
+  
+    
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  <!-- Modals -->
+  <div class="modals hidden">    
+    
+	{% partial "blocks/booking-popup" %}  
+  </div>
+  <!-- /Modals -->  
+  
+  
+  <script>
+    // Data for the markers consisting of a name, title, a LatLng, zIndex  and state (optional)
+    var gMapHotels = [
+      ['{{ hotel.slug }}', 'Отель {{ hotel.name }}', {{ hotel.coordinates }}, 1],
+    {#{% for hotel in hotels %}
+    ['{{ hotel.slug }}', 'Отель {{ hotel.name }}', {{ hotel.coordinates }}, 1],
+    {% endfor %}#}
+    ];
+  </script>
+  
+  <!-- google maps api -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAosLw6LPVOHPdiVUr8mClGPM6hKzTt1v4"></script> <!--AIzaSyDO0Hiz_xAaWmeF9QUlqTHPAyDwWoZ9Bxk*--Ю
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:5:"mtime";i:1711360092;s:6:"markup";s:35563:"<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+{% partial "basic/head" %}
+</head>
+
+<body class="js-body">
+    
+    <!-- Main content -->
+  <main class="main">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    <!-- Header -->
+    {% partial "basic/header" %}
+    <!-- /Header -->
+    </div>
+    <div class="hotel-main-descr">
+      <!-- Flame offer block (mobile cloned) -->
+      <div class="hotel-main-descr__offer">
+        {% partial 'blocks/special_offer' %}
+      </div>
+      <!-- /Flame offer block (mobile cloned) -->
+      <div class="hotel-main-descr__container container">
+        <div class="hotel-main-descr__box">
+		
+<div class="beidj-container-on-hotel-page">
+{% if hotel.new %}
+<div class="beidj-new">new</div>
+{% endif %}
+{% if hotel.low_price %}
+<div class="beidj-lowprice">цены снижены</div>
+{% endif %}
+</div>
+		  <h1 class="hotel-main-descr__title">{% if hotel.full_name %}{{hotel.full_name}}{% else %}Отель {{ hotel.name }}{% endif %}</h1>
+
+
+          <div class="hotel-main-descr__address">
+            <div class="hotel-main-descr__metro">
+              <span class="hotel-main-descr__metro-name">{{ hotel.metro }}</span>
+              {% if hotel.metro_line == 1 %}
+                {% set metro_color = 'metro-icon_red' %}
+              {% elseif hotel.metro_line == 2 %}
+                {% set metro_color = 'metro-icon_blue' %}
+              {% elseif hotel.metro_line == 3 %}
+                {% set metro_color = 'metro-icon_green' %}
+              {% elseif hotel.metro_line == 4 %}
+                {% set metro_color = 'metro-icon_orange' %}
+              {% elseif hotel.metro_line == 5 %}
+                {% set metro_color = 'metro-icon_purple' %}
+              {% endif %}
+              <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="hotel-main-descr__metro-icon metro-icon  {{ metro_color }} js-svg">
+            </div>
+            <div class="hotel-main-descr__address-text">{{ hotel.address }}</div>
+          </div>
+
+          <div class="hotel-main-descr__info">
+            <div class="hotel-main-descr__price">От 
+				{% if hotel.min_price %}
+					{{hotel.min_price}}
+				{% else %} 
+					{{ hotel.standart_prop.0.tariffs | first.sun_thu }}
+				{% endif %}
+				<span class="hotel-main-descr__price-currency">рублей</span></div>
+            <div class="hotel-main-descr__time">
+				{% if hotel.min_price %}
+					{{hotel.min_price_tarif_name}}
+				{% else %} 
+					за {{ hotel.standart_prop.0.tariffs | first.price_name }}
+				{% endif %}
+			</div>
+          </div>
+
+          <div class="hotel-main-descr__booking">
+            <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-main-descr__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+	
+{% if hotel.description %}	
+<div class="hotel-main-descr">
+<div class="container text_container plaintext">
+{{hotel.description | raw }}
+	
+</div>	
+</div>	
+{% endif %}	
+
+
+        <div class="s-hotel-info">          
+          
+          <!-- Tabs -->
+          <div class="tabs js-tabs">         
+            <!-- Tabs Buttons -->
+            <div class="hotel-tabs-switches-wrap tabs__switches-wrap">
+              <div class="s-hotel-info__container tabs__switches-container container">
+                <div class="hotel-tabs-switches tabs__switches">
+                  {% if hotel.lux_prop %}<div class="tabs__switch js-tabs__switch active" data-number-type="lux"><span class="d-none d-md-inline">Номера</span> люкс</div>{% endif %}
+                  {% if hotel.suite_prop %}<div class="tabs__switch js-tabs__switch {% if hotel.lux_prop == false %}active{% endif %}" data-number-type="suite"><span class="d-none d-md-inline">Номера</span> полу-люкс</div>{% endif %}
+                  {% if hotel.standart_prop %}<div class="tabs__switch js-tabs__switch" data-number-type="standard"><span class="d-none d-md-inline">Номера</span> стандарт</div>{% endif %}
+                </div>
+              </div>
+            </div>         
+            <!-- /Tabs Buttons -->
+
+            <div class="tabs__contents">
+              {% if hotel.lux_prop %}
+                <!-- Lux Tab Content -->
+                <div class="hotel-tabs-content tabs__content js-tabs__content active" data-number-type="lux">
+
+                  <div class="photo-slider js-photo-slider owl-carousel" data-desktop-dots="1">
+                    {% for slider in hotel.lux_photos %}
+                      <div class="photo-slider__item">
+                        <!-- NOT lazy load image -->
+					  <img src="{{ slider.path | resize() }}" srcset="{{ slider.path | resize(320) }} 320w,
+														   {{ slider.path | resize(640) }} 640w,
+														   {{ slider.path | resize(1024) }} 1024w,
+														   {{ slider.path | resize() }} 1920w"
+														   
+														   alt="{{ slider.path }}" class="photo-slider__img"> 
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="s-hotel-info__container container">
+                    <div class="s-hotel-info__prices-row">
+                      <div class="s-hotel-info__price-item">
+                        <div class="s-hotel-info__price-val">От {{ hotel.lux_prop.0.tariffs | first.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                        <div class="s-hotel-info__price-term">за {{ hotel.lux_prop.0.tariffs | first.price_name }}</div>
+                      </div>
+                      <div class="s-hotel-info__price-item">
+                        <div class="s-hotel-info__price-val">{{ hotel.lux_prop.0.tariffs | last.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                        <div class="s-hotel-info__price-term">за {{ hotel.lux_prop.0.tariffs | last.price_name | lower }}</div>
+                      </div>
+                    </div>
+
+                    <div class="s-hotel-info__text plaintext">
+                      {{ hotel.lux_prop.0.type_description | raw }}
+                    </div>
+
+                    <div class="s-hotel-info__calc-wrap js-calc-wrap">
+
+					<div class="s-hotel-info__title h4">Выберите тариф</div>
+					
+		
+
+                      <div class="s-hotel-info__tariffs">
+                        <div class="tar-table js-tar-table table" data-sum="0">
+                          <div class="table__head">
+                            <div class="table__tr table__tr_head">
+                              <div class="tar-table__main-col table__th">
+								Основные тарифы
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                Вс-Чт
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                ПТ-Сб
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table__body">
+
+                            {% partial 'blocks/tariffsForPrice' hotel=hotel type='lux' %}
+
+                          </div>
+                        </div>
+
+
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/"  style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>
+                      </div>
+					  
+					  
+					  
+
+                    <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                      {% partial "blocks/additional_services" services=services offers=offers %}
+
+                      <div class="hotel-total-box">
+                        <div class="hotel-total-box__item h4">
+                          <span class="hotel-total-box__text">Итого:</span>
+                          <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                        </div>
+
+                        <div class="hotel-total-box__booking-wrap">
+                          <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+                <!-- /Lux Tab Content -->
+              {% endif %}
+
+
+              {% if hotel.suite_prop %}
+              <!-- Suite Tab Content -->
+              <div class="hotel-tabs-content tabs__content js-tabs__content {% if hotel.lux_prop == false %}active{% endif %}" data-number-type="suite">
+
+                <div class="photo-slider js-photo-slider owl-carousel" data-desktop-dots="1">
+                  {% for slider in hotel.suite_photos %}
+                    <div class="photo-slider__item">
+                      <!-- NOT lazy load image -->
+					  <img src="{{ slider.path | resize() }}" srcset="{{ slider.path | resize(320) }} 320w,
+														   {{ slider.path | resize(640) }} 640w,
+														   {{ slider.path | resize(1024) }} 1024w,
+														   {{ slider.path | resize() }} 1920w"
+														   alt="" class="photo-slider__img">   
+                      
+                    </div>
+                  {% endfor %}
+                </div>
+
+                
+
+                <div class="s-hotel-info__container container">
+                  <div class="s-hotel-info__prices-row">
+                    <div class="s-hotel-info__price-item">
+                      <div class="s-hotel-info__price-val">От {{ hotel.suite_prop.0.tariffs | first.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                      <div class="s-hotel-info__price-term">за {{ hotel.suite_prop.0.tariffs | first.price_name }}</div>
+                    </div>
+                    <div class="s-hotel-info__price-item">
+                      <div class="s-hotel-info__price-val">{{ hotel.suite_prop.0.tariffs | last.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                      <div class="s-hotel-info__price-term">за {{ hotel.suite_prop.0.tariffs | last.price_name | lower }}</div>
+                    </div>
+                  </div>
+
+                  <div class="s-hotel-info__text plaintext">
+                  {{ hotel.suite_prop.0.type_description | raw }}
+                  </div>
+
+                  <div class="s-hotel-info__calc-wrap js-calc-wrap">
+				  
+                    <div class="s-hotel-info__title h4">Выберите тариф</div>
+					
+						
+
+                    <div class="s-hotel-info__tariffs">
+                      <div class="tar-table js-tar-table table" data-sum="0">
+                        <div class="table__head">
+                          <div class="table__tr table__tr_head">
+                            <div class="tar-table__main-col table__th">
+								Основные тарифы
+                            </div>
+                            <div class="tar-table__data-col table__th">
+                              Вс-Чт
+                            </div>
+                            <div class="tar-table__data-col table__th">
+                              ПТ-Сб
+                            </div>
+                          </div>
+                        </div>
+                        <div class="table__body">
+
+                        {% partial 'blocks/tariffsForPrice' hotel=hotel type='suite' %}
+
+                        </div>
+                      </div>
+
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/"  style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>
+
+                    </div>	
+
+	
+
+                    <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                    {% partial "blocks/additional_services" services=services offers=offers %}
+
+                    <div class="hotel-total-box">
+                      <div class="hotel-total-box__item h4">
+                        <span class="hotel-total-box__text">Итого:</span>
+                        <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                      </div>
+
+                      <div class="hotel-total-box__booking-wrap">
+                        <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+              <!-- /Suite Tab Content -->
+              {% endif %}
+
+              {% if hotel.standart_prop %}
+                <!-- Standard Tab Content -->
+                <div class="hotel-tabs-content tabs__content js-tabs__content" data-number-type="standard">
+
+                  <div class="photo-slider js-photo-slider owl-carousel" data-desktop-dots="1">
+                    {% for slider in hotel.standart_photos %}
+                      <div class="photo-slider__item">
+                        <!-- NOT lazy load image -->
+					  <img src="{{ slider.path | resize() }}" srcset="{{ slider.path | resize(320) }} 320w,
+														   {{ slider.path | resize(640) }} 640w,
+														   {{ slider.path | resize(1024) }} 1024w,
+														   {{ slider.path | resize() }} 1920w"
+														   alt="" class="photo-slider__img">
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="s-hotel-info__container container">
+                    <div class="s-hotel-info__prices-row">
+                      <div class="s-hotel-info__price-item">
+                        <div class="s-hotel-info__price-val">От {{ hotel.standart_prop.0.tariffs | first.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                        <div class="s-hotel-info__price-term">за {{ hotel.standart_prop.0.tariffs | first.price_name }}</div>
+                      </div>
+                      <div class="s-hotel-info__price-item">
+                        <div class="s-hotel-info__price-val">{{ hotel.standart_prop.0.tariffs | last.sun_thu }} <span class="s-hotel-info__price-currency">рублей</span></div>
+                        <div class="s-hotel-info__price-term">за {{ hotel.standart_prop.0.tariffs | last.price_name | lower }}</div>
+                      </div>
+                    </div>
+
+                    <div class="s-hotel-info__text plaintext">
+                      {{ hotel.standart_prop.0.type_description | raw }}
+                    </div>
+
+                    <div class="s-hotel-info__calc-wrap js-calc-wrap">
+					
+                      <div class="s-hotel-info__title h4">Выберите тариф</div>
+					  
+					  
+
+                      <div class="s-hotel-info__tariffs">
+                        <div class="tar-table js-tar-table table" data-sum="0">
+                          <div class="table__head">
+                            <div class="table__tr table__tr_head">
+                              <div class="tar-table__main-col table__th">
+								Основные тарифы
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                Вс-Чт
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                ПТ-Сб
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table__body">
+
+                            {% partial 'blocks/tariffsForPrice' hotel=hotel type='standard' %}
+
+                          </div>				  
+							
+                        </div>
+						
+                      </div>
+					  
+	<!---------------------------------------------------------->				
+
+{% if hotel.slug == 'marata' %}	
+                      <div class="s-hotel-info__tariffs">
+                        <div class="tar-table table" >
+                          <div class="table__head">
+                            <div class="table__tr table__tr_head">
+                              <div class="tar-table__main-col table__th">
+								Дополнительные тарифы
+                              </div>
+                              <div class="tar-table__data-col table__th">
+                                Стоимость
+                              </div>
+                            </div>
+                          </div>
+                          <div class="table__body">
+<div class="table__tr">
+	<div class="tar-table__main-col table__td"><a href="/stocks/stock/tarif-vyhodnoj/">Выходные дни<br>суббота-воскресенье<br>(цена за 2 суток)</a></div>
+	<div class="tar-table__data-col table__td  js-tar-table-data">5000</div>
+</div>
+</div></div></div>	
+{% endif %}
+
+<p style="margin: 20px 0;">с 1 апреля 2024 года в соответствии с законом Санкт-Петербурга от 28.06.2023 N 419-81, при заселении в отель более чем на 24 часа, проживающие  обязаны уплатить курортный сбор в размере 100 руб в сутки с человека. От уплаты курортного сбора освобождена льготная категория граждан. Подробнее можно узнать в <a href="https://motelspb.com/rules/"  style="text-decoration: underline;color:#fbb03b;">правилах проживания пункт 7</a></p>
+
+
+<p>
+— Забронированный и оплаченный тариф НЕВОЗМОЖНО изменить/пересчитать в течение проживания.<br>
+— Почасовое бронирование осуществляется в день заезда либо за день по телефону.<br>
+— Тариф "Ночной" не действует в праздничные и предпраздничные дни.<br>
+— В случае размещения в номере третьего и последующего гостя, с Вас взимается дополнительная плата в размере 50% от стоимости тарифа за каждого гостя.
+</p>	<br><br>						  
+	<!----------------------------------------------------------->						  
+
+                    <div class="payments-pictures-block-outer d-none d-md-block">
+                      <div class="payments-pictures-block">
+                        <img src="/themes/motel/assets/img/paymentsline.png" alt="" class="payments-pictures-block-img">
+                      </div>
+                    </div>
+
+                      <div class="s-hotel-info__title h4">Выберите дополнительтные услуги</div>
+
+                      {% partial "blocks/additional_services" services=services offers=offers %}
+
+                      <div class="hotel-total-box">
+                        <div class="hotel-total-box__item h4">
+                          <span class="hotel-total-box__text">Итого:</span>
+                          <span class="hotel-total-box__number"><span class="hotel-total-box__sum js-hotel-sum">5 000</span> <span class="hotel-total-box__currency">рублей</span></span>
+                        </div>
+
+                        <div class="hotel-total-box__booking-wrap">
+                          <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="hotel-total-box__booking-btn js-top-booking-btn button button_medium button_ghost js-booking-link">Забронировать</a>
+                        </div>
+
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+                <!-- /Standard Tab Content -->
+              {% endif %}
+
+
+            </div>
+          </div>
+          <!-- /Tabs -->
+
+          <div class="hotel-illustration">
+            <!-- Sky -->
+            <div class="hotel-illustration__stars starry-sky-canvas">
+              <div class="starry-sky js-starry-sky" data-stars-amount="25"></div>
+            </div>
+            <!-- /Sky -->
+
+                      
+          
+            <!-- Flame offer block (tablet) -->
+            <div class="hotel-illustration__offer d-none d-md-block d-lg-none">
+              <div class="special-offer-outer js-special-offer-outer js-special-offer-outer-clone">
+                <div class="special-offer js-special-offer">
+                  <div class="special-offer__icon-wrap">
+                    <img src="/themes/motel/assets/img/flame.svg"  class="special-offer__icon js-svg" alt="">
+                  </div>
+                  <div class="special-offer__content">
+                    <div class="special-offer__title">ТАРИФ «ВЫХОДНОЙ»</div>
+                    <div class="special-offer__txt">
+                      <p>12 часовое проживание</p>
+                      <p>Действует в период с 11:00 СБ до 11:00 ПН. Бронирование осуществляется в день заезда или за день до него.</p>
+                    </div>
+                    <a href="#" class="special-offer__link">Подробнее <img src="/themes/motel/assets/img/arrow-right.svg" class="special-offer__link-icon js-svg" alt=""></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Flame offer block (tablet) -->
+
+            <div class="hotel-illustration__container container">
+              <img src="/themes/motel/assets/img/hotel-illustration.png" srcset="/themes/motel/assets/img/hotel-illustration@2x.png 2x" alt="illustration" class="hotel-illustration__img">
+            </div>
+
+          </div>
+
+        </div>
+      
+    </div>
+	
+	
+	<div class="photo-slider js-photo-slider owl-carousel">
+      {% for photo in hotel.slider %}
+        <div class="photo-slider__item">
+					  <img src="{{ photo.path | resize() }}" srcset="{{ photo.path | resize(320) }} 320w,
+														   {{ photo.path | resize(640) }} 640w,
+														   {{ photo.path | resize(1024) }} 1024w,
+														   {{ photo.path | resize() }} 1920w"
+														   alt="" class="photo-slider__img">		  
+        </div>
+      {% endfor %}
+    </div>
+	
+
+    {% partial "blocks/reviews_slider" %}
+
+    <div class="darkcommontheme darkblurtheme">
+      
+      <div class="darkgradtheme__inner-blured">
+        <div class="s-convenience section">
+          <!-- Sky -->
+          <div class="s-convenience__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+          </div>
+          <!-- /Sky -->
+          <div class="s-convenience__container container">
+            <div class="s-convenience__title h2">Удобства отеля</div>
+          </div>
+          
+          <div class="offer-items">
+            <div class="offer-items__container container">
+              <div class="offer-items__row row">
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience1.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Роскошные современные интерьеры</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience2.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">SPA ванны</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience3.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Квалифицированный персонал
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience4.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Почасовая оплата</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience5.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Бар с напитками</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="offer-items__col col-lg-4 col-md-6">
+                  <div class="offer-item">
+                    <div class="offer-item__icon-wrap">
+                      <img src="/themes/motel/assets/img/convenience6.svg" alt="" class="offer-item__icon">
+                    </div>
+                    <div class="offer-item__descr">
+                      <div class="offer-item__title">Кондиционеры</div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="darkcommontheme darkgradtheme">
+                
+      
+      <div class="s-how-get section" id="how-get">
+        <!-- Sky -->
+        <div class="s-how-get__starry starry-sky-canvas">
+          <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+        </div>
+        <!-- /Sky -->
+        <div class="s-how-get__container container">
+          <h2 class="s-how-get__title h2">Как добраться</h2>
+          <div class="s-how-get__box row">
+            <div class="s-how-get__col col-md-6">
+              <div class="s-how-get__hotel-title h5">Отель {{ hotel.name }}</div>
+              <!-- mobile scheme -->
+              <div class="s-how-get__scheme d-md-none">
+                {% if hotel.how_to_get_to_map.path %}
+                <img src="{{ hotel.how_to_get_to_map.path }}" alt="Схема проезда" class="s-how-get__scheme-img">
+                {% endif %}
+              </div>
+              <!-- /mobile scheme -->
+              <div class="s-how-get__hotel-location">
+                <div class="s-how-get__location-title h4">Адрес:</div>
+                <div class="s-how-get__location-info">
+                  <div class="s-how-get__metro">
+                    <span class="s-how-get__metro-name">{{ hotel.metro }}</span>
+
+                      <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="hotel-main-descr__metro-icon metro-icon  {{ metro_color }} js-svg">
+                  </div>
+                  <div class="s-how-get__address">{{ hotel.address }}
+				  
+				<br><br>
+				{% if hotel.yandex_map_link %}
+				<a href="{{ hotel.yandex_map_link }}">на Яндекс картах →</a><br>
+				{% endif %}
+				{% if hotel.google_map_link %}
+				<a href="{{ hotel.google_map_link }}">на Google картах →</a>
+				{% endif %}				  
+				  
+				  </div>
+                </div>
+              </div>
+              <div class="s-how-get__hotel-contact">
+                <span class="s-how-get__contact-title h4">Телефон:</span>
+				<div style="display: inline-block; vertical-align: top;;">
+                <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="s-how-get__contact-phone">+7-812-468-77-77</a><br>
+				<a href="tel:+78124030091" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="s-how-get__contact-phone">+7-812-403-00-91</a>
+				</div>
+				
+              </div>
+              <div class="s-how-get__hotel-note">{{ hotel.comment_how_to_get_to | raw }}</div>
+            </div>
+            <div class="s-how-get__col col-md-6">
+              <!-- desktop scheme -->
+              <div class="s-how-get__scheme d-none d-md-block">
+                {% if hotel.how_to_get_to_map.path %}
+                <img src="{{ hotel.how_to_get_to_map.path }}" alt="Схема проезда" class="s-how-get__scheme-img">
+                {% endif %}
+              </div>
+              <!-- /desktop scheme -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+        {% if hotel.how_to_get_to_photo.path %}
+        <div class="photo-slider__item">
+            <img src="{{ hotel.how_to_get_to_photo.path }}" alt="" class="photo-slider__img">
+        </div>
+        {% endif %}
+
+      
+    </div>
+	
+	{% if hotel.seo_text %}	
+	<div class="s-main-about section">
+		<div class="s-main-about__container container">	
+			<div class="read-more special-text">
+				{{ hotel.seo_text | raw }}
+				<p class="prompt"><a href="#">читать дальше</a></p>
+			</div>
+		</div>	
+	</div>
+	{% endif %}	
+	
+    
+  </main>
+  <!-- /Main content -->
+  
+    
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  <!-- Modals -->
+  <div class="modals hidden">    
+    
+	{% partial "blocks/booking-popup" %}  
+  </div>
+  <!-- /Modals -->  
+  
+  
+  <script>
+    // Data for the markers consisting of a name, title, a LatLng, zIndex  and state (optional)
+    var gMapHotels = [
+      ['{{ hotel.slug }}', 'Отель {{ hotel.name }}', {{ hotel.coordinates }}, 1],
+    {#{% for hotel in hotels %}
+    ['{{ hotel.slug }}', 'Отель {{ hotel.name }}', {{ hotel.coordinates }}, 1],
+    {% endfor %}#}
+    ];
+  </script>
+  
+  <!-- google maps api -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAosLw6LPVOHPdiVUr8mClGPM6hKzTt1v4"></script> <!--AIzaSyDO0Hiz_xAaWmeF9QUlqTHPAyDwWoZ9Bxk*--Ю
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:4:"code";s:2953:"use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Name;
+use Serenity\Motel\Models\Service;
+use Serenity\Motel\Models\Offer;
+function onInit()
+{
+    $this['hotels'] = Hotel::all();
+    $this['services'] = Service::all();
+    $this['offers'] = Offer::all();
+    
+    $hotel = Hotel::where('slug', $this->param('slug'))->first();
+    if(!$hotel)
+        return $this->controller->run('404');
+    
+    $this['hotel'] = $hotel;
+}
+
+function onSubmitBooking(){
+    
+    $vars = [
+		'type' => 1, /*запись в crm*/
+		'connect-type' => Input::get('connect-type'), 
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+		'booking_hours' => Input::get('booking-hours'),
+		'booking_minutes' => Input::get('booking-minutes'),
+		'booking_smocking' => Input::get('booking-smocking'),
+		'email' => Input::get('email')
+		
+        ];
+	
+
+	/*отправка в crm*/
+	
+	$url = 'http://suz.motelspb.com/_321/backend/save.php';
+	$params = $vars;
+	$result = file_get_contents($url, false, stream_context_create(array(
+    'http' => array(
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
+        'content' => http_build_query($params)
+		)
+	)));
+
+
+	
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+	
+	
+
+	
+    
+	/*логирование данных*/
+	$file_log = $_SERVER["DOCUMENT_ROOT"] . "/1/log.log";
+	date_default_timezone_set('Europe/Moscow');
+    $fw = fopen($file_log, "a");
+	fwrite($fw, date("H:i:s  d.m.y")." from site VARS " . var_export($vars, true));	
+    fclose($fw);
+	/**/
+
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}";s:11:"description";s:40:"Шаблон страницы отеля";}}

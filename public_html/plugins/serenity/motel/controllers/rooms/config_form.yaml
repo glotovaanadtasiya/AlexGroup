@@ -1,0 +1,10 @@
+name: Rooms
+form: $/serenity/motel/models/room/fields.yaml
+modelClass: Serenity\Motel\Models\Room
+defaultRedirect: serenity/motel/rooms
+create:
+    redirect: 'serenity/motel/rooms/update/:id'
+    redirectClose: serenity/motel/rooms
+update:
+    redirect: serenity/motel/rooms
+    redirectClose: serenity/motel/rooms

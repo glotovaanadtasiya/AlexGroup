@@ -1,0 +1,8 @@
+columns:
+    id:
+        label: 'ID CRM'
+        type: number
+        width: 30px
+    name:
+        label: 'Название отеля'
+        type: text

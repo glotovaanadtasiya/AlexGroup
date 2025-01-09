@@ -1,0 +1,33 @@
+fields:
+    name:
+        label: Название
+        span: auto
+        type: text
+    type:
+        label: 'Уникальный ключ (англ)'
+        span: auto
+        type: text
+    image:
+        label: Изображение
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload
+    menu_list:
+        label: Список
+        prompt: Добавить
+        span: full
+        type: repeater
+        form:
+            fields:
+                group_menu_list:
+                    label: Название
+                    span: full
+                    type: text
+                price:
+                    label: Цена
+                    span: full
+                    type: text

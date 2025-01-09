@@ -1,0 +1,12 @@
+list: $/ro/rooms/models/hotels/columns.yaml
+modelClass: Ro\Rooms\Models\Hotels
+title: Rooms
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'ro/rooms/rooms/update/:id'

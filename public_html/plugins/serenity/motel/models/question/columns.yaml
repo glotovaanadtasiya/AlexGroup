@@ -1,0 +1,13 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+    question:
+        label: Вопрос
+        type: text
+        searchable: true
+    answer:
+        label: Ответ
+        type: text
+        searchable: true

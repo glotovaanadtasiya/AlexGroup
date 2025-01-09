@@ -1,0 +1,1 @@
+1712144472a:1:{s:6:"fields";a:2:{s:4:"name";a:3:{s:5:"label";s:6:"Имя";s:4:"span";s:4:"auto";s:4:"type";s:4:"text";}s:6:"gender";a:4:{s:5:"label";s:6:"Пол";s:7:"options";a:2:{s:3:"men";s:14:"Мужчина";s:5:"women";s:14:"Женщина";}s:4:"span";s:4:"auto";s:4:"type";s:8:"dropdown";}}}

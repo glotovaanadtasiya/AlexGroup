@@ -1,0 +1,58 @@
+fields:
+    active:
+        label: Активный
+        span: full
+        default: 1
+        type: switch
+    name:
+        label: 'Заголовок отзыва'
+        span: auto
+        type: text
+    author:
+        label: Автор
+        span: auto
+        type: text
+    text:
+        label: Отзыв
+        size: large
+        span: full
+        type: textarea
+    hotel:
+        label: 'Относится к отелю'
+        nameFrom: name
+        descriptionFrom: ''
+        prompt: 'Нажмите %s для того чтобы выбрать отель'
+        list: $/serenity/motel/models/hotel/columns.yaml
+        span: auto
+        type: recordfinder
+    created_at:
+        label: Дата
+        mode: date
+        span: auto
+        type: datepicker
+tabs:
+    fields:
+        rating_service:
+            label: Обслуживание
+            options:
+                'true': +
+                'false': '-'
+            span: full
+            type: balloon-selector
+            tab: Рейтинг
+        rating_room:
+            label: Номер
+            options:
+                'true': +
+                'false': '-'
+            span: full
+            type: balloon-selector
+            tab: Рейтинг
+        rating_food:
+            label: Еда
+            options:
+                'true': +
+                'false': '-'
+            span: full
+            type: balloon-selector
+            tab: Рейтинг

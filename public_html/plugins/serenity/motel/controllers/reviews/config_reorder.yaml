@@ -1,0 +1,4 @@
+title: 'Сортировка отзывов'
+modelClass: Serenity\Motel\Models\Review
+toolbar:
+    buttons: reorder_toolbar

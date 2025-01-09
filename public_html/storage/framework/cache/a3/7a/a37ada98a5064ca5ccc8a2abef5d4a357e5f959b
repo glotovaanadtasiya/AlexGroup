@@ -1,0 +1,351 @@
+1735042007a:1:{s:26:"blocks/tariffsForPrice.htm";a:6:{s:8:"fileName";s:26:"blocks/tariffsForPrice.htm";s:7:"content";s:9440:"[viewBag]
+==
+{% if type == 'standard' %}
+{% for standart_prop in hotel.standart_prop %}
+    {% for standart_price in standart_prop.tariffs %}
+	{% if not standart_price.price_hide %}
+    <div class="table__tr" {% if standart_price.price_desc == '[day]' %}style="color: #fbb03b !important"{% endif %}>
+        <div class="tar-table__main-col table__td">
+        {% if standart_price.price_desc %}
+            <div class="table__hint-point"><span class="table__hint-point-secondary">{{ standart_price.price_name }}</span>
+                <div class="table__hint">
+                    <img class="table__hint-icon js-svg" src="/themes/motel/assets/img/table-hint.svg" alt="">
+                    <div class="table__hint-info">
+						{% if standart_price.price_desc == '[night]' %}
+							тариф «Ночной» — 12 часовой тариф, действует в Вс-Чт с 23:00 до 13:00
+						{% else %}
+								{% if standart_price.price_desc == '[day]' %}
+									тариф «Дневной» — 12 часовой тариф, действует в Сб с 09:00 до 21:00, в Вс-Пн с 09:00 до 23:00.
+									{% else %}
+										{{ standart_price.price_desc }}
+									{% endif %}
+						{% endif %}
+                    </div>
+                </div>
+            </div>
+			
+			{# дописываем время в ночном тарифе #}
+			{% if standart_price.price_desc == '[night]' %}
+				(с 23:00 до 13:00)
+			{% endif %}
+			{% if standart_price.price_desc == '[day]' %}
+				(Сб-Пн) New!
+			{% endif %}            
+			{% else %}
+            {{ standart_price.price_name }}
+        {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (standart_price.best_price == 1) and (standart_price.sun_thu > 0) %} best_price {% endif %} {% if (standart_price.type != 'prolongation') and (standart_price.sun_thu > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ standart_price.sun_thu }}" data-time="{{ standart_price.price_name }}">
+            {% if standart_price.sun_thu %} 
+				{{ standart_price.sun_thu }} 
+				{% if (standart_price.best_price == 1) and (standart_price.sun_thu > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+            -
+            {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (standart_price.best_price == 1) and (standart_price.fri_sat > 0) %} best_price {% endif %} {% if (standart_price.type != 'prolongation') and (standart_price.fri_sat > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ standart_price.fri_sat }}" data-time="{{ standart_price.price_name }}">
+            {% if standart_price.fri_sat %}
+                {{ standart_price.fri_sat }} 
+				{% if (standart_price.best_price == 1) and (standart_price.fri_sat > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+                -
+            {% endif %}
+        </div>
+    </div>
+	{% endif %}
+    {% endfor %}
+{% endfor %}
+{#<!--акция рыбацкое
+{% if hotel.id == 15 %} 
+	<div style="vertical-align: middle; line-height: 29px; margin-top: 15px;"><div style=" display: inline-block; background: #995f91; width: 50px; height: 25px;  vertical-align: middle; margin-top: -3px;"> </div> — <a href="/stocks/stock/superceny-v-rybackom/" style="text-decoration: underline; color: #995f91;" >акция "Суперцены в Рыбацком"</a></div>
+{% endif %}
+-->#}
+{% elseif type == 'suite' %}
+{% for suite_prop in hotel.suite_prop %}
+    {% for suite_price in suite_prop.tariffs %}
+	{% if not suite_price.price_hide %}
+    <div class="table__tr" {% if suite_price.price_desc == '[day]' %}style="color: #fbb03b !important"{% endif %}>
+        <div class="tar-table__main-col table__td">
+        {% if suite_price.price_desc %}
+            <div class="table__hint-point"><span class="table__hint-point-secondary">{{ suite_price.price_name }}</span>
+                <div class="table__hint">
+                    <img class="table__hint-icon js-svg" src="/themes/motel/assets/img/table-hint.svg" alt="">
+                    <div class="table__hint-info">
+						{% if suite_price.price_desc == '[night]' %}
+							тариф «Ночной» — 12 часовой тариф, действует в Вс-Чт с 23:00 до 13:00
+						{% else %}
+								{% if suite_price.price_desc == '[day]' %}
+									тариф «Дневной» — 12 часовой тариф, действует в Сб с 09:00 до 21:00, в Вс-Пн с 09:00 до 23:00.
+									{% else %}
+										{{ suite_price.price_desc }}
+									{% endif %}
+						{% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+			
+			{# дописываем время в ночном тарифе #}
+			{% if suite_price.price_desc == '[night]' %}
+				(с 23:00 до 13:00)
+			{% endif %}
+			{% if suite_price.price_desc == '[day]' %}
+				(Сб-Пн) New!
+			{% endif %} 			
+			
+            {% else %}
+            {{ suite_price.price_name }}
+        {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (suite_price.best_price == 1) and (suite_price.sun_thu > 0) %} best_price {% endif %} {% if (suite_price.type != 'prolongation') and (suite_price.sun_thu > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ suite_price.sun_thu }}" data-time="{{ suite_price.price_name }}">
+            {% if suite_price.sun_thu %}
+				{{ suite_price.sun_thu }} 
+				{% if (suite_price.best_price == 1) and (suite_price.sun_thu > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+            -
+            {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (suite_price.best_price == 1) and (suite_price.fri_sat > 0) %} best_price {% endif %} {% if (suite_price.type != 'prolongation') and (suite_price.fri_sat > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ suite_price.fri_sat }}" data-time="{{ suite_price.price_name }}">
+            {% if suite_price.fri_sat %}
+                {{ suite_price.fri_sat }} 
+				{% if (suite_price.best_price == 1) and (suite_price.fri_sat > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+                -
+            {% endif %}
+        </div>
+    </div>
+	{% endif %}
+    {% endfor %}
+{% endfor %}
+{% elseif type == 'lux' %}
+{% for lux_prop in hotel.lux_prop %}
+    {% for lux_price in lux_prop.tariffs %}
+	{% if not lux_price.price_hide %}
+    <div class="table__tr" {% if lux_price.price_desc == '[day]' %}style="color: #fbb03b !important"{% endif %} >
+        <div class="tar-table__main-col table__td">
+        {% if lux_price.price_desc %}
+            <div class="table__hint-point"><span class="table__hint-point-secondary">{{ lux_price.price_name }}</span>
+                <div class="table__hint">
+                    <img class="table__hint-icon js-svg" src="/themes/motel/assets/img/table-hint.svg" alt="">
+                    <div class="table__hint-info">
+						{% if lux_price.price_desc == '[night]' %}
+							тариф «Ночной» — 12 часовой тариф, действует в Вс-Чт с 23:00 до 13:00
+						{% else %}
+								{% if lux_price.price_desc == '[day]' %}
+									тариф «Дневной» — 12 часовой тариф, действует в Сб с 09:00 до 21:00, в Вс-Пн с 09:00 до 23:00.
+									{% else %}
+										{{ lux_price.price_desc }}
+									{% endif %}
+						{% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+			
+			{# дописываем время в ночном тарифе #}
+			{% if lux_price.price_desc == '[night]' %}
+				(с 23:00 до 13:00)
+			{% endif %}
+			{% if lux_price.price_desc == '[day]' %}
+				(Сб-Пн) New!
+			{% endif %} 			
+			
+            {% else %}
+            {{ lux_price.price_name }}
+        {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (lux_price.best_price == 1) and (lux_price.sun_thu > 0) %} best_price {% endif %} {% if (lux_price.type != 'prolongation') and (lux_price.sun_thu > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ lux_price.sun_thu }}" data-time="{{ lux_price.price_name }}">
+            {% if lux_price.sun_thu %}
+				{{ lux_price.sun_thu }} 
+				{% if (lux_price.best_price == 1) and (lux_price.sun_thu > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+            -
+            {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (lux_price.best_price == 1) and (lux_price.fri_sat > 0) %} best_price {% endif %} {% if (lux_price.type != 'prolongation') and (lux_price.fri_sat > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ lux_price.fri_sat }}" data-time="{{ lux_price.price_name }}">
+            {% if lux_price.fri_sat %}
+                {{ lux_price.fri_sat }} 
+				{% if (lux_price.best_price == 1) and (lux_price.fri_sat > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+                -
+            {% endif %}
+        </div>
+    </div>
+	{% endif %}
+    {% endfor %}
+{% endfor %}
+{% endif %}";s:5:"mtime";i:1711359706;s:6:"markup";s:9425:"{% if type == 'standard' %}
+{% for standart_prop in hotel.standart_prop %}
+    {% for standart_price in standart_prop.tariffs %}
+	{% if not standart_price.price_hide %}
+    <div class="table__tr" {% if standart_price.price_desc == '[day]' %}style="color: #fbb03b !important"{% endif %}>
+        <div class="tar-table__main-col table__td">
+        {% if standart_price.price_desc %}
+            <div class="table__hint-point"><span class="table__hint-point-secondary">{{ standart_price.price_name }}</span>
+                <div class="table__hint">
+                    <img class="table__hint-icon js-svg" src="/themes/motel/assets/img/table-hint.svg" alt="">
+                    <div class="table__hint-info">
+						{% if standart_price.price_desc == '[night]' %}
+							тариф «Ночной» — 12 часовой тариф, действует в Вс-Чт с 23:00 до 13:00
+						{% else %}
+								{% if standart_price.price_desc == '[day]' %}
+									тариф «Дневной» — 12 часовой тариф, действует в Сб с 09:00 до 21:00, в Вс-Пн с 09:00 до 23:00.
+									{% else %}
+										{{ standart_price.price_desc }}
+									{% endif %}
+						{% endif %}
+                    </div>
+                </div>
+            </div>
+			
+			{# дописываем время в ночном тарифе #}
+			{% if standart_price.price_desc == '[night]' %}
+				(с 23:00 до 13:00)
+			{% endif %}
+			{% if standart_price.price_desc == '[day]' %}
+				(Сб-Пн) New!
+			{% endif %}            
+			{% else %}
+            {{ standart_price.price_name }}
+        {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (standart_price.best_price == 1) and (standart_price.sun_thu > 0) %} best_price {% endif %} {% if (standart_price.type != 'prolongation') and (standart_price.sun_thu > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ standart_price.sun_thu }}" data-time="{{ standart_price.price_name }}">
+            {% if standart_price.sun_thu %} 
+				{{ standart_price.sun_thu }} 
+				{% if (standart_price.best_price == 1) and (standart_price.sun_thu > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+            -
+            {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (standart_price.best_price == 1) and (standart_price.fri_sat > 0) %} best_price {% endif %} {% if (standart_price.type != 'prolongation') and (standart_price.fri_sat > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ standart_price.fri_sat }}" data-time="{{ standart_price.price_name }}">
+            {% if standart_price.fri_sat %}
+                {{ standart_price.fri_sat }} 
+				{% if (standart_price.best_price == 1) and (standart_price.fri_sat > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+                -
+            {% endif %}
+        </div>
+    </div>
+	{% endif %}
+    {% endfor %}
+{% endfor %}
+{#<!--акция рыбацкое
+{% if hotel.id == 15 %} 
+	<div style="vertical-align: middle; line-height: 29px; margin-top: 15px;"><div style=" display: inline-block; background: #995f91; width: 50px; height: 25px;  vertical-align: middle; margin-top: -3px;"> </div> — <a href="/stocks/stock/superceny-v-rybackom/" style="text-decoration: underline; color: #995f91;" >акция "Суперцены в Рыбацком"</a></div>
+{% endif %}
+-->#}
+{% elseif type == 'suite' %}
+{% for suite_prop in hotel.suite_prop %}
+    {% for suite_price in suite_prop.tariffs %}
+	{% if not suite_price.price_hide %}
+    <div class="table__tr" {% if suite_price.price_desc == '[day]' %}style="color: #fbb03b !important"{% endif %}>
+        <div class="tar-table__main-col table__td">
+        {% if suite_price.price_desc %}
+            <div class="table__hint-point"><span class="table__hint-point-secondary">{{ suite_price.price_name }}</span>
+                <div class="table__hint">
+                    <img class="table__hint-icon js-svg" src="/themes/motel/assets/img/table-hint.svg" alt="">
+                    <div class="table__hint-info">
+						{% if suite_price.price_desc == '[night]' %}
+							тариф «Ночной» — 12 часовой тариф, действует в Вс-Чт с 23:00 до 13:00
+						{% else %}
+								{% if suite_price.price_desc == '[day]' %}
+									тариф «Дневной» — 12 часовой тариф, действует в Сб с 09:00 до 21:00, в Вс-Пн с 09:00 до 23:00.
+									{% else %}
+										{{ suite_price.price_desc }}
+									{% endif %}
+						{% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+			
+			{# дописываем время в ночном тарифе #}
+			{% if suite_price.price_desc == '[night]' %}
+				(с 23:00 до 13:00)
+			{% endif %}
+			{% if suite_price.price_desc == '[day]' %}
+				(Сб-Пн) New!
+			{% endif %} 			
+			
+            {% else %}
+            {{ suite_price.price_name }}
+        {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (suite_price.best_price == 1) and (suite_price.sun_thu > 0) %} best_price {% endif %} {% if (suite_price.type != 'prolongation') and (suite_price.sun_thu > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ suite_price.sun_thu }}" data-time="{{ suite_price.price_name }}">
+            {% if suite_price.sun_thu %}
+				{{ suite_price.sun_thu }} 
+				{% if (suite_price.best_price == 1) and (suite_price.sun_thu > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+            -
+            {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (suite_price.best_price == 1) and (suite_price.fri_sat > 0) %} best_price {% endif %} {% if (suite_price.type != 'prolongation') and (suite_price.fri_sat > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ suite_price.fri_sat }}" data-time="{{ suite_price.price_name }}">
+            {% if suite_price.fri_sat %}
+                {{ suite_price.fri_sat }} 
+				{% if (suite_price.best_price == 1) and (suite_price.fri_sat > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+                -
+            {% endif %}
+        </div>
+    </div>
+	{% endif %}
+    {% endfor %}
+{% endfor %}
+{% elseif type == 'lux' %}
+{% for lux_prop in hotel.lux_prop %}
+    {% for lux_price in lux_prop.tariffs %}
+	{% if not lux_price.price_hide %}
+    <div class="table__tr" {% if lux_price.price_desc == '[day]' %}style="color: #fbb03b !important"{% endif %} >
+        <div class="tar-table__main-col table__td">
+        {% if lux_price.price_desc %}
+            <div class="table__hint-point"><span class="table__hint-point-secondary">{{ lux_price.price_name }}</span>
+                <div class="table__hint">
+                    <img class="table__hint-icon js-svg" src="/themes/motel/assets/img/table-hint.svg" alt="">
+                    <div class="table__hint-info">
+						{% if lux_price.price_desc == '[night]' %}
+							тариф «Ночной» — 12 часовой тариф, действует в Вс-Чт с 23:00 до 13:00
+						{% else %}
+								{% if lux_price.price_desc == '[day]' %}
+									тариф «Дневной» — 12 часовой тариф, действует в Сб с 09:00 до 21:00, в Вс-Пн с 09:00 до 23:00.
+									{% else %}
+										{{ lux_price.price_desc }}
+									{% endif %}
+						{% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+			
+			{# дописываем время в ночном тарифе #}
+			{% if lux_price.price_desc == '[night]' %}
+				(с 23:00 до 13:00)
+			{% endif %}
+			{% if lux_price.price_desc == '[day]' %}
+				(Сб-Пн) New!
+			{% endif %} 			
+			
+            {% else %}
+            {{ lux_price.price_name }}
+        {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (lux_price.best_price == 1) and (lux_price.sun_thu > 0) %} best_price {% endif %} {% if (lux_price.type != 'prolongation') and (lux_price.sun_thu > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ lux_price.sun_thu }}" data-time="{{ lux_price.price_name }}">
+            {% if lux_price.sun_thu %}
+				{{ lux_price.sun_thu }} 
+				{% if (lux_price.best_price == 1) and (lux_price.sun_thu > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+            -
+            {% endif %}
+        </div>
+        <div class="tar-table__data-col table__td {% if (lux_price.best_price == 1) and (lux_price.fri_sat > 0) %} best_price {% endif %} {% if (lux_price.type != 'prolongation') and (lux_price.fri_sat > 0) %}js-tar-table-data{% else %}no-hover{% endif %}" data-price="{{ lux_price.fri_sat }}" data-time="{{ lux_price.price_name }}">
+            {% if lux_price.fri_sat %}
+                {{ lux_price.fri_sat }} 
+				{% if (lux_price.best_price == 1) and (lux_price.fri_sat > 0) %} <div class="best-price-icon">%</div> {% endif %}
+            {% else %}
+                -
+            {% endif %}
+        </div>
+    </div>
+	{% endif %}
+    {% endfor %}
+{% endfor %}
+{% endif %}";s:4:"code";N;s:7:"viewBag";a:0:{}}}

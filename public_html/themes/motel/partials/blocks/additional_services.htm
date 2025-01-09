@@ -1,0 +1,129 @@
+[viewBag]
+==
+<div class="s-hotel-info__services">
+                    <div class="services-table js-services-table table d-none d-sm-block" data-sum="0">
+                      <div class="table__head">
+                        <div class="table__tr table__tr_head">
+                          <div class="services-table__main-col services-table__th table__th">
+                            Романтическое предложение
+                          </div>
+                          {% for offer in offers %}
+                          <div class="services-table__data-col services-table__th table__th">
+                            {{ offer.name }}
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="table__body">
+                        {% for service in services %}
+                        <div class="services-table__tr table__tr">
+                          <div class="services-table__main-col services-table__td table__td">
+                            <div class="services-table__td-has-image">
+                              {{ service.name }}
+                            </div>
+                            {% if service.image.path %}
+                              <div class="services-table__main-col-hover">
+                                <img src="{{ service.image.path }}" alt="" class="services-table__main-col-hover-img">
+                              </div>
+                            {% endif %}
+                          </div>
+                          {% for offer in offers %}
+                          <div class="services-table__data-col js-services-table-data services-table__td table__td" data-rp="{{ offer.name }}">
+                            {% for offer_service in offer.services %}
+                                {% if offer_service.id == service.id %}
+                                <span class="table__in-stock"></span>
+                                {% endif %}
+                            {% endfor %}
+                          </div>
+                          {% endfor %}
+                        </div>
+                        {% endfor %}
+
+                        
+                        <div class="services-table__tr table__tr">
+                          <div class="services-table__main-col services-table__td table__td">
+                            Стоимость
+                          </div>
+                          {% for offer in offers %}
+                          <div class="services-table__data-col js-services-table-data services-table__td table__td" data-price="{{ offer.price }}" data-rp="{{ offer.name }}">
+                            {{ offer.price }}
+                          </div>
+                          {% endfor %}
+                        </div>
+                        
+                        <div class="services-table__tr table__tr">
+                          <div class="services-table__main-col services-table__td table__td">
+                            Выбор
+                          </div>
+                          {% for offer in offers %}
+                          <div class="services-table__data-col js-services-table-data services-table__td table__td" data-rp="{{ offer.name }}">
+                            <span class="table__choose"></span>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>                      
+                    
+                    <div class="hotel-services-mobile js-hotel-services-mobile">
+
+                      {% for offer in offers %}
+                      <!-- Mobile Table -->
+                      <div class="hotel-services-mobile__item">
+                        <div class="hotel-services-mobile__btn js-hotel-services-mobile-btn">
+                          <span class="hotel-services-mobile__num">{{ offer.name }}</span>
+                          <span class="hotel-services-mobile__title">Романтическое предложение</span>
+                          <div class="hotel-services-mobile__btn-right">
+                            <span class="hotel-services-mobile__price">{{ offer.price }} <span class="hotel-services-mobile__currency">руб</span></span>
+                            <img src="/themes/motel/assets/img/arrow-down.svg" alt="" class="hotel-services-mobile__arrow js-svg">
+                          </div>
+                        </div>
+                        <div class="hotel-services-mobile__content">
+
+                          <div class="services-table table">
+                            
+                            <div class="table__body">
+
+                            {% for service in services %}
+                              <div class="services-table__tr table__tr">
+                                <div class="services-table__main-col services-table__td table__td">
+                                  <div class="services-table__td-has-image">
+                                      {{ service.name }}
+                                  </div>                                  
+                                  {% if service.image.path %}
+                                      <div class="services-table__main-col-hover">
+                                        <img src="{{ service.image.path }}" alt="" class="services-table__main-col-hover-img">
+                                      </div>
+                                    {% endif %}
+                                </div>
+                                <div class="services-table__data-col  services-table__td table__td">
+                                {% for offer_service in offer.services %}
+                                    {% if offer_service.id == service.id %}
+                                    <span class="table__in-stock"></span>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                              </div>
+                            {% endfor %}
+
+                            </div>
+                          </div>
+
+                          
+                          <div class="hotel-services-mobile__add-btn-wrap button-wrap">
+                            <button class="hotel-services-mobile__add-btn js-hotel-services-mobile-add-btn button button_ghost button_medium" data-price="{{ offer.price }}">Добавить</button>
+                          </div>
+                          <div class="hotel-services-mobile__arrow-btn-wrap button-wrap">
+                            <button class="hotel-services-mobile__arrow-btn js-hotel-services-mobile-arrow-btn" data-rp="{{ offer.name }}">
+                              <img src="/themes/motel/assets/img/arrow-down.svg" alt="" class="hotel-services-mobile__arrow-btn-icon js-svg">
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Mobile Table -->
+                      {% endfor %}
+
+                    </div>
+
+                  </div>
+				  
+<p style="font-size: 12px; margin: 10px 0">* - в данном предложении используются декоративные цветочные композиции, искусственные лепестки</p>

@@ -1,0 +1,26 @@
+columns:
+    id:
+        label: ID
+        type: number
+    name:
+        label: Название
+        type: text
+    slug:
+        label: URL
+        type: text
+    active:
+        label: Активная
+        type: switch
+    favorite:
+        label: Особая
+        type: switch
+    created_at:
+        label: Дата
+        type: date
+        invisible: true
+    sort_order:
+        label: Порядок
+        type: number
+    dont_display_in_app:
+        label: 'Не показывать в приложении'
+        type: switch

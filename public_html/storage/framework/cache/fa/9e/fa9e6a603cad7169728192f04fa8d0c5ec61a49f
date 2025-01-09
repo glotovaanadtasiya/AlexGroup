@@ -1,0 +1,1 @@
+1724333992a:1:{s:7:"columns";a:3:{s:2:"id";a:3:{s:5:"label";s:2:"ID";s:4:"type";s:6:"number";s:10:"searchable";b:1;}s:8:"question";a:3:{s:5:"label";s:12:"Вопрос";s:4:"type";s:4:"text";s:10:"searchable";b:1;}s:6:"answer";a:3:{s:5:"label";s:10:"Ответ";s:4:"type";s:4:"text";s:10:"searchable";b:1;}}}

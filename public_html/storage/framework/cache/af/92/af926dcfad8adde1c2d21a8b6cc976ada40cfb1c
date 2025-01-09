@@ -1,0 +1,35 @@
+1735042528a:1:{s:25:"blocks/faqListForeach.htm";a:6:{s:8:"fileName";s:25:"blocks/faqListForeach.htm";s:7:"content";s:884:"[viewBag]
+==
+{% for record in records %}
+                <div class="question__question-box js-question__question-box">
+                    <div class="question__question-answer">
+                    {% spaceless %}
+                        <div class="question__question-text">
+                           {{ attribute(record, 'question') }}
+                            <img src="/themes/motel/assets/img/arrow-show-answer.svg" alt="" class="question__show-answer js-svg">
+                        </div>
+                        <div class="question__answer-text">
+                            {{ attribute(record, 'answer') }}
+                        </div>
+                    {% endspaceless %}
+                    </div>
+                </div>
+                {% else %}
+                    <li class="no-data">{{ noRecordsMessage }}</li>
+                {% endfor %}";s:5:"mtime";i:1589270757;s:6:"markup";s:871:"{% for record in records %}
+                <div class="question__question-box js-question__question-box">
+                    <div class="question__question-answer">
+                    {% spaceless %}
+                        <div class="question__question-text">
+                           {{ attribute(record, 'question') }}
+                            <img src="/themes/motel/assets/img/arrow-show-answer.svg" alt="" class="question__show-answer js-svg">
+                        </div>
+                        <div class="question__answer-text">
+                            {{ attribute(record, 'answer') }}
+                        </div>
+                    {% endspaceless %}
+                    </div>
+                </div>
+                {% else %}
+                    <li class="no-data">{{ noRecordsMessage }}</li>
+                {% endfor %}";s:4:"code";N;s:7:"viewBag";a:0:{}}}

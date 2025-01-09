@@ -1,0 +1,39 @@
+description = "Слайдер новостей"
+
+[viewBag]
+==
+<?php
+use Serenity\Motel\Models\NewsPost;
+function onStart()
+{
+    $this['news'] = NewsPost::orderBy('created_at', 'desc')->take(10)->get();
+}
+?>
+==
+<div class="s-news-prev section">
+        <div class="s-news-prev__container container">
+          
+          <h2 class="s-news-prev__title h2">Наши новости</h2>
+          
+          <div class="news-prev-carousel js-news-prev-carousel owl-carousel">
+          
+          {% for post in news %}
+           <div class="article-prev">
+              <!-- link -->
+              <a href="/news/post/{{ post.slug }}/" class="article-prev__fill-link fill-link"></a>
+              <div class="article-prev__photo">
+                <!-- lazy load image -->
+				{% set img_path = post.img_title.path %}
+                <img class="article-prev__image owl-lazy" data-src="{{ img_path | resize(292, 257) }}" alt="">
+              </div>
+              <div class="article-prev__descr">
+                <div class="article-prev__date">{{ post.created_at | date('d.m.Y') }}</div>
+                <div class="article-prev__title">{{ post.name }}</div>
+                <div class="article-prev__text">{{ post.introtext | raw }}</div>
+              </div>
+            </div>
+          {% endfor %}
+
+          </div>
+        </div>
+      </div>

@@ -1,0 +1,223 @@
+1735042086a:1:{s:11:"reviews.htm";a:10:{s:8:"fileName";s:11:"reviews.htm";s:7:"content";s:5589:"title = "Отзывы"
+url = "/reviews/:page?/:scope?"
+layout = "reviews"
+is_hidden = 0
+
+[builderList reviewList]
+modelClass = "Serenity\Motel\Models\Review"
+scope = "scopeWithHotel"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+recordsPerPage = 20
+pageNumber = "{{ :page }}"
+==
+<?php
+use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Review;
+
+function onStart()
+{
+    $this['get_hotel'] = $this->param('scope');
+    $this['hotels'] = Hotel::all();
+}
+function onLoadMore() {
+    // получаем номер страницы
+    $pageNumber = Input::get('page') + 1;
+    // обращаемся к компоненту Posts с alias allPosts: 
+    // выставляем номер страницы и готовим данные
+    $this->components['reviewList']->setProperty('pageNumber', $pageNumber);
+    $this->components['reviewList']->onRun();
+    if ($pageNumber < $this->components['reviewList']->records->lastPage()) {
+        // для простоты мы генерируем html, но в принципе можно сделать и отдельный паршл для кнопки
+        $more_link = '<div class="pagination__more-btn"><button class="pagination__more-btn-text" data-request="onLoadMore" data-request-data="page: ' . $pageNumber . '">ЕЩЕ</button></div>';
+    } else {
+        // если мы достигли последней страницы, кнопка больше не нужна
+        $more_link = '';
+    }
+    return [
+        // если перед селектором стоит @, новое содержимое будет добавляться в конец, а не заменять старое
+        
+        '@#all-reviews-content' => $this->renderPartial('blocks/reviewsListItem.htm', ['reviews' => $this->components['reviewList']->records]),
+        '#load-more-button' => $more_link,
+    ];
+}
+function onChooseHotel(){
+
+}
+?>
+==
+{% set reviews = reviewList.records %}
+<h1 class="s-feedback__title h1">Отзывы гостей</h1>
+          <div class="s-feedback__row row">
+            <div class="s-feedback__col col-md-4">
+              <aside class="s-feedback__sidebar">
+                <div class="s-feedback__select-wrap">
+                
+                  <select class="select js-select-review" onchange="$.request('onChooseHotel', {redirect: '/reviews/{{reviews.currentPage}}/'+$(this).val()}); return false;">
+                  {% for hotel in hotels %}
+                      <option value="{{ hotel.id }}" {% if get_hotel == hotel.id %}selected{% endif %}>Мини отель \n {{ hotel.name }}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+              </aside>
+            </div>
+          </div>
+          
+          <div id="all-reviews-content">
+          {% partial "blocks/reviewsListItem" reviews=reviews %}
+          </div>
+          
+          <div class="s-feedback__pagination">
+            <div class="s-feedback__pagination-row row">
+              <div class="col-xl-8 offset-xl-4">
+			  
+				
+                {% if reviews.lastPage > 1 %}
+                <!-- Pagination -->
+                <div class="pagination">
+                  <div class="pagination__container">
+                    <div class="pagination__box d-none d-md-flex">
+                      
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}" {% if reviews.currentPage == 1 %}class="disabled"{% endif %}>
+                        <div class="pagination__prev">
+                          <img src="/themes/motel/assets/img/pagination-arrow-prev.svg" alt="" class="pagination__arrow-prev js-svg">
+                          <span class="pagination__prev-text">Предыдущая</span>
+                        </div>
+                      </a>
+                      
+                      <!--div class="pagination__numbers">
+                      {% for page in 1..reviews.lastPage %}
+                          <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}" class="pagination__number-item {% if reviews.currentPage == page %}active{% endif %}">{{ page }}</a>
+                      {% endfor %}
+                      </div-->
+					  
+					  &nbsp;&nbsp;&nbsp;
+                      
+					  {% if reviews.currentPage < reviews.lastPage  %}
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}">
+                        <div class="pagination__next">
+                          <span class="pagination__next-text">Следующая</span>
+                          <img src="/themes/motel/assets/img/pagination-arrow-next.svg" alt="" class="pagination__arrow-next js-svg">
+                        </div>
+                      </a>
+                      {% endif %}
+					  
+                    </div>
+                    <div id="load-more-button">
+                        <button class="pagination__more-btn d-md-none" data-request="onLoadMore" data-request-data="page: 1">
+                          <span class="pagination__more-btn-text">
+                            ЕЩЕ
+                          </span>
+                        </button>
+                    </div>
+                  </div>              
+                </div>
+                <!-- /Pagination -->
+                {% endif %}
+              </div>
+            </div>
+          </div>";s:5:"mtime";i:1660058551;s:6:"markup";s:3560:"{% set reviews = reviewList.records %}
+<h1 class="s-feedback__title h1">Отзывы гостей</h1>
+          <div class="s-feedback__row row">
+            <div class="s-feedback__col col-md-4">
+              <aside class="s-feedback__sidebar">
+                <div class="s-feedback__select-wrap">
+                
+                  <select class="select js-select-review" onchange="$.request('onChooseHotel', {redirect: '/reviews/{{reviews.currentPage}}/'+$(this).val()}); return false;">
+                  {% for hotel in hotels %}
+                      <option value="{{ hotel.id }}" {% if get_hotel == hotel.id %}selected{% endif %}>Мини отель \n {{ hotel.name }}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+              </aside>
+            </div>
+          </div>
+          
+          <div id="all-reviews-content">
+          {% partial "blocks/reviewsListItem" reviews=reviews %}
+          </div>
+          
+          <div class="s-feedback__pagination">
+            <div class="s-feedback__pagination-row row">
+              <div class="col-xl-8 offset-xl-4">
+			  
+				
+                {% if reviews.lastPage > 1 %}
+                <!-- Pagination -->
+                <div class="pagination">
+                  <div class="pagination__container">
+                    <div class="pagination__box d-none d-md-flex">
+                      
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}" {% if reviews.currentPage == 1 %}class="disabled"{% endif %}>
+                        <div class="pagination__prev">
+                          <img src="/themes/motel/assets/img/pagination-arrow-prev.svg" alt="" class="pagination__arrow-prev js-svg">
+                          <span class="pagination__prev-text">Предыдущая</span>
+                        </div>
+                      </a>
+                      
+                      <!--div class="pagination__numbers">
+                      {% for page in 1..reviews.lastPage %}
+                          <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}" class="pagination__number-item {% if reviews.currentPage == page %}active{% endif %}">{{ page }}</a>
+                      {% endfor %}
+                      </div-->
+					  
+					  &nbsp;&nbsp;&nbsp;
+                      
+					  {% if reviews.currentPage < reviews.lastPage  %}
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}">
+                        <div class="pagination__next">
+                          <span class="pagination__next-text">Следующая</span>
+                          <img src="/themes/motel/assets/img/pagination-arrow-next.svg" alt="" class="pagination__arrow-next js-svg">
+                        </div>
+                      </a>
+                      {% endif %}
+					  
+                    </div>
+                    <div id="load-more-button">
+                        <button class="pagination__more-btn d-md-none" data-request="onLoadMore" data-request-data="page: 1">
+                          <span class="pagination__more-btn-text">
+                            ЕЩЕ
+                          </span>
+                        </button>
+                    </div>
+                  </div>              
+                </div>
+                <!-- /Pagination -->
+                {% endif %}
+              </div>
+            </div>
+          </div>";s:4:"code";s:1651:"use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Review;
+
+function onStart()
+{
+    $this['get_hotel'] = $this->param('scope');
+    $this['hotels'] = Hotel::all();
+}
+function onLoadMore() {
+    // получаем номер страницы
+    $pageNumber = Input::get('page') + 1;
+    // обращаемся к компоненту Posts с alias allPosts: 
+    // выставляем номер страницы и готовим данные
+    $this->components['reviewList']->setProperty('pageNumber', $pageNumber);
+    $this->components['reviewList']->onRun();
+    if ($pageNumber < $this->components['reviewList']->records->lastPage()) {
+        // для простоты мы генерируем html, но в принципе можно сделать и отдельный паршл для кнопки
+        $more_link = '<div class="pagination__more-btn"><button class="pagination__more-btn-text" data-request="onLoadMore" data-request-data="page: ' . $pageNumber . '">ЕЩЕ</button></div>';
+    } else {
+        // если мы достигли последней страницы, кнопка больше не нужна
+        $more_link = '';
+    }
+    return [
+        // если перед селектором стоит @, новое содержимое будет добавляться в конец, а не заменять старое
+        
+        '@#all-reviews-content' => $this->renderPartial('blocks/reviewsListItem.htm', ['reviews' => $this->components['reviewList']->records]),
+        '#load-more-button' => $more_link,
+    ];
+}
+function onChooseHotel(){
+
+}";s:5:"title";s:12:"Отзывы";s:3:"url";s:23:"/reviews/:page?/:scope?";s:6:"layout";s:7:"reviews";s:9:"is_hidden";s:1:"0";s:22:"builderList reviewList";a:9:{s:10:"modelClass";s:28:"Serenity\Motel\Models\Review";s:5:"scope";s:14:"scopeWithHotel";s:10:"scopeValue";s:12:"{{ :scope }}";s:13:"displayColumn";s:2:"id";s:16:"noRecordsMessage";s:16:"No records found";s:11:"detailsPage";s:1:"-";s:19:"detailsUrlParameter";s:2:"id";s:14:"recordsPerPage";s:2:"20";s:10:"pageNumber";s:11:"{{ :page }}";}}}

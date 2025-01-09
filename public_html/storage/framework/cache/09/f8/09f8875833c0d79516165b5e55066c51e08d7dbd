@@ -1,0 +1,83 @@
+1735042528a:1:{s:28:"blocks/hotelCardContacts.htm";a:7:{s:8:"fileName";s:28:"blocks/hotelCardContacts.htm";s:7:"content";s:1878:"description = "Карточка отеля"
+
+[viewBag]
+==
+<div>
+{% if hotel.new %}
+<div class="beidj-new">new</div>
+{% endif %}
+{% if hotel.low_price %}
+<div class="beidj-lowprice">цены снижены</div>
+{% endif %}
+
+<a href="/hotels/{{ hotel.slug }}/" class="contact-hotelname">{% if hotel.full_name %}{{hotel.full_name}}{% else %}Отель {{ hotel.name }}{% endif %}</a>
+
+<div class="map-card__metro">
+                    
+                    {% if hotel.metro_line == 1 %}
+                        {% set metro_color = 'metro-icon_red' %}
+                    {% elseif hotel.metro_line == 2 %}
+                        {% set metro_color = 'metro-icon_blue' %}
+                    {% elseif hotel.metro_line == 3 %}
+                        {% set metro_color = 'metro-icon_green' %}
+                    {% elseif hotel.metro_line == 4 %}
+                        {% set metro_color = 'metro-icon_orange' %}
+                    {% elseif hotel.metro_line == 5 %}
+                        {% set metro_color = 'metro-icon_purple' %}
+                    {% endif %}
+                    <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon {{ metro_color }} js-svg">
+					<span class="map-card__metro-name">{{ hotel.metro }}</span>
+</div>
+
+<div class="hotel-card__address">{{ hotel.address }}</div>
+
+<!--<a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="hotel-card__phone">+7-812-468-77-77</a>-->
+
+{% if hotel.yandex_map_link %}
+<a href="{{ hotel.yandex_map_link }}">на Яндекс картах →</a><br>
+{% else %}<br>
+{% endif %}
+{% if hotel.google_map_link %}
+<a href="{{ hotel.google_map_link }}">на Google картах →</a>
+{% endif %}
+
+</div>";s:5:"mtime";i:1620384818;s:6:"markup";s:1820:"<div>
+{% if hotel.new %}
+<div class="beidj-new">new</div>
+{% endif %}
+{% if hotel.low_price %}
+<div class="beidj-lowprice">цены снижены</div>
+{% endif %}
+
+<a href="/hotels/{{ hotel.slug }}/" class="contact-hotelname">{% if hotel.full_name %}{{hotel.full_name}}{% else %}Отель {{ hotel.name }}{% endif %}</a>
+
+<div class="map-card__metro">
+                    
+                    {% if hotel.metro_line == 1 %}
+                        {% set metro_color = 'metro-icon_red' %}
+                    {% elseif hotel.metro_line == 2 %}
+                        {% set metro_color = 'metro-icon_blue' %}
+                    {% elseif hotel.metro_line == 3 %}
+                        {% set metro_color = 'metro-icon_green' %}
+                    {% elseif hotel.metro_line == 4 %}
+                        {% set metro_color = 'metro-icon_orange' %}
+                    {% elseif hotel.metro_line == 5 %}
+                        {% set metro_color = 'metro-icon_purple' %}
+                    {% endif %}
+                    <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon {{ metro_color }} js-svg">
+					<span class="map-card__metro-name">{{ hotel.metro }}</span>
+</div>
+
+<div class="hotel-card__address">{{ hotel.address }}</div>
+
+<!--<a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="hotel-card__phone">+7-812-468-77-77</a>-->
+
+{% if hotel.yandex_map_link %}
+<a href="{{ hotel.yandex_map_link }}">на Яндекс картах →</a><br>
+{% else %}<br>
+{% endif %}
+{% if hotel.google_map_link %}
+<a href="{{ hotel.google_map_link }}">на Google картах →</a>
+{% endif %}
+
+</div>";s:4:"code";N;s:11:"description";s:27:"Карточка отеля";s:7:"viewBag";a:0:{}}}

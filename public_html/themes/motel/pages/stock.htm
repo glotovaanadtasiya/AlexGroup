@@ -1,0 +1,12 @@
+title = "Акция"
+url = "/stocks/stock/:slug"
+layout = "stock"
+is_hidden = 0
+
+[builderDetails stock]
+modelClass = "Serenity\Motel\Models\Stock"
+identifierValue = "{{ :slug }}"
+modelKeyColumn = "slug"
+displayColumn = "name"
+notFoundMessage = "Record not found"
+==

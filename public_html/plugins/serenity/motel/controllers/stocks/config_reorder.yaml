@@ -1,0 +1,5 @@
+title: 'Сортировка акций'
+modelClass: Serenity\Motel\Models\Stock
+nameFrom: name
+toolbar:
+    buttons: reorder_toolbar

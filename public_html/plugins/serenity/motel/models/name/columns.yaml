@@ -1,0 +1,15 @@
+columns:
+    id:
+        label: ID
+        type: number
+        width: 100px
+    name:
+        label: Имя
+        type: text
+        searchable: true
+        sortable: true
+    gender:
+        label: Пол
+        type: text
+        sortable: true
+        select: 'CASE WHEN (gender =  ''men'' ) THEN ''Мужчина'' WHEN (gender = ''women'') THEN ''Женщина'' END'

@@ -1,0 +1,38 @@
+1735042086a:1:{s:19:"menu/bottommenu.htm";a:7:{s:8:"fileName";s:19:"menu/bottommenu.htm";s:7:"content";s:765:"[viewBag]
+
+[staticMenu bottomMenu]
+code = "bottommenu"
+==
+<nav class="main-footer__nav footer-menu-nav col-md-8 col-lg-9 order-1 order-md-0">
+              <ul class="main-footer__menu footer-menu">
+              {% for item in bottomMenu.menuItems %}
+                
+                {% if item.isActive %}
+                
+                <li class="footer-menu__item"><a href="{{ item.url }}/" class="footer-menu__link">{{ item.title }}</a></li>
+                
+            	{% else %}
+            	
+            	<li class="footer-menu__item"><a href="{{ item.url }}/" class="footer-menu__link">{{ item.title }}</a></li>
+            	
+                {% endif %}
+                
+              {% endfor %}
+              </ul>
+            </nav>";s:5:"mtime";i:1589270757;s:6:"markup";s:707:"<nav class="main-footer__nav footer-menu-nav col-md-8 col-lg-9 order-1 order-md-0">
+              <ul class="main-footer__menu footer-menu">
+              {% for item in bottomMenu.menuItems %}
+                
+                {% if item.isActive %}
+                
+                <li class="footer-menu__item"><a href="{{ item.url }}/" class="footer-menu__link">{{ item.title }}</a></li>
+                
+            	{% else %}
+            	
+            	<li class="footer-menu__item"><a href="{{ item.url }}/" class="footer-menu__link">{{ item.title }}</a></li>
+            	
+                {% endif %}
+                
+              {% endfor %}
+              </ul>
+            </nav>";s:4:"code";N;s:7:"viewBag";a:0:{}s:21:"staticMenu bottomMenu";a:1:{s:4:"code";s:10:"bottommenu";}}}

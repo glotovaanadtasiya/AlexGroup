@@ -1,0 +1,82 @@
+description = "Карточка отеля на карте"
+
+[viewBag]
+==
+<!-- Hotel Card -->
+        <div class="map-card js-map-card gmap-box__card js-s-map-card" data-hotel="{{ hotel.slug }}">
+          <div class="map-card__box">
+                  <button class="map-card__close js-map-card__close">
+                    <img src="/themes/motel/assets/img/close.svg" alt="" class="map-card__close-icon js-svg">
+                  </button>
+                  <div class="map-card__title"><a href="/hotels/{{ hotel.slug }}/">{% if hotel.full_name %}{{hotel.full_name}}{% else %}Отель {{ hotel.name }}{% endif %}</a></div>
+{% if hotel.new %}
+<div class="beidj-new">new</div>
+{% endif %}
+{% if hotel.low_price %}
+<div class="beidj-lowprice">цены снижены</div>
+{% endif %}                 
+
+					<div class="map-card__metro">
+                    <span class="map-card__metro-name">{{ hotel.metro }}</span>
+                    {% if hotel.metro_line == 1 %}
+                        {% set metro_color = 'metro-icon_red' %}
+                    {% elseif hotel.metro_line == 2 %}
+                        {% set metro_color = 'metro-icon_blue' %}
+                    {% elseif hotel.metro_line == 3 %}
+                        {% set metro_color = 'metro-icon_green' %}
+                    {% elseif hotel.metro_line == 4 %}
+                        {% set metro_color = 'metro-icon_orange' %}
+                    {% elseif hotel.metro_line == 5 %}
+                        {% set metro_color = 'metro-icon_purple' %}
+                    {% endif %}
+                    <img src="/themes/motel/assets/img/metro.svg" alt="metro sign" class="map-card__metro-icon metro-icon {{ metro_color }} js-svg">
+                  </div>
+                  <div class="map-card__address">{{ hotel.address }}</div>
+                  <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="map-card__phone">+7-812-468-77-77</a>
+                  <!--
+				  <div class="map-card__how-get-wrap">
+                    <a href="/hotels/{{ hotel.slug }}#how-get" class="map-card__how-get">
+                      <span class="map-card__how-get-text">Как добраться</span>
+                      <img src="/themes/motel/assets/img/arrow-right.svg" alt="" class="map-card__how-get-arrow js-svg">
+                    </a>
+                  </div>
+				  -->
+                  
+                  
+                  <div class="map-card__tabs js-map-card__tabs">
+                    <div class="map-card__tabs-btns-box">
+                        {% if hotel.lux_photos | first.path %}<span data-number-type="lux" class="map-card__tab-btn js-map-card__tab-btn active">Люкс</span>{% endif %}
+                        {% if hotel.suite_photos | first.path %}<span data-number-type="suite" class="map-card__tab-btn js-map-card__tab-btn {% if hotel.lux_photos | first.path == false %}active{% endif %}">Полу-люкс</span>{% endif %}
+                        {% if hotel.standart_photos | first.path %}<span data-number-type="standard" class="map-card__tab-btn js-map-card__tab-btn">Стандарт</span>{% endif %}
+                    </div>
+                    <div class="map-card__tabs-contents">
+                        {% if hotel.lux_photos | first.path %}
+                            <div class="map-card__tab-content js-hotel-card-tab-content active">
+                                <div class="map-card__tab-photo-wrap">
+                                    <img data-src="{{ (hotel.lux_photos | first.path) | resize(false, 230) }}" alt="Фото номера люкс" class="map-card__tab-photo">
+                                </div>
+                            </div>
+                        {% endif %}
+
+                          {% if hotel.suite_photos | first.path %}
+                          <div class="map-card__tab-content js-hotel-card-tab-content {% if hotel.lux_photos | first.path == false %}active{% endif %}">
+                            <div class="map-card__tab-photo-wrap">
+                              <img data-src="{{ (hotel.suite_photos | first.path) | resize(false, 230) }}" alt="Фото номера полу-люкс" class="map-card__tab-photo">
+                            </div>
+                          </div>
+                          {% endif %}
+
+
+                        {% if hotel.standart_photos | first.path %}
+                            <div class="map-card__tab-content js-hotel-card-tab-content">
+                                <div class="map-card__tab-photo-wrap">
+                                    <img data-src="{{ (hotel.standart_photos | first.path) | resize(false, 230) }}" alt="Фото стандартного номера" class="map-card__tab-photo">
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                  </div>
+                  <a href="/hotels/{{ hotel.slug }}/" class="map-card__btn button button_medium button_ghost">На страницу отеля <img src="/themes/motel/assets/img/arrow-right.svg" alt="" class="map-card__btn-img js-svg"></a>
+                </div>
+        </div>
+        <!-- /Hotel Card -->

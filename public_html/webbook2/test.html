@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<link rel="stylesheet" href="/test/jquery-ui.min.css">
+<link rel="stylesheet" href="/test/jquery-ui-timepicker-addon.css">
+<script src="/test/jquery.js"></script>
+<script src="/test/jquery-ui.min.js"></script>
+<script src="/test/date.format.js"></script>
+<script src="/test/jquery-ui-timepicker-addon.js"></script>
+<script src="/test/web_book2_lib.js"></script>
+<script src="/test/web_book2_0.js"></script>
+
+<style>
+	body {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: smaller;
+	}
+
+	input[type=checkbox] {
+		cursor: pointer;
+	}
+
+	label {
+		cursor: pointer;
+	}
+
+	.tbl_select_room {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+
+	.tbl_select_room_hdr {
+		background-color: silver;
+	}
+	
+	.tbl_select_room_recommended {
+		font-weight: bold;
+		color: blue;
+	}
+
+	.tbl_adds {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+
+	.tbl_adds_hdr {
+		background-color: silver;
+	}
+
+	.tbl_contacts {
+		border: 0px solid black;
+		border-collapse: collapse;
+	}
+
+	.tbl_payment {
+		border: 0px solid black;
+		border-collapse: collapse;
+	}
+</style>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Липовый веб-модуль бронирования для API v.2.0</title>
+</head>
+
+<body onload="WeStarted();">
+	<input type="hidden" id="session" />
+	<input type="hidden" id="stage" />
+	<font color="red" size="smaller">
+		<div id="message" style="height:4em;"></div>
+	</font>
+
+	<div id="hidden_trash" style="display:block">
+		<select id="select_source_rp" style="display:none"></select>
+
+		Скрытый мусор:
+		<button onclick="ActionNothing(0);" title="Порождение action='nothing'">&nbsp;Делаем "ничего"&nbsp;</button>
+		<button onclick="ActionNothing(1);" title="Порождение action='nothing' с параметром 'all_lists=1'">&nbsp;Делаем "ничего + все списки"&nbsp;</button>
+		<button onclick="FakeAction('session_kill');" title="Порождение action='session_kill'">&nbsp;"Убей меня	нахрен"&nbsp;</button>
+
+		<button onclick="SwitchToImmortalSession('956591B7-5303-47DF-BB4B-DB1720016F9F');" title="Переключение на бессмертную сессию с ID='956591B7-5303-47DF-BB4B-DB1720016F9F'">&nbsp;Переключение на "бессмертную" сессию&nbsp;</button>
+	</div>
+
+	<div id="stage_title"></div>
+	<div id="div_filter">
+		<input type="hidden" id="filter_hid_time_in" />
+		<input type="hidden" id="filter_hid_time_out" />
+		<table>
+			<tr>
+				<td>Время заезда</td>
+				<td><input id="filter_time_in" type="text" size="20" onchange="TimeInChanged();"
+					title="Порождение action='set_time_in'" /></td>
+			</tr>
+			<tr>
+				<td>Продолжительность</td>
+				<td>
+					<select id="filter_dur_meas" onchange="FilterDoAction('set_duration_meas');"title="Порождение action='set_duration_meas'">
+						<option value="hour">Часы</option>
+						<option value="day">Сутки</option>
+					</select>
+					<input id="filter_dur_units" type="number" size="6" onchange="FilterDoAction('set_duration');"title="Порождение action='set_duration'" />
+				</td>
+					
+			</tr>
+			<tr>
+				<td>Время выезда</td>
+				<td><input id="filter_time_out" type="text" size="20" onchange="TimeOutChanged();"
+					title="Порождение action='set_time_out'" /></td>
+			</tr>
+			<tr>
+				<td>Отель</td>
+				<td><select id="filter_hotel_id" class="filter_hotel_id" title="Пассивный"></select></td>
+			</tr>
+			<tr>
+				<td>Категория</td>
+				<td><select id="filter_room_cat" class="filter_room_cat" title="Пассивный"></select></td>
+			</tr>
+			<tr>
+				<td>Курящий</td>
+				<td><select id="filter_smoking" class="filter_smoking" title="Пассивный"></select></td>
+			</tr>
+
+			<tr>
+				<td  align="left"> &nbsp; </td>
+				<td  align="left">
+					<br><button onclick="FindRooms();"title="Порождение action='find_rooms'&#013;Потом stage может стать 'room_adds'">
+						Искать&nbsp;доступные&nbsp;номера&nbsp;&gt;&gt;&nbsp;
+					</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="div_filter_static">
+		<table>
+			<tr>
+				<td>Проживание</td>
+				<td><span class="filter_time_in"></span> - <span class="filter_time_out"></span><span class="filter_duration"></span></td>
+			</tr>
+			<tr>
+				<td>Отель</td>
+				<td class="filter_hotel_name"></td>
+			</tr>
+			<tr>
+				<td>Номер</td>
+				<td> Категория: <span class="filter_room_cat_name"></span>; Курение:<span
+						class="filter_smoking_name"></span></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="div_room_adds">
+		<input id="selected_hotel_id" type="hidden" />
+		<input id="selected_room_id" type="hidden" />
+		<hr>
+		<p />Доступные номера:
+		<table id="rooms" class="tbl_select_room"></table>
+		<p />Альтернативные номера:
+		<table id="alt_rooms" class="tbl_select_room"></table>
+		<p />Расчёт бабла:
+		<div class="free_breakfast" style="font-weight:bold; color:blue" hidden>Халявный завтрак</div>
+		<div class="decoration" style="font-weight:bold; color:blue" hidden>Украшение (По тарифу или РП)</div>
+		<table id="adds" class="tbl_adds"></table>
+		<p /><label><input type="checkbox" id="booking_changes_prohibited" title="Пассивный" checked disabled />&quot;Не менять&quot; (толи номер толи хз что)</label>
+		<p /><label id="lbl_booking_bath_fill"><input type="checkbox" id="booking_bath_fill" title="Пассивный" />Набирать ванну/джакузи</label>
+		<div class="idiotic_bath" style="font-weight:bold; color:red" hidden>Дурацкая ванна, наполняется только сотрудниками</div>
+		<p /><button onclick="StageBack();"
+			title="Порождение action='stage_back'">&nbsp;&lt;&lt;&nbsp;Назад&nbsp;</button>&nbsp;&nbsp;&nbsp;<button
+			id="btn_go_contacts" disabled onclick="GoContacts();"
+			title="Порождение action='room_adds'">&nbsp;Выбрать&nbsp;&gt;&gt;&nbsp;</button>
+	</div>
+	<div id="div_room_adds_static">
+		<table>
+			<tr>
+				<td>Отель / Номер:&nbsp;</td>
+				<td><span class="b_hotel_name"></span>, <span class="booking_room"></span></td>
+			</tr>
+			<tr>
+				<td>Проживание:&nbsp;</td>
+				<td><span class="booking_time_in"></span> - <span class="booking_time_out"></span><span class="booking_duration"></span></td>
+			</tr>
+		</table>
+		<p />Расчёт бабла:
+		<div class="free_breakfast" style="font-weight:bold; color:blue" hidden>Халявный завтрак</div>
+		<div class="decoration" style="font-weight:bold; color:blue" hidden>Украшение (По тарифу или РП)</div>
+		<table id="adds_static" class="tbl_adds"></table>
+		<div>Не менять хз что: <span class="booking_changes_prohibited"></span></div>
+		<div>Набирать ванну/джакузи: <span class="booking_bath_fill"></span></div>
+		<div class="idiotic_bath" style="font-weight:bold; color:red" hidden>Дурацкая ванна, наполняется только сотрудниками</div>
+	</div>
+
+	<div id="div_contacts">
+		<hr>
+		<table id="contacts" class="tbl_contacts"></table>
+		<p />
+			<button onclick="StageBack();" title="Порождение action='stage_back'">&nbsp;&lt;&lt;&nbsp;Назад&nbsp;</button>
+			<span id="btn_go_just_book">&nbsp;&nbsp;&nbsp;<button onclick="GoPayment('just_book');" title="Порождение action='book' payment.type='just_book'">&nbsp;Забронировать без оплаты&nbsp;&gt;&gt;</button></span>
+			<span id="btn_go_prepay_part">&nbsp;&nbsp;&nbsp;<button onclick="GoPayment('prepay_part');" title="Порождение action='book' payment.type='prepay_part'">&nbsp;Обязательная предоплата&nbsp;&gt;&gt;</button></span>
+			<span id="btn_go_prepay_full">&nbsp;&nbsp;&nbsp;<button onclick="GoPayment('prepay_full');" title="Порождение action='book' payment.type='prepay_full'">&nbsp;Оплатить полностью&nbsp;&gt;&gt;</button></span>
+	</div>
+	
+	<div id="div_contacts_static">
+		<table>
+			<tr>
+				<td>Контактное лицо:&nbsp;</td>
+				<td><span class="contact_fld_f"></span> <span class="contact_fld_i"></span> <span
+						class="contact_fld_o"></span>. Тел. <span class="contact_fld_phone"></span></td>
+			</tr>
+			<tr>
+				<td>Доп. контакт:&nbsp;</td>
+				<td><span class="contact_fld_fio2"></span>. Тел. <span class="contact_fld_phone2"></span></td>
+			</tr>
+			<tr>
+				<td>Комментарий:&nbsp;</td>
+				<td><span class="contact_fld_comment"></span></td>
+			</tr>
+		</table>
+	</div>
+
+	<div id="div_payment">
+		<hr>
+		<table class="tbl_payment">
+			<tr>
+				<td>К оплате</td>
+				<td><b><span id="payment_paid"></span></b></td>
+			</tr>
+			<tr>
+				<td>Плат.система (или система валидации)</td>
+				<td><input id="payment_paid_by" /></td>
+			</tr>
+			<tr>
+				<td>Транзакция - время</td>
+				<td><input id="payment_time" /></td>
+			</tr>
+			<tr>
+				<td>Транзакция - подробности</td>
+				<td><input id="payment_details" /></td>
+			</tr>
+		</table>
+		<p /><button onclick="StageBack();"
+			title="Порождение action='stage_back'">&nbsp;&lt;&lt;&nbsp;Назад&nbsp;</button>&nbsp;&nbsp;&nbsp;<button
+			id="btn_payment" onclick="GoBook();"
+			title="Порождение action='payment'">&nbsp;Оплачено&nbsp;&gt;&gt;</button>
+	</div>
+	<div id="div_booked">
+		<table>
+			<tr>
+				<td colspan="2">
+					</p>Большая портянка с спасибами и предупреждениями</td>
+			</tr>
+			<tr>
+				<td>Отель / Номер:&nbsp;</td>
+				<td><span class="b_hotel_name"></span>, <span class="booking_room"></span></td>
+			</tr>
+			<tr>
+				<td>Проживание:&nbsp;</td>
+				<td><span class="booking_time_in"></span> - <span class="booking_time_out"></span></td>
+			</tr>
+			<tr>
+				<td>Набирать ванну/джакузи:&nbsp;</td>
+				<td class="booking_bath_fill"></td>
+			</tr>
+			<tr>
+				<td>Контактное лицо:&nbsp;</td>
+				<td><span class="contact_fld_f"></span> <span class="contact_fld_i"></span> <span
+						class="contact_fld_o"></span>. Тел. <span class="contact_fld_phone"></span></td>
+			</tr>
+			<tr>
+				<td>Доп. контакт:&nbsp;</td>
+				<td><span class="contact_fld_fio2"></span>. Тел. <span class="contact_fld_phone2"></span></td>
+			</tr>
+			<tr>
+				<td>Комментарий:&nbsp;</td>
+				<td><span class="contact_fld_comment"></span></td>
+			</tr>
+			<tr>
+				<td>Стоимость:&nbsp;</td>
+				<td>Общая сумма: <span class="add_total_total"></span>. Оплачено: <span
+						class="add_prepay_total"></span>.
+					<span class="add_valid_total"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>Номер брони:&nbsp;</td>
+				<td>NNNNN</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					</p>Всякая хрень про снятие брони, контактный телефон СБ и т.п.</td>
+			</tr>
+		</table>
+		<p />
+		<p /><button onclick="WeStarted();">&nbsp;Начать новое бронирование&nbsp;</button>
+	</div>
+
+	<div id="json_out_title"></div>
+	<div id="json_out"></div>
+	<div id="json_in_title"></div>
+	<div id="json_in"></div>
+	<div id="resp_div"></div>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+description = "Шаблон страницы дисконтной системы"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+{variable name="block1_img_title" label="Фоновое изображение" tab="Блок 1" type="mediafinder" mode="image"}{/variable}
+{variable name="block1_text_1" label="Подзаголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_2" label="Текст" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block2_title" label="Заголовок" tab="Блок 2" type="textarea"}{/variable}
+{variable name="block2_img" label="Изображение" tab="Блок 2" type="mediafinder" mode="image"}{/variable}
+{variable name="block2_text" label="Текст" tab="Блок 2" type="textarea"}{/variable}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Дисконтная система бронирования номеров в отеле на час СПБ </title>
+  <meta name="description" content="Скидки в отелях с джакзи с почасовой оплатой Санкт-Петербург до 20% цена со скидкой 1450 за 3 часа бронирования номера с джакузи в любом районе города. ">
+  <meta name="keywords" content="отель на час спб со скидкой ">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+ {% partial "basic/head-scripts" %} 
+ 
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+
+    <div class="previw" style="background-image: url({{block1_img_title|media}})">
+        <div class="previw__container container">
+          <div class="previw__box">
+            <span class="previw__headline">Просто. Премиум</span>
+            <div class="previw__subheading plaintext">
+                <p>{{ block1_text_1 }}</p>
+            </div>
+            <div class="previw__discount-container">
+                {{ block1_text_2 | raw }}
+            </div>
+            <a href="#" class="previw__more">
+                <span class="previw__more-text">Подробнее</span>
+                <img src="/themes/motel/assets/img/more-arrow.svg" alt="" class="previw__more-img js-svg">
+            </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="darkblurtheme darkcommontheme">
+    <div class="system section">
+      
+        <!-- Sky -->
+        <div class="system__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="30"></div>
+        </div>
+        <!-- /Sky -->
+        
+        <div class="system__offer">
+          <div class="special-offer-outer js-special-offer-outer">
+            <div class="special-offer js-special-offer">
+              <div class="special-offer__icon-wrap">
+                <img src="/themes/motel/assets/img/flame.svg"  class="special-offer__icon js-svg" alt="">
+              </div>
+              <div class="special-offer__content">
+                <div class="special-offer__title">ТАРИФ «ВЫХОДНОЙ»</div>
+                <div class="special-offer__txt">
+                  <p>12 часовое проживание</p>
+                  <p>Действует в период с 11:00 СБ до 11:00 ПН. Бронирование осуществляется в день заезда или за день до него.</p>
+                </div>
+                <a href="#" class="special-offer__link">Подробнее <img src="/themes/motel/assets/img/arrow-right.svg" class="special-offer__link-icon js-svg" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="system__container container">
+            <h1 class="system__headline h1">{{ block2_title }}</h1>
+            <div class="system__information">
+                <div class="system__text plaintext">
+                    {{block2_text | raw}}
+                </div>
+                <div class="system__img" style="background-image: url({{block2_img|media}})"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="darktheme darkcommontheme">
+    <div class="conditions">
+        <div class="conditions__container container">
+            <div class="conditions__content">
+                <div class="conditions__headlines">
+                    <span class="conditions__headlines-desc">Скидка</span>
+                    <span class="conditions__headlines-cond">Условия предоставления</span>
+                </div>
+                {repeater name="discountlist" prompt="Добавить строку" tab="Блок 3"}
+                    <div class="conditions__item">
+                      <div class="conditions__discount">{text name="procent" label="Процент"}Procent{/text}</div>
+                      <div class="conditions__cond">{text name="condition" label="Условие"}Condition{/text}</div>
+                    </div>
+				{/repeater}
+            </div>
+        </div>
+    </div>
+    </div>
+  </main>
+  <!-- /Main content -->
+
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>

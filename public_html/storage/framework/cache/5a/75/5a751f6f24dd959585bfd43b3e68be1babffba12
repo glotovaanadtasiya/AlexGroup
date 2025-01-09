@@ -1,0 +1,1 @@
+1724423773a:4:{s:4:"name";s:34:"system::lang.mail_brand.menu_label";s:4:"form";s:52:"~/modules/system/models/mailbrandsetting/fields.yaml";s:10:"modelClass";s:30:"System\Models\MailBrandSetting";s:15:"defaultRedirect";s:13:"system/themes";}

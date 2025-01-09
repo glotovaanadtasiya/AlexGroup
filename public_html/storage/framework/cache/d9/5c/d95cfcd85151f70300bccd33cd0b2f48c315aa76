@@ -1,0 +1,305 @@
+1735009911a:1:{s:11:"program.htm";a:7:{s:8:"fileName";s:11:"program.htm";s:7:"content";s:5706:"description = "Программы"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Романтические пакеты от сети почасовых отелей Санкт-Петербурга</title>
+  <meta name="description" content="Отели, квартиры, апартаменты на час в Санкт-Петербурге. Если Вы хотите снять квартиру, комнату или номер с почасовой оплатой, то Вам сюда!">
+  <meta name="keywords" content="Романтика в отеле на час ">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darktheme">
+      <div class="s-program">
+        
+        <!-- Flame offer block (mobile cloned) -->
+        <div class="s-program__offer js-cloned-offer d-block d-md-none">
+          
+        </div>
+        <!-- /Flame offer block (mobile cloned) -->
+        <div class="s-program__container container">
+          <div class="s-program__box">
+            <div class="program-item">
+              <img src="/themes/motel/assets/img/program1_1.jpg" alt="" class="program-item__img">
+              <div class="program-item__darken"></div>
+              <div class="program-item__content">
+                <div class="program-item__title h4">
+                  Номер люкс с джакузи
+                </div>
+                <div class="program-item__details">
+                  <span class="program-item__details-text">Подробнее</span>
+                  <img src="/themes/motel/assets/img/arrow-right.svg" class="program-item__details-arrow js-svg" alt="">
+                </div>
+              </div>
+              <a href="https://alexhotels.ru/specs/5060/" class="program-item__fill-link fill-link"></a>
+            </div>
+            
+            <div class="program-item">
+              <img src="/themes/motel/assets/img/program2.jpg" alt="" class="program-item__img">
+              <div class="program-item__darken"></div>
+              <div class="program-item__content">
+                <div class="program-item__title h4">
+                  Премиум-автомобиль + отель
+                </div>
+                <div class="program-item__details">
+                  <span class="program-item__details-text">Подробнее</span>
+                  <img src="/themes/motel/assets/img/arrow-right.svg" class="program-item__details-arrow js-svg" alt="">
+                </div>
+              </div>
+              <a href="https://alexhotels.ru/specs/2562" class="program-item__fill-link fill-link"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="s-program-couple section">
+        
+        
+        <!-- Flame offer block (desktop) -->
+        <div class="s-program-couple__offer js-special-offer-outer-clone d-none d-md-block">
+          {% partial "blocks/special_offer" %}
+        </div>
+        <!-- /Flame offer block (desktop) -->
+        
+        <div class="s-program-couple__container container">
+          <h1 class="s-program-couple__title h1">Для молодоженов</h1>
+          <div class="s-program-couple__text plaintext">
+              В наших отелях вы можете провести брачную ночь в романтической обстановке номера люкс с джакузи. А также у вас есть возможность совершить прогулку по городу на автомобиле премиум класса.
+          </div>
+          <div class="s-program-couple__btn-wrap button-wrap">
+            <a href="/hotels" class="s-program-couple__btn button button_ghost">Выбрать отель</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:5:"mtime";i:1608295008;s:6:"markup";s:5019:"<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Романтические пакеты от сети почасовых отелей Санкт-Петербурга</title>
+  <meta name="description" content="Отели, квартиры, апартаменты на час в Санкт-Петербурге. Если Вы хотите снять квартиру, комнату или номер с почасовой оплатой, то Вам сюда!">
+  <meta name="keywords" content="Романтика в отеле на час ">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darktheme">
+      <div class="s-program">
+        
+        <!-- Flame offer block (mobile cloned) -->
+        <div class="s-program__offer js-cloned-offer d-block d-md-none">
+          
+        </div>
+        <!-- /Flame offer block (mobile cloned) -->
+        <div class="s-program__container container">
+          <div class="s-program__box">
+            <div class="program-item">
+              <img src="/themes/motel/assets/img/program1_1.jpg" alt="" class="program-item__img">
+              <div class="program-item__darken"></div>
+              <div class="program-item__content">
+                <div class="program-item__title h4">
+                  Номер люкс с джакузи
+                </div>
+                <div class="program-item__details">
+                  <span class="program-item__details-text">Подробнее</span>
+                  <img src="/themes/motel/assets/img/arrow-right.svg" class="program-item__details-arrow js-svg" alt="">
+                </div>
+              </div>
+              <a href="https://alexhotels.ru/specs/5060/" class="program-item__fill-link fill-link"></a>
+            </div>
+            
+            <div class="program-item">
+              <img src="/themes/motel/assets/img/program2.jpg" alt="" class="program-item__img">
+              <div class="program-item__darken"></div>
+              <div class="program-item__content">
+                <div class="program-item__title h4">
+                  Премиум-автомобиль + отель
+                </div>
+                <div class="program-item__details">
+                  <span class="program-item__details-text">Подробнее</span>
+                  <img src="/themes/motel/assets/img/arrow-right.svg" class="program-item__details-arrow js-svg" alt="">
+                </div>
+              </div>
+              <a href="https://alexhotels.ru/specs/2562" class="program-item__fill-link fill-link"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="s-program-couple section">
+        
+        
+        <!-- Flame offer block (desktop) -->
+        <div class="s-program-couple__offer js-special-offer-outer-clone d-none d-md-block">
+          {% partial "blocks/special_offer" %}
+        </div>
+        <!-- /Flame offer block (desktop) -->
+        
+        <div class="s-program-couple__container container">
+          <h1 class="s-program-couple__title h1">Для молодоженов</h1>
+          <div class="s-program-couple__text plaintext">
+              В наших отелях вы можете провести брачную ночь в романтической обстановке номера люкс с джакузи. А также у вас есть возможность совершить прогулку по городу на автомобиле премиум класса.
+          </div>
+          <div class="s-program-couple__btn-wrap button-wrap">
+            <a href="/hotels" class="s-program-couple__btn button button_ghost">Выбрать отель</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:4:"code";s:595:"function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}";s:11:"description";s:18:"Программы";s:10:"staticPage";a:2:{s:10:"useContent";s:1:"1";s:7:"default";s:1:"0";}}}

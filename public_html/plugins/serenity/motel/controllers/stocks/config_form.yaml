@@ -1,0 +1,17 @@
+name: Акции
+modelClass: Serenity\Motel\Models\Stock
+form: $/serenity/motel/models/stock/fields.yaml
+defaultRedirect: serenity/motel/stocks
+create:
+    title: 'Создание акции'
+    redirect: 'serenity/motel/stocks/update/:id'
+    redirectClose: serenity/motel/stocks
+    flashSave: 'Акция создана'
+update:
+    title: 'Редактирование акции'
+    redirect: serenity/motel/stocks
+    redirectClose: serenity/motel/stocks
+    flashSave: 'Акция сохранена'
+    flashDelete: 'Акция удалена'
+preview:
+    title: 'Просмотр акции'

@@ -1,0 +1,34 @@
+description = "Список новостей"
+
+[viewBag]
+==
+{% set records = news %}
+{% set displayColumn = news.displayColumn %}
+{% set noRecordsMessage = news.noRecordsMessage %}
+{% set detailsPage = news.detailsPage %}
+{% set detailsKeyColumn = news.detailsKeyColumn %}
+{% set detailsUrlParameter = news.detailsUrlParameter %}
+
+{% set mnths = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %}
+
+{% for record in records %}
+    <div class="article-prev">
+    {% spaceless %}
+        <a href="/news/post/{{ record.slug }}/" class="article-prev__fill-link fill-link"></a>
+        <div class="article-prev__photo">
+            <img class="article-prev__image" src="{{ record.img_title.path }}" alt="">
+        </div>
+        <div class="article-prev__descr">
+        <div class="article-prev__date">
+          {{ record.created_at|date("j") }} 
+          {{ mnths[record.created_at|date("n")] }} 
+          {{ record.created_at|date("Y") }}
+        </div>
+        <div class="article-prev__title">{{ record.name }}</div>
+            <div class="article-prev__text">{{ record.introtext | raw }}</div>
+        </div>
+    {% endspaceless %}
+    </div>
+{% else %}
+    <li class="no-data">{{ noRecordsMessage }}</li>
+{% endfor %}

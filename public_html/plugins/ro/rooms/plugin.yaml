@@ -1,0 +1,17 @@
+plugin:
+    name: 'ro.rooms::lang.plugin.name'
+    description: 'ro.rooms::lang.plugin.description'
+    author: Ro
+    icon: oc-icon-files-o
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 'CRM Hotels'
+        url: ro/rooms/rooms
+        icon: icon-life-ring
+        permissions:
+            - ro.rooms.all
+permissions:
+    ro.rooms.all:
+        tab: 'ro.rooms::lang.plugin.name'
+        label: 'ro.rooms::lang.plugin.name'

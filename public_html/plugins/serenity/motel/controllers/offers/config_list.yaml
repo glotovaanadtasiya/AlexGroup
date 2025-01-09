@@ -1,0 +1,15 @@
+title: 'Романтические предложения'
+modelClass: Serenity\Motel\Models\Offer
+list: $/serenity/motel/models/offer/columns.yaml
+recordUrl: 'serenity/motel/offers/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+defaultSort:
+    column: id
+    direction: asc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

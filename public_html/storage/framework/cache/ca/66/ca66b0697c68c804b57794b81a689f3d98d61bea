@@ -1,0 +1,77 @@
+1735042167a:1:{s:14:"basic/head.htm";a:6:{s:8:"fileName";s:14:"basic/head.htm";s:7:"content";s:1720:"[viewBag]
+==
+<meta charset="utf-8">
+
+  <!-- <base href="/"> -->
+  
+  <title>{% if staticPage.meta_title %}{{ staticPage.meta_title }}{% elseif hotel.meta_title %}{{ hotel.meta_title }}{% elseif post.name %}{{ post.name }}{% endif %}</title>
+  <meta name="description" content="{% if staticPage.meta_description %}{{ staticPage.meta_description }}{% elseif hotel.meta_description %}{{ hotel.meta_description }}{% endif %}">
+  <meta name="keywords" content="Отель на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1f">
+  <!-- Custom Browsers Color End -->
+  
+  <meta name="apple-itunes-app" content="app-id=1029435175">
+  
+  
+ <link rel="stylesheet" href="/themes/motel/assets/css/main.min.css" />
+
+ <?php if (!isset($_SERVER['HTTP_USER_AGENT']) || stripos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse') === false): ?>
+ 
+<meta name="yandex-verification" content="399ee3ca9aaabaaf" />
+
+<meta name="google-site-verification" content="eIupZehJt_v6i1-Ze7VwR5x-DhtRdIP1Zz8jfpmnBfo" />
+
+{% partial "basic/head-scripts" %} 
+
+<?php endif; ?>
+
+";s:5:"mtime";i:1603189895;s:6:"markup";s:1705:"<meta charset="utf-8">
+
+  <!-- <base href="/"> -->
+  
+  <title>{% if staticPage.meta_title %}{{ staticPage.meta_title }}{% elseif hotel.meta_title %}{{ hotel.meta_title }}{% elseif post.name %}{{ post.name }}{% endif %}</title>
+  <meta name="description" content="{% if staticPage.meta_description %}{{ staticPage.meta_description }}{% elseif hotel.meta_description %}{{ hotel.meta_description }}{% endif %}">
+  <meta name="keywords" content="Отель на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1f">
+  <!-- Custom Browsers Color End -->
+  
+  <meta name="apple-itunes-app" content="app-id=1029435175">
+  
+  
+ <link rel="stylesheet" href="/themes/motel/assets/css/main.min.css" />
+
+ <?php if (!isset($_SERVER['HTTP_USER_AGENT']) || stripos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse') === false): ?>
+ 
+<meta name="yandex-verification" content="399ee3ca9aaabaaf" />
+
+<meta name="google-site-verification" content="eIupZehJt_v6i1-Ze7VwR5x-DhtRdIP1Zz8jfpmnBfo" />
+
+{% partial "basic/head-scripts" %} 
+
+<?php endif; ?>";s:4:"code";N;s:7:"viewBag";a:0:{}}}

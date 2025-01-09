@@ -1,0 +1,223 @@
+1735042147a:1:{s:8:"news.htm";a:7:{s:8:"fileName";s:8:"news.htm";s:7:"content";s:3168:"description = "Шаблон страницы списка новостей"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Новости наших отелей с джакузи с почасововй оплатой </title>
+  <meta name="description" content="Самые свежие новости отелей с почасовой оплатой в Санкт-Петрбурге, самая актальная информация у нас на сайте">
+  <meta name="keywords" content="новости отеля на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+  
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darkblurtheme">
+      
+      <div class="s-news-prev section">
+          
+          <div class="s-news-prev__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+          </div>
+        <!-- Flame offer block -->
+        <div class="s-news-prev__offer">
+            {% partial "blocks/special_offer" %}
+          </div>
+          <!-- /Flame offer block -->
+        <div class="s-news-prev__container container">
+          
+          <h1 class="s-news-prev__title h2">Наши новости</h1>
+          
+          {% page %}
+          
+        </div>
+      </div>
+      
+    </div>
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:5:"mtime";i:1589270756;s:6:"markup";s:2440:"<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Новости наших отелей с джакузи с почасововй оплатой </title>
+  <meta name="description" content="Самые свежие новости отелей с почасовой оплатой в Санкт-Петрбурге, самая актальная информация у нас на сайте">
+  <meta name="keywords" content="новости отеля на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+  
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darkblurtheme">
+      
+      <div class="s-news-prev section">
+          
+          <div class="s-news-prev__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+          </div>
+        <!-- Flame offer block -->
+        <div class="s-news-prev__offer">
+            {% partial "blocks/special_offer" %}
+          </div>
+          <!-- /Flame offer block -->
+        <div class="s-news-prev__container container">
+          
+          <h1 class="s-news-prev__title h2">Наши новости</h1>
+          
+          {% page %}
+          
+        </div>
+      </div>
+      
+    </div>
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:4:"code";s:595:"function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}";s:11:"description";s:59:"Шаблон страницы списка новостей";s:10:"staticPage";a:2:{s:10:"useContent";s:1:"1";s:7:"default";s:1:"0";}}}

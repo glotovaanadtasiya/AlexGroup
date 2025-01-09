@@ -1,0 +1,17 @@
+name: Новости
+modelClass: Serenity\Motel\Models\NewsPost
+form: $/serenity/motel/models/newspost/fields.yaml
+defaultRedirect: serenity/motel/newsposts
+create:
+    title: 'Создание новости'
+    redirect: 'serenity/motel/newsposts/update/:id'
+    redirectClose: serenity/motel/newsposts
+    flashSave: 'Новость создана'
+update:
+    title: 'Редактирование новости'
+    redirect: serenity/motel/newsposts
+    redirectClose: serenity/motel/newsposts
+    flashSave: 'Новость сохранена'
+    flashDelete: 'Новость удалена'
+preview:
+    title: 'Просмотр новости'

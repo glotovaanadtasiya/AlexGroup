@@ -1,0 +1,19 @@
+[viewBag]
+==
+{% for record in records %}
+                <div class="question__question-box js-question__question-box">
+                    <div class="question__question-answer">
+                    {% spaceless %}
+                        <div class="question__question-text">
+                           {{ attribute(record, 'question') }}
+                            <img src="/themes/motel/assets/img/arrow-show-answer.svg" alt="" class="question__show-answer js-svg">
+                        </div>
+                        <div class="question__answer-text">
+                            {{ attribute(record, 'answer') }}
+                        </div>
+                    {% endspaceless %}
+                    </div>
+                </div>
+                {% else %}
+                    <li class="no-data">{{ noRecordsMessage }}</li>
+                {% endfor %}

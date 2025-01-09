@@ -1,0 +1,96 @@
+plugin:
+    name: Отели
+    description: 'Модуль управления отелями'
+    author: Serenity
+    icon: oc-icon-building
+    homepage: ''
+navigation:
+    main-menu-hotels:
+        label: Отели
+        url: serenity/motel/hotels
+        icon: icon-building
+        permissions:
+            - view_hotels_list
+    main-menu-reviews:
+        label: Отзывы
+        url: serenity/motel/reviews
+        icon: icon-comment
+        permissions:
+            - view_reviews_list
+    main-menu-questions:
+        label: FAQ
+        url: serenity/motel/questions
+        icon: icon-comments
+        permissions:
+            - view_questions_list
+    main-menu-news:
+        label: Новости
+        url: serenity/motel/newsposts
+        icon: icon-newspaper-o
+        permissions:
+            - view_news_posts_list
+    main-menu-stocks:
+        label: Акции
+        url: serenity/motel/stocks
+        icon: icon-bullhorn
+        permissions:
+            - view_stocks_list
+    main-menu-names:
+        label: Имена
+        url: serenity/motel/names
+        icon: icon-users
+        permissions:
+            - view_names_list
+    main-menu-services:
+        label: Услуги
+        url: serenity/motel/services
+        icon: icon-star
+        permissions:
+            - view_services_list
+        sideMenu:
+            side-menu-services:
+                label: Услуги
+                url: serenity/motel/services
+                icon: icon-star
+                permissions:
+                    - view_services_list
+            side-menu-offers:
+                label: 'Романтические предложения'
+                url: serenity/motel/offers
+                icon: icon-heart
+                permissions:
+                    - view_offers_list
+    main-menu-menu:
+        label: Меню
+        url: serenity/motel/menus
+        icon: icon-glass
+        permissions:
+            - view_menus_list
+permissions:
+    view_hotels_list:
+        tab: 'serenity.motel::lang.tab.hotels'
+        label: 'serenity.motel::lang.permission.view_hotels_list'
+    view_reviews_list:
+        tab: 'serenity.motel::lang.tab.reviews'
+        label: 'serenity.motel::lang.permission.view_reviews_list'
+    view_questions_list:
+        tab: 'serenity.motel::lang.tab.questions'
+        label: 'serenity.motel::lang.permission.view_questions_list'
+    view_news_posts_list:
+        tab: 'serenity.motel::lang.tab.news_posts'
+        label: 'serenity.motel::lang.permission.view_news_posts_list'
+    view_stocks_list:
+        tab: 'serenity.motel::lang.tab.stocks'
+        label: 'serenity.motel::lang.permission.view_stocks_list'
+    view_names_list:
+        tab: 'serenity.motel::lang.tab.names'
+        label: 'serenity.motel::lang.permission.view_names_list'
+    view_services_list:
+        tab: 'serenity.motel::lang.tab.services'
+        label: 'serenity.motel::lang.permission.view_services_list'
+    view_offers_list:
+        tab: 'serenity.motel::lang.tab.offers'
+        label: 'serenity.motel::lang.permission.view_offers_list'
+    view_menus_list:
+        tab: 'serenity.motel::lang.tab.menus'
+        label: 'serenity.motel::lang.permission.view_menus_list'

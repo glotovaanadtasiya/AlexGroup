@@ -1,0 +1,22 @@
+[viewBag]
+
+[staticMenu bottomMenu]
+code = "bottommenu"
+==
+<nav class="main-footer__nav footer-menu-nav col-md-8 col-lg-9 order-1 order-md-0">
+              <ul class="main-footer__menu footer-menu">
+              {% for item in bottomMenu.menuItems %}
+                
+                {% if item.isActive %}
+                
+                <li class="footer-menu__item"><a href="{{ item.url }}/" class="footer-menu__link">{{ item.title }}</a></li>
+                
+            	{% else %}
+            	
+            	<li class="footer-menu__item"><a href="{{ item.url }}/" class="footer-menu__link">{{ item.title }}</a></li>
+            	
+                {% endif %}
+                
+              {% endfor %}
+              </ul>
+            </nav>

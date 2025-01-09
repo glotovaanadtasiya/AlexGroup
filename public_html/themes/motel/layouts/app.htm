@@ -1,0 +1,130 @@
+description = "Шаблон страницы приложения"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+{variable name="google_play" label="Google Play" tab="Дополнительные" type="text"}{/variable}
+{variable name="appstore" label="appstore" tab="Дополнительные" type="text"}{/variable}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Скачать приложение по бронированию отелей Санкт-петербурга </title>
+  <meta name="description" content="Простое бронирование Онлайн, Система бронирования отелей онлайн Motelspb.com  Приложений для бронирования отелей в Санкт-Петербурге. Установи приложение MOTELSPB и получи бесплатно VIP карту">
+  <meta name="keywords" content="приложение по бронированию отелей ">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  <!-- Main content -->
+  <main class="main">
+      <div class="darkcommontheme darkblurtheme">
+        <div class="section s-app">        
+          <!-- Sky -->
+          <div class="s-app__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="20"></div>
+          </div>
+          <!-- /Sky -->
+
+          <!-- Flame offer block -->
+          <div class="s-about-main__offer">
+          {% partial "blocks/special_offer" %}
+          </div>
+          <!-- /Flame offer block -->
+          
+          <div class="s-app__container container">
+            <h1 class="s-app__title h1">{{ this.page.title }}</h1>
+            
+            <div class="s-app__box row">
+              <div class="s-app__box-col col-lg-7 col-md-6">
+                <div class="s-app__phone">
+                  <!-- Animated UFO -->
+                  <div class="s-app__ufo">
+                    <canvas class="s-app__ufo-canvas js-ufo-canvas"></canvas>
+                  </div>
+                  <!-- Retina img -->
+                  <div class="s-app__phone-img-wrap">
+                    <img src="/themes/motel/assets/img/ufo.png" srcset="/themes/motel/assets/img/ufo@2x.png 2x, /themes/motel/assets/img/ufo@1.5x.png 1.5x" alt="" class="s-app__phone-img">
+                  </div>
+                </div>
+              </div>
+              <div class="s-app__box-col col-lg-5 col-md-6">
+                <div class="s-app__descr plaintext">
+                  <div class="s-app__text">
+                    {% page %}
+                  </div>
+                  <div class="s-app__links">
+                    
+					<div class="s-app__links-item">
+                      <a href="{{ google_play }}" class="s-app__links-link" target="_blank" onclick="yaCounter23472043.reachGoal('googleplay'); ga('send', 'pageview','/googleplay'); fbq('track', 'googleplay'); return true;">
+                        <img src="/themes/motel/assets/img/google-play.svg" alt="" class="s-app__links-img">
+                      </a>
+                    </div>
+					
+                    <div class="s-app__links-item">
+                      <a href="{{ appstore }}" class="s-app__links-link" target="_blank" onclick="yaCounter23472043.reachGoal('iosappstore'); ga('send', 'pageview','/iosappstore'); fbq('track', 'iosappstore'); return true;">
+                        <img src="/themes/motel/assets/img/appstore.svg" alt="" class="s-app__links-img">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+			  
+			  <div style="text-align: center; font-size: 22px;width: 100%; margin: 70px auto 20px;" class="hide-on-mobile">
+			  <img src="/themes/motel/assets/img/qr-goapp.gif" style=""><br><br>
+			  Сканируйте и устанавливайте
+			  </div>
+			  <style>
+				@media (max-width: 800px) {.hide-on-mobile {display: none;}}
+			  </style>
+			  
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+    {% partial "basic/scripts" %}
+  
+</body>
+</html>

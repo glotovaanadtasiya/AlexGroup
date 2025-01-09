@@ -1,0 +1,14 @@
+columns:
+    id:
+        label: ID
+        type: number
+    name:
+        label: Название
+        type: text
+        searchable: true
+    type:
+        label: Тип
+        type: text
+    image:
+        label: image
+        type: text

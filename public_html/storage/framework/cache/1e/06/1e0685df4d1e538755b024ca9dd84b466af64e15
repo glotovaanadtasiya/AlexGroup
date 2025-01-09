@@ -1,0 +1,52 @@
+1735042086a:1:{s:24:"blocks/special_offer.htm";a:7:{s:8:"fileName";s:24:"blocks/special_offer.htm";s:7:"content";s:1174:"description = "Специальное предложение"
+
+[viewBag]
+==
+<?php
+use RainLab\Pages\Classes\Page;
+function onStart() {
+    $this['mainpage'] = Page::loadCached($this->theme, 'index');
+}
+?>
+==
+
+
+
+{# This will be a comment 
+
+<div class="<!--iosOnly--> special-offer-outer js-special-offer-outer js-special-offer-outer-clone">
+              <div class="special-offer js-special-offer">
+                <div class="special-offer__icon-wrap">
+                  <img src="/themes/motel/assets/img/flame.svg"  class="special-offer__icon js-svg" alt="">
+                </div>
+                <div class="special-offer__content">
+                  <div class="special-offer__title">{{ mainpage.secial_title }}</div>
+                  <div class="special-offer__txt">
+                    {{ mainpage.secial_text | raw }}
+                  </div>
+                  <a href="{{ mainpage.secial_url }}" class="special-offer__link">загрузи и получи VIP карту<!--img src="/themes/motel/assets/img/arrow-right.svg" class="special-offer__link-icon js-svg" alt=""--></a>
+                </div>
+              </div>
+            </div>
+			
+#}";s:5:"mtime";i:1589270757;s:6:"markup";s:960:"{# This will be a comment 
+
+<div class="<!--iosOnly--> special-offer-outer js-special-offer-outer js-special-offer-outer-clone">
+              <div class="special-offer js-special-offer">
+                <div class="special-offer__icon-wrap">
+                  <img src="/themes/motel/assets/img/flame.svg"  class="special-offer__icon js-svg" alt="">
+                </div>
+                <div class="special-offer__content">
+                  <div class="special-offer__title">{{ mainpage.secial_title }}</div>
+                  <div class="special-offer__txt">
+                    {{ mainpage.secial_text | raw }}
+                  </div>
+                  <a href="{{ mainpage.secial_url }}" class="special-offer__link">загрузи и получи VIP карту<!--img src="/themes/motel/assets/img/arrow-right.svg" class="special-offer__link-icon js-svg" alt=""--></a>
+                </div>
+              </div>
+            </div>
+			
+#}";s:4:"code";s:122:"use RainLab\Pages\Classes\Page;
+function onStart() {
+    $this['mainpage'] = Page::loadCached($this->theme, 'index');
+}";s:11:"description";s:45:"Специальное предложение";s:7:"viewBag";a:0:{}}}

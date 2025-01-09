@@ -1,0 +1,556 @@
+name: 'Верхнее меню'
+items:
+    -
+        title: Отели
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: oteli
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+        items:
+            -
+                title: 'новая Охта (открытие 2025)'
+                nesting: ''
+                type: url
+                url: 'https://motelspb.com/news/post/otkrytie-otelya-aleks-novaya-ohta/'
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: 'на Фонтанке'
+                nesting: ''
+                type: url
+                url: /hotels/fontanka/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Петроградской'
+                nesting: ''
+                type: url
+                url: /hotels/petrogradskoj/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Фрунзенской'
+                nesting: ''
+                type: url
+                url: /hotels/frunzenskaya/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'в Рыбацком'
+                nesting: ''
+                type: url
+                url: /hotels/rybackom/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Нарвской'
+                nesting: ''
+                type: url
+                url: /hotels/narvskoj/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Жуковского'
+                nesting: ''
+                type: url
+                url: /hotels/zhukovskogo/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Мужества'
+                nesting: ''
+                type: url
+                url: /hotels/muzhestva/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Просвещения'
+                nesting: ''
+                type: url
+                url: /hotels/prosveshcheniya/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Богатырском'
+                nesting: ''
+                type: url
+                url: /hotels/bogatyrskom/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Косыгина'
+                nesting: ''
+                type: url
+                url: /hotels/kosygina/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Васильевском'
+                nesting: ''
+                type: url
+                url: /hotels/vasilyevskom/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Жукова'
+                nesting: ''
+                type: url
+                url: /hotels/zhukova/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Дыбенко'
+                nesting: ''
+                type: url
+                url: /hotels/dybenko/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Звездной'
+                nesting: ''
+                type: url
+                url: /hotels/zvezdnoj/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'на Будапештской'
+                nesting: ''
+                type: url
+                url: /hotels/budapeshtskoj/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+    -
+        title: Цены
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: ceny
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+        items:
+            -
+                title: 'номер Стандарт'
+                nesting: ''
+                type: url
+                url: /price/
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'номер Полу-люкс'
+                nesting: ''
+                type: url
+                url: 'https://motelspb.com/price/#suite'
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'номер Люкс'
+                nesting: ''
+                type: url
+                url: '/price/#lux'
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+    -
+        title: Акции
+        nesting: ''
+        type: cms-page
+        url: ''
+        code: ''
+        reference: skidki-i-akcii
+        cmsPage: ''
+        replace: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+        items:
+            -
+                title: 'Тариф "Ночной"'
+                nesting: ''
+                type: url
+                url: /stocks/stock/snizheny-ceny-po-tarifu-nochnoj
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+                items:
+                    -
+                        title: 'Свадебное предложение'
+                        nesting: ''
+                        type: url
+                        url: 'https://motelspb.com/stocks/stock/svadebnoe-predlozhenie'
+                        code: ''
+                        reference: ''
+                        cmsPage: ''
+                        replace: ''
+                        viewBag:
+                            isHidden: '0'
+                            cssClass: PConly
+                            isExternal: '0'
+                        items:
+                            -
+                                title: 'Новый год в Алекс'
+                                type: url
+                                url: /stocks/stock/novogodnyaya-akciya/
+                                code: ''
+                                viewBag:
+                                    isHidden: '0'
+                                    cssClass: PConly
+                                    isExternal: '0'
+            -
+                title: 'VIP-карта в подарок'
+                nesting: ''
+                type: url
+                url: /stocks/stock/zagruzi-i-poluchi-vip-kartu
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'Свадебное предложение'
+                nesting: ''
+                type: url
+                url: 'https://motelspb.com/stocks/stock/svadebnoe-predlozhenie'
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+                items:
+                    -
+                        title: 'Новый год в Алекс'
+                        type: url
+                        url: /stocks/stock/novogodnyaya-akciya/
+                        code: ''
+                        viewBag:
+                            isHidden: '0'
+                            cssClass: PConly
+                            isExternal: '0'
+            -
+                title: 'Новый год в Алекс'
+                type: url
+                url: /stocks/stock/novogodnyaya-akciya/
+                code: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'Романтический подарок'
+                nesting: ''
+                type: url
+                url: 'https://motelspb.com/stocks/stock/romanticheskij-podarok'
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'Дисконтная система'
+                nesting: ''
+                type: url
+                url: 'https://motelspb.com/stocks/stock/diskontnaya-sistema'
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'Электронная VIP-карта'
+                nesting: ''
+                type: url
+                url: 'https://motelspb.com/stocks/stock/elektronnaya-karta-alex-group'
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: PConly
+                    isExternal: '0'
+            -
+                title: 'Романтический вечер'
+                nesting: ''
+                type: url
+                url: 'https://motelspb.com/stocks/stock/tarif-romanticheskij-vecher/'
+                code: ''
+                reference: ''
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+    -
+        title: Свадьба
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: wedding
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: 'О нас'
+        nesting: '0'
+        type: static-page
+        url: ''
+        code: ''
+        reference: o-kompanii
+        cmsPage: ''
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: has-submenu
+            isExternal: '0'
+        items:
+            -
+                title: Контакты
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: kontakty
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: Новости
+                nesting: ''
+                type: cms-page
+                url: ''
+                code: ''
+                reference: news
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: Отзывы
+                nesting: ''
+                type: cms-page
+                url: ''
+                code: ''
+                reference: reviews
+                cmsPage: ''
+                replace: ''
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: 'О компании'
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: o-kompanii
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: 'Меню отелей'
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: menu
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: 'Мобильное приложение'
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: prilozhenie
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: 'Visa support'
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: visa
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'
+            -
+                title: 'Правила проживания'
+                nesting: '0'
+                type: static-page
+                url: ''
+                code: ''
+                reference: rules
+                cmsPage: ''
+                replace: '0'
+                viewBag:
+                    isHidden: '0'
+                    cssClass: ''
+                    isExternal: '0'

@@ -1,0 +1,32 @@
+description = "Специальное предложение"
+
+[viewBag]
+==
+<?php
+use RainLab\Pages\Classes\Page;
+function onStart() {
+    $this['mainpage'] = Page::loadCached($this->theme, 'index');
+}
+?>
+==
+
+
+
+{# This will be a comment 
+
+<div class="<!--iosOnly--> special-offer-outer js-special-offer-outer js-special-offer-outer-clone">
+              <div class="special-offer js-special-offer">
+                <div class="special-offer__icon-wrap">
+                  <img src="/themes/motel/assets/img/flame.svg"  class="special-offer__icon js-svg" alt="">
+                </div>
+                <div class="special-offer__content">
+                  <div class="special-offer__title">{{ mainpage.secial_title }}</div>
+                  <div class="special-offer__txt">
+                    {{ mainpage.secial_text | raw }}
+                  </div>
+                  <a href="{{ mainpage.secial_url }}" class="special-offer__link">загрузи и получи VIP карту<!--img src="/themes/motel/assets/img/arrow-right.svg" class="special-offer__link-icon js-svg" alt=""--></a>
+                </div>
+              </div>
+            </div>
+			
+#}

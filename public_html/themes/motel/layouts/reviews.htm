@@ -1,0 +1,135 @@
+description = "Шаблон страницы отзывов"
+==
+<?php
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+
+function onSubmitReviewForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'review' => Input::get('review'),
+        'service' => Input::get('service'),
+        'room' => Input::get('room'),
+        'food' => Input::get('food'),
+        ];
+    Mail::send('serenity.motel.reviewform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новый отзыв об отеле с сайта motelspb.ru');
+    });
+    
+   Flash::success('Отзыв отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Отзывы о сети отелей на час с джакузи Мотель СПБ</title>
+  <meta name="description" content="⭐⭐⭐⭐⭐5  на основе ‎326 голосов. Читать отзыв об отеле на час в Санкт-Петерберге: Очень хорошее отношение к гостям. После форс-мажора с коммунальными проблемами в отеле на Косыгина очень приятно было получить комплимент в виде бутылки шампанского (кстати, очень вкусного) и иметь личный разговор с представителем сети.">
+  <meta name="keywords" content="отель на час спб отзывы">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+  
+</head>
+
+<body class="js-body">
+  
+  <!-- Main content -->
+  <main class="main">
+  <div class="darkcommontheme darkblurtheme">
+    
+    <div class="header-group">
+      <!-- Header -->
+      {% partial "basic/header" %}    
+      <!-- /Header -->
+    </div>
+  
+  
+  
+  
+  
+    <div class="s-feedback section">
+
+        <!-- Sky -->
+        <div class="s-feedback__stars starry-sky-canvas">
+          <div class="starry-sky js-starry-sky" data-stars-amount="30"></div>
+        </div>
+        <!-- /Sky -->
+      <div class="s-feedback__content">
+        <div class="s-feedback__offer">
+          {% partial "blocks/special_offer" %}
+        </div>
+        <div class="s-feedback__container container">
+        
+          {% page %}
+          
+        </div>
+      </div>
+    </div>
+</div>
+  
+    
+  </main>
+  <!-- /Main content -->
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+  
+  
+  
+  
+  {% partial "basic/scripts" %}
+  
+</body>
+</html>

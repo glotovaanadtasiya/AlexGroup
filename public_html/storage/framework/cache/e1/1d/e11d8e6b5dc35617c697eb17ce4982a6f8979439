@@ -1,0 +1,173 @@
+1735042086a:1:{s:16:"basic/header.htm";a:6:{s:8:"fileName";s:16:"basic/header.htm";s:7:"content";s:5208:"[viewBag]
+==
+<!--div style="padding: 20px; text-align: center; margin: 5px auto 20px; max-width: 1070px; border: 2px solid #fbb03b">
+Уважаемые гости, по техническим причинам временно не работает бронирование в мобильном приложении. <br>
+
+Приносим свои извинения за доставленные неудобства!
+</div-->
+ <div class="main-header__container container">
+        <div class="main-header__content">
+          
+          <div class="main-header__logo logo">
+            <a href="/" class="logo__inner">
+              <div class="logo__icon">
+                <canvas class="logo__canvas js-marker-canvas"></canvas>
+              </div>              
+              <div class="logo__descr">
+                <div class="logo__name">Алекс Отель</div>
+                <div class="logo__slogan">создан для двоих</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="main-header__menu">
+            <!-- Menu Nav -->
+            <nav class="main-menu-nav js-main-menu-nav">
+                <div class="main-menu-nav__stars starry-sky-canvas">
+                  <div class="starry-sky js-starry-sky" data-stars-amount="30"></div>
+                </div>  
+                <div class="main-menu-nav__inner">
+                  <div class="main-menu-nav__container container">			
+                    <!-- Menu -->
+                    {% partial 'menu/topmenu' %}
+                    <!-- /Menu -->
+                    
+                    <div class="main-menu-nav__mobile-box">
+                      <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-menu-nav__phone">8 (812) 468-<div style="display:inline-block;width: 1px;"></div>7<div style="display:inline-block;width: 1px;"></div>7-<div style="display:inline-block;width: 1px;"></div>77</a>						  
+					  <br>
+					  <a href="tel:+78124030091" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-header__phone">8 (812) 403-00-91</a>
+					  			  
+                      <div class="main-header__contact-descr">единая служба бронирования<br>круглосуточно, без выходных</div>
+                      <div class="main-menu-nav__social social">
+                        <a href="https://vk.com/public9671914" class="social__item" target="_blank">
+                          <img src="/themes/motel/assets/img/vk.svg" alt="" class="social__icon js-svg">
+                        </a>
+						  <!--
+						  <a href="https://www.instagram.com/motelspb/" class="social__item" target="_blank">
+							<img src="/themes/motel/assets/img/inst.svg" alt="" class="social__icon js-svg">
+						  </a>
+						  -->
+						  <a href="https://api.whatsapp.com/send?phone=79812400110" class="social__item" target="_blank">
+							<img src="/themes/motel/assets/img/whatsapp.svg" alt="" class="social__icon js-svg">
+						  </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+              <!-- /Menu Nav -->
+          </div>
+
+          
+          <div class="main-header__contact">
+            <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-header__phone">8 (812) 468-<div style="display:inline-block;width: 1px;"></div>7<div style="display:inline-block;width: 1px;"></div>7-<div style="display:inline-block;width: 1px;"></div>77</a>
+			<br>
+			<a href="tel:+78124030091" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-header__phone">8 (812) 403-00-91</a>
+			
+			
+            <div class="main-header__contact-descr">единая служба бронирования<br>круглосуточно, без выходных</div>
+          </div>
+          
+		  <a href="https://api.whatsapp.com/send?phone=79812400110" class="main-header__mob-phone"><img class="main-header__mob-phone-icon js-svg" src="/themes/motel/assets/img/whatsapp.svg" alt=""></a>
+		  
+		  			 
+
+		  
+          <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-header__mob-phone"><img class="main-header__mob-phone-icon js-svg" src="/themes/motel/assets/img/phone.svg" alt=""></a>
+          
+          <!-- Burger Menu  Controls -->
+          <div class="main-header__menu-btn">
+            <div class="menu-opener js-menu-opener">
+              <div class="menu-opener__inner  js-menu-opener__inner"></div>			
+            </div>
+          </div>
+          <!-- /Burger Menu  Controls -->
+          
+        </div>
+      </div>
+    </header>";s:5:"mtime";i:1694078685;s:6:"markup";s:5195:"<!--div style="padding: 20px; text-align: center; margin: 5px auto 20px; max-width: 1070px; border: 2px solid #fbb03b">
+Уважаемые гости, по техническим причинам временно не работает бронирование в мобильном приложении. <br>
+
+Приносим свои извинения за доставленные неудобства!
+</div-->
+ <div class="main-header__container container">
+        <div class="main-header__content">
+          
+          <div class="main-header__logo logo">
+            <a href="/" class="logo__inner">
+              <div class="logo__icon">
+                <canvas class="logo__canvas js-marker-canvas"></canvas>
+              </div>              
+              <div class="logo__descr">
+                <div class="logo__name">Алекс Отель</div>
+                <div class="logo__slogan">создан для двоих</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="main-header__menu">
+            <!-- Menu Nav -->
+            <nav class="main-menu-nav js-main-menu-nav">
+                <div class="main-menu-nav__stars starry-sky-canvas">
+                  <div class="starry-sky js-starry-sky" data-stars-amount="30"></div>
+                </div>  
+                <div class="main-menu-nav__inner">
+                  <div class="main-menu-nav__container container">			
+                    <!-- Menu -->
+                    {% partial 'menu/topmenu' %}
+                    <!-- /Menu -->
+                    
+                    <div class="main-menu-nav__mobile-box">
+                      <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-menu-nav__phone">8 (812) 468-<div style="display:inline-block;width: 1px;"></div>7<div style="display:inline-block;width: 1px;"></div>7-<div style="display:inline-block;width: 1px;"></div>77</a>						  
+					  <br>
+					  <a href="tel:+78124030091" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-header__phone">8 (812) 403-00-91</a>
+					  			  
+                      <div class="main-header__contact-descr">единая служба бронирования<br>круглосуточно, без выходных</div>
+                      <div class="main-menu-nav__social social">
+                        <a href="https://vk.com/public9671914" class="social__item" target="_blank">
+                          <img src="/themes/motel/assets/img/vk.svg" alt="" class="social__icon js-svg">
+                        </a>
+						  <!--
+						  <a href="https://www.instagram.com/motelspb/" class="social__item" target="_blank">
+							<img src="/themes/motel/assets/img/inst.svg" alt="" class="social__icon js-svg">
+						  </a>
+						  -->
+						  <a href="https://api.whatsapp.com/send?phone=79812400110" class="social__item" target="_blank">
+							<img src="/themes/motel/assets/img/whatsapp.svg" alt="" class="social__icon js-svg">
+						  </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+              <!-- /Menu Nav -->
+          </div>
+
+          
+          <div class="main-header__contact">
+            <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-header__phone">8 (812) 468-<div style="display:inline-block;width: 1px;"></div>7<div style="display:inline-block;width: 1px;"></div>7-<div style="display:inline-block;width: 1px;"></div>77</a>
+			<br>
+			<a href="tel:+78124030091" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-header__phone">8 (812) 403-00-91</a>
+			
+			
+            <div class="main-header__contact-descr">единая служба бронирования<br>круглосуточно, без выходных</div>
+          </div>
+          
+		  <a href="https://api.whatsapp.com/send?phone=79812400110" class="main-header__mob-phone"><img class="main-header__mob-phone-icon js-svg" src="/themes/motel/assets/img/whatsapp.svg" alt=""></a>
+		  
+		  			 
+
+		  
+          <a href="tel:+78124687777" onclick="yaCounter23472043.reachGoal('clickPhoneLink'); ga('send', 'pageview','/clickPhoneLink'); fbq('track', 'clickPhoneLink'); return true;" class="main-header__mob-phone"><img class="main-header__mob-phone-icon js-svg" src="/themes/motel/assets/img/phone.svg" alt=""></a>
+          
+          <!-- Burger Menu  Controls -->
+          <div class="main-header__menu-btn">
+            <div class="menu-opener js-menu-opener">
+              <div class="menu-opener__inner  js-menu-opener__inner"></div>			
+            </div>
+          </div>
+          <!-- /Burger Menu  Controls -->
+          
+        </div>
+      </div>
+    </header>";s:4:"code";N;s:7:"viewBag";a:0:{}}}

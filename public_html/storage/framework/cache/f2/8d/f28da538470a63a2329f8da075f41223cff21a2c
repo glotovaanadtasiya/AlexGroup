@@ -1,0 +1,1 @@
+1735748198a:1:{s:7:"columns";a:4:{s:2:"id";a:2:{s:5:"label";s:2:"ID";s:4:"type";s:6:"number";}s:4:"name";a:3:{s:5:"label";s:16:"Название";s:4:"type";s:4:"text";s:10:"searchable";b:1;}s:4:"type";a:2:{s:5:"label";s:6:"Тип";s:4:"type";s:4:"text";}s:5:"image";a:2:{s:5:"label";s:5:"image";s:4:"type";s:4:"text";}}}

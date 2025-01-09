@@ -1,0 +1,17 @@
+name: Меню
+modelClass: Serenity\Motel\Models\Menu
+form: $/serenity/motel/models/menu/fields.yaml
+defaultRedirect: serenity/motel/menus
+create:
+    title: Создание
+    redirect: 'serenity/motel/menus/update/:id'
+    redirectClose: serenity/motel/menus
+    flashSave: Создано
+update:
+    title: Редактирование
+    redirect: serenity/motel/menus
+    redirectClose: serenity/motel/menus
+    flashSave: Сохранено
+    flashDelete: Удалено
+preview:
+    title: Просмотр

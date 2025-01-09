@@ -1,0 +1,17 @@
+name: Услуги
+modelClass: Serenity\Motel\Models\Service
+form: $/serenity/motel/models/service/fields.yaml
+defaultRedirect: serenity/motel/services
+create:
+    title: 'Создание услуги'
+    redirect: 'serenity/motel/services/update/:id'
+    redirectClose: serenity/motel/services
+    flashSave: Создано
+update:
+    title: 'Редактирование услуги'
+    redirect: serenity/motel/services
+    redirectClose: serenity/motel/services
+    flashSave: Сохранено
+    flashDelete: Удалено
+preview:
+    title: 'Просмотр услуги'

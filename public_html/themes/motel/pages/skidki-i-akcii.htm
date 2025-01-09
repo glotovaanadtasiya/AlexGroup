@@ -1,0 +1,149 @@
+title = "Скидки и акции"
+url = "/stocks/:page?"
+layout = "stocks"
+is_hidden = 0
+
+[builderList stocks]
+modelClass = "Serenity\Motel\Models\Stock"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "stock"
+detailsKeyColumn = "slug"
+detailsUrlParameter = "slug"
+recordsPerPage = 20
+pageNumber = "{{ :page }}"
+sortColumn = "sort_order"
+sortDirection = "asc"
+==
+<?php
+function onLoadMore() {
+    // получаем номер страницы
+    $pageNumber = Input::get('page') + 1;
+    // обращаемся к компоненту Posts с alias allPosts: 
+    // выставляем номер страницы и готовим данные
+    $this->components['stocks']->setProperty('pageNumber', $pageNumber);
+    $this->components['stocks']->onRun();
+    if ($pageNumber < $this->components['stocks']->records->lastPage()) {
+        // для простоты мы генерируем html, но в принципе можно сделать и отдельный паршл для кнопки
+        $more_link = '<button class="disc-prom__more-btn" data-request="onLoadMore" data-request-data="page: ' . $pageNumber . '"><span class="pagination__more-btn-text">ЕЩЕ</span></button>';
+    } else {
+        // если мы достигли последней страницы, кнопка больше не нужна
+        $more_link = '';
+    }
+    return [
+        // если перед селектором стоит @, новое содержимое будет добавляться в конец, а не заменять старое
+        
+        '@#all-stocks-content' => $this->renderPartial('blocks/stocksList.htm', ['stocks' => $this->components['stocks']->records]),
+        '#load-more-button' => $more_link,
+    ];
+}
+?>
+==
+{% set stocks = stocks.records %}
+
+{% set paginationEnabled =
+    stocks.currentPage > 1 or
+    stocks.lastPage > 1 or
+    stocks.lastPage > stocks.currentPage
+    %}
+
+    {% if paginationEnabled %}
+        {# How many pages to display around the current page #}
+        {% set n = 2 %}
+    
+        {% set currentPageZeroBased = stocks.currentPage-1 %}
+    
+        {% set pageLinks = [] %}
+        {% set pageSet = [] %}
+    
+        {% set startOffset = max(currentPageZeroBased - n, 0) %}
+        {% if (startOffset + 2*n+1) > (stocks.lastPage-1) %}
+        {% set startOffset = max(stocks.lastPage - 2*n - 1, 0) %}
+        {% endif %}
+    
+        {% for page in 1..stocks.lastPage %}
+        {% set pageLinks = pageLinks|merge([page]) %}
+        {% endfor %}
+    
+        {% set activeBlock = pageLinks|slice(startOffset, 2*n + 1) %}
+    
+        {% if startOffset > 0 %}
+        {% set pageSet = pageSet|merge([1]) %}
+    
+        {% if startOffset > 1 %}
+        {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
+        {% endif %}
+    
+        {% set pageSet = pageSet|merge(activeBlock) %}
+    
+        {% set diffToEnd = (news.lastPage-1) - (startOffset + 2*n+1) + 1 %}
+    
+        {% if diffToEnd > 0 %}
+        {% if diffToEnd > 1 %}
+        {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
+    
+        {% set pageSet = pageSet|merge([stocks.lastPage]) %}
+    {% endif %}
+{% endif %}
+
+<div class="disc-prom__container container">
+        <div class="disc-prom__promo-cards" id="all-stocks-content">
+        {% partial "blocks/stocksList" stocks=stocks %}
+        </div>
+        
+        {% if stocks.lastPage > 1 %}
+        <div class="disc-prom__pagination">
+            <div class="disc-prom__pagination-row row">
+              <div class="col-xl-8 offset-xl-2">
+              
+                <!-- Pagination -->
+                <div class="pagination">
+                  <div class="pagination__container">
+                    <div class="pagination__box d-none d-md-flex">
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (stocks.currentPage-1) }) }}" {% if stocks.previousPageUrl == false %}class="disabled"{% endif %}>
+                        <div class="pagination__prev">
+                          <img src="/themes/motel/assets/img/pagination-arrow-prev.svg" alt="" class="pagination__arrow-prev js-svg">
+                          <span class="pagination__prev-text">Предыдущая</span>
+                        </div>
+                      </a>   
+                      <div class="pagination__numbers">
+                        {% for page in pageSet %}
+                            {% if page == '...' %}
+                                <a>{{ page }}</a>
+                            {% else %}
+                            <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}" class="pagination__number-item {% if stocks.currentPage == page %}active{% endif %}">{{ page }}</a>
+                            {% endif %}
+                          {% endfor %}
+                      </div>
+					  
+					  {% if not stocks.nextPageUrl == false %}
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (stocks.currentPage+1) }) }}">
+                        <div class="pagination__next">
+                          <span class="pagination__next-text">Следующая</span>
+                          <img src="/themes/motel/assets/img/pagination-arrow-next.svg" alt="" class="pagination__arrow-next js-svg">
+                        </div>
+                      </a>
+					  {% endif %}
+                    </div>
+                    
+                    <div id="load-more-button">
+                    <button class="pagination__more-btn d-md-none" data-request="onLoadMore" data-request-data="page: 1">
+                      <span class="pagination__more-btn-text">
+                        ЕЩЕ
+                      </span>
+                    </button>
+                    </div>
+                    
+                  </div>              
+                </div>
+                <!-- /Pagination -->
+                
+              </div>
+            </div>
+          </div>
+          {% endif %}
+</div>

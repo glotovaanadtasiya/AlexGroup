@@ -1,0 +1,57 @@
+description = "Бронирование на главной"
+
+[viewBag]
+==
+<div class="find-room js-find-room">
+      <div class="find-room__container container">
+        <div class="find-room__row">
+          <div class="find-room__field">
+            <div class="select-wrap">
+              <select class="select js-select-find-room-bg js-map-select" name="hotel-select">
+                <option disabled selected hidden value="">Отель</option>
+                {% for hotel in hotels %}
+                <option hotelid="{{hotel.id}}" value="{{ hotel.slug }}">{{ hotel.name }} {% if hotel.low_price %}<div style="color: #a62b81">-%</div>{% endif %}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          
+          <div class="find-room__field">
+            <div class="select-wrap">
+              <select class="select js-select-find-room-bg js-roomtype-select" name="roomtype-select">
+                <option disabled selected hidden>Тип номера</option>
+                <option value="lux">Люкс</option>
+                <option value="suite">Полу-люкс</option>
+                <option value="standard">Cтандарт</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- <div class="find-room__field">
+            <input class="datepicker-input js-datepicker" placeholder="Когда" readonly>
+          </div> -->
+          
+          <div class="find-room__field">
+            <div class="select-wrap">
+              <select class="select js-select-find-room-bg  js-time-select">
+                {% for standart_prop in hotels.first.standart_prop %}
+                    {% for standart_price in standart_prop.tariffs %}
+                      {% if standart_price.type != 'prolongation' %}
+						{% if not standart_price.price_hide %}
+						  <option value="{{ standart_price.price_name }}" {% if loop.first %}selected{% endif %}>{{ standart_price.price_name }}</option>
+						{% endif %}
+					  {% endif %}
+                    {% endfor %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          
+          <div class="find-room__btn-wrap">
+            <a href="#booking" onclick=" yaCounter23472043.reachGoal('bronOpen'); fbq('track','bronOpen'); return true;" class="find-room__btn button button_ghost button_medium js-booking-link">
+              Забронировать
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>

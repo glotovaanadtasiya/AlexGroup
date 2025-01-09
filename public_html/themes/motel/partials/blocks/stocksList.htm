@@ -1,0 +1,34 @@
+description = "Список акций"
+
+[viewBag]
+==
+{% for stock in stocks %}
+	{% if stock.active %}
+        {% if stock.favorite %}
+
+        <a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(stock, detailsKeyColumn) }) }}" class="disc-prom__promo-cards-item" style="background-image: url('{{ stock.img_title.path | resize(700) }}')">
+            <div class="disc-prom__card-text-container">
+              <span class="disc-prom__card-headline h4">{{ stock.name }}</span>
+              <span class="disc-prom__more">
+                  <span class="disc-prom__more-text">Подробнее</span>
+                  <img src="/themes/motel/assets/img/more-arrow.svg" alt="" class="disc-prom__more-img js-svg">
+              </span>
+            </div>
+        </a>
+        {% else %}
+        <div class="disc-prom__promo-cards-item disc-prom__card-offer">
+            <div class="disc-prom__offer-content">
+                <h3 class="disc-prom__offer-headline h3">{{ stock.name }}</h3>
+                <div class="disc-prom__offer-sentence">
+                    {{ stock.anons | raw }}
+                </div>
+                        
+                <a href="/stocks/{{ stock.slug }}" class="disc-prom__more">
+                    <span class="disc-prom__more-text">Подробнее</span>
+                    <img src="/themes/motel/assets/img/more-arrow.svg" alt="" class="disc-prom__more-img js-svg">
+                </a>
+            </div>
+        </div>
+        {% endif %}
+	{% endif %}
+{% endfor %}

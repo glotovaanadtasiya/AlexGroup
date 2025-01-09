@@ -1,0 +1,11 @@
+fields:
+    id:
+        label: 'ID CRM'
+        span: storm
+        cssClass: col-sm-1
+        type: text
+    name:
+        label: 'Название отеля'
+        span: storm
+        cssClass: col-sm-3
+        type: text

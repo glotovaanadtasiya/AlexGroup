@@ -1,0 +1,1 @@
+1730377354a:4:{s:4:"name";s:44:"backend::lang.backend_preferences.menu_label";s:4:"form";s:47:"~/modules/backend/models/preference/fields.yaml";s:10:"modelClass";s:25:"Backend\Models\Preference";s:15:"defaultRedirect";s:15:"system/settings";}

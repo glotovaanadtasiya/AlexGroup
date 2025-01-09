@@ -1,0 +1,77 @@
+fields:
+    active:
+        label: Активная
+        span: auto
+        default: 1
+        type: switch
+    favorite:
+        label: Особая
+        span: auto
+        type: switch
+    view_add_service:
+        label: 'Показывать доп. услуги'
+        span: auto
+        type: switch
+    dont_display_in_app:
+        label: 'Не показывать в приложении'
+        span: auto
+        type: switch
+    name:
+        label: Название
+        span: auto
+        type: text
+    slug:
+        label: URL
+        span: auto
+        preset:
+            field: name
+            type: slug
+        type: text
+    img_title:
+        label: Изображение
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload
+    created_at:
+        label: Дата
+        mode: date
+        span: auto
+        type: datepicker
+    anons:
+        label: Анонс
+        size: ''
+        span: full
+        type: textarea
+    content:
+        label: Контент
+        size: large
+        span: full
+        type: richeditor
+    mobiletext:
+        label: 'Текст для приложения'
+        size: large
+        span: full
+        type: textarea
+tabs:
+    fields:
+        slider:
+            label: Слайдер
+            prompt: Добавить
+            span: full
+            type: repeater
+            tab: Слайдер
+            form:
+                fields:
+                    img:
+                        label: Фото
+                        mode: image
+                        span: left
+                        type: mediafinder
+                    text:
+                        label: Текст
+                        span: right
+                        type: text

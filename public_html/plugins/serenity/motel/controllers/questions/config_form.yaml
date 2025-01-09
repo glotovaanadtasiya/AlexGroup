@@ -1,0 +1,17 @@
+name: 'Вопросы и ответы'
+modelClass: Serenity\Motel\Models\Question
+form: $/serenity/motel/models/question/fields.yaml
+defaultRedirect: serenity/motel/questions
+create:
+    title: 'Создание вопроса'
+    redirect: 'serenity/motel/questions/update/:id'
+    redirectClose: serenity/motel/questions
+    flashSave: 'Вопрос создан'
+update:
+    title: 'Редактирование вопроса'
+    redirect: serenity/motel/questions
+    redirectClose: serenity/motel/questions
+    flashSave: 'Вопрос сохранён'
+    flashDelete: 'Вопрос удалён'
+preview:
+    title: 'Просмотр вопроса'

@@ -1,0 +1,4 @@
+import:
+  title: Import places
+  modelClass: Serenity\Motel\Models\NameImport
+  list: $/serenity/motel/models/nameimport/columns.yaml

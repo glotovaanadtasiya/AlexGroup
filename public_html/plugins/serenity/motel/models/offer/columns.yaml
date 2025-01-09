@@ -1,0 +1,17 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        invisible: true
+        sortable: true
+    name:
+        label: Название
+        type: text
+        searchable: true
+        sortable: true
+    price:
+        label: Цена
+        type: number
+        searchable: true
+        sortable: true

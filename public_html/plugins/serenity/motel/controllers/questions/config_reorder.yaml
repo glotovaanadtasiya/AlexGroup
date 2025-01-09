@@ -1,0 +1,5 @@
+title: 'Сортировка вопросов и ответов'
+modelClass: Serenity\Motel\Models\Question
+nameFrom: question
+toolbar:
+    buttons: reorder_toolbar

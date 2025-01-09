@@ -1,0 +1,300 @@
+1735037011a:1:{s:8:"visa.htm";a:7:{s:8:"fileName";s:8:"visa.htm";s:7:"content";s:4711:"description = "Шаблон визовой страницы"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+use Serenity\Motel\Models\Hotel;
+function onStart()
+{
+    $this['hotels'] = Hotel::all();
+}
+
+function onChangeHotel(){
+    $hotel_id = Input::get('hotel_id');
+    //$hotel_type = Input::get('hotel_type');
+    
+    $hotel = Hotel::find($hotel_id);
+    if($hotel){
+        return [
+            //'.find-room__field select' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+            '[name="roomtype-select"]' => $this->renderPartial('blocks/roomtypeselect.htm', ['hotel' => $hotel]),
+        ];
+    }
+}
+
+function onSubmitBooking(){
+
+    $vars = [
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+        ];
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+    
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>МотельСПБ - Сеть Мини-Отелей во всех районах в Санкт-Петербурге </title>
+  <meta name="description" content="Сеть мини отелей с джакузи на час в Питере с единой службой бронирования номеров по часово по телефону 8 (812) 468-77-77 цены от 640 за час ">
+  <meta name="keywords" content="Сеть отелей с часовой оплатой в спб ">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+
+    <div class="darkcommontheme headertheme">
+        <div class="header-group">
+
+            <!-- Header -->
+            {% partial "basic/header" %}    
+            <!-- /Header -->
+
+        </div>
+    </div>
+
+
+<!-- Main content -->
+<main class="main">
+    
+
+
+
+  <div class="darktheme darkcommontheme">
+    <div class="s-contacts-descr section">
+      <div class="s-contacts-descr__container container">
+        <h1 class="s-contacts-descr__title h2">{{ page.title }}</h1>
+        <div class="s-contacts-descr__text plaintext">
+            {{ staticPage.content | raw }}
+        </div>      
+		
+	
+		</div>
+    </div>
+  </div>
+</main>
+<!-- /Main content -->
+
+
+<!-- Footer -->
+{% partial "basic/footer" %}
+<!-- /Footer -->
+
+
+
+{% partial "basic/scripts" %}
+  
+<script>
+$('[name="hotel-select"]').on('change', function(){
+    $.request('onChangeHotel', {data: {hotel_id: $(this).find('option:selected').attr('hotelid')}})
+});
+</script>
+
+</body>
+</html>";s:5:"mtime";i:1594370771;s:6:"markup";s:2468:"<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>МотельСПБ - Сеть Мини-Отелей во всех районах в Санкт-Петербурге </title>
+  <meta name="description" content="Сеть мини отелей с джакузи на час в Питере с единой службой бронирования номеров по часово по телефону 8 (812) 468-77-77 цены от 640 за час ">
+  <meta name="keywords" content="Сеть отелей с часовой оплатой в спб ">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+
+    <div class="darkcommontheme headertheme">
+        <div class="header-group">
+
+            <!-- Header -->
+            {% partial "basic/header" %}    
+            <!-- /Header -->
+
+        </div>
+    </div>
+
+
+<!-- Main content -->
+<main class="main">
+    
+
+
+
+  <div class="darktheme darkcommontheme">
+    <div class="s-contacts-descr section">
+      <div class="s-contacts-descr__container container">
+        <h1 class="s-contacts-descr__title h2">{{ page.title }}</h1>
+        <div class="s-contacts-descr__text plaintext">
+            {{ staticPage.content | raw }}
+        </div>      
+		
+	
+		</div>
+    </div>
+  </div>
+</main>
+<!-- /Main content -->
+
+
+<!-- Footer -->
+{% partial "basic/footer" %}
+<!-- /Footer -->
+
+
+
+{% partial "basic/scripts" %}
+  
+<script>
+$('[name="hotel-select"]').on('change', function(){
+    $.request('onChangeHotel', {data: {hotel_id: $(this).find('option:selected').attr('hotelid')}})
+});
+</script>
+
+</body>
+</html>";s:4:"code";s:2118:"
+use Serenity\Motel\Models\Hotel;
+function onStart()
+{
+    $this['hotels'] = Hotel::all();
+}
+
+function onChangeHotel(){
+    $hotel_id = Input::get('hotel_id');
+    //$hotel_type = Input::get('hotel_type');
+    
+    $hotel = Hotel::find($hotel_id);
+    if($hotel){
+        return [
+            //'.find-room__field select' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+            '[name="roomtype-select"]' => $this->renderPartial('blocks/roomtypeselect.htm', ['hotel' => $hotel]),
+        ];
+    }
+}
+
+function onSubmitBooking(){
+
+    $vars = [
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+        ];
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+    
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}";s:11:"description";s:44:"Шаблон визовой страницы";s:10:"staticPage";a:2:{s:10:"useContent";s:1:"1";s:7:"default";s:1:"0";}}}

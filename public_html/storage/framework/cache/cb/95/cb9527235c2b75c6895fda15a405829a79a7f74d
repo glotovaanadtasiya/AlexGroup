@@ -1,0 +1,55 @@
+1735042086a:1:{s:12:"discount.htm";a:7:{s:8:"fileName";s:12:"discount.htm";s:7:"content";s:3393:"[viewBag]
+title = "Дисконтная система"
+url = "/discount/"
+layout = "discount"
+is_hidden = 0
+navigation_hidden = 0
+meta_title = "Акции и специальные предложения на бронирование гостиниц и мини-отелей на час Петербурга."
+meta_description = "Скидки в отелях Санкт-Петербурга. Отели на час с широким выбором акций и специальных предложений на аренду и бронирование номеров с джакузи по всему городу."
+block1_img_title = "/background/discount-preview-photo.jpg"
+block1_text_1 = "Пользуйтесь услугами и сервисом класса премиум со значительными скидками и привилегиями"
+block1_text_2 = "<div class=\"previw__percents\">
+                    <p class=\"previw__discount-item\">5%</p>
+                    <p class=\"previw__discount-item\">10%</p>
+                    <p class=\"previw__discount-item\">15%</p>
+                    <p class=\"previw__discount-item\">20%</p>
+                </div>
+                <div class=\"previw__summ\">
+                    <p class=\"previw__discount-item\">всем новым клиентам</p>
+                    <p class=\"previw__discount-item\">от 20 000 руб</p>
+                    <p class=\"previw__discount-item\">от 50 000 руб</p>
+                    <p class=\"previw__discount-item\">от 100 000 руб</p>
+                </div>"
+block2_title = "Дисконтная система"
+block2_img = "/discount-system-img.png"
+block2_text = "<p class=\"system__text-item\">Мы предоставляем единую дисконтную систему для всех направлений нашей компании. Она носит накопительный характер, в ее основе находится единая магнитная VIP карта.</p>
+                    <p class=\"system__text-item\">
+                        Дисконтную карту можно забронировать по телефону 
+                        <br> 
+                        +7-812-468-77-77.</p>
+                    <p class=\"system__text-item\">Всю подробную информацию, вопросы связанные с поддержкой и обслуживанием дисконтных карт Вы сможете получить ежедневно и круглосуточно.</p>"
+discountlist[0][procent] = "5%"
+discountlist[0][condition] = "Скидка предоставляется при первичном обращении в любое из предприятий группы «Алекс»"
+discountlist[1][procent] = "10%"
+discountlist[1][condition] = "Скидка предоставляется по накоплению суммы в размере 20 тысяч рублей"
+discountlist[2][procent] = "15%"
+discountlist[2][condition] = "Скидка предоставляется по накоплению суммы в размере 20 тысяч рублей"
+discountlist[3][procent] = "20%"
+discountlist[3][condition] = "Cкидка предоставляется по накоплению сумм в размере 100 тысяч рублей."
+==";s:5:"mtime";i:1589270755;s:6:"markup";s:0:"";s:4:"code";N;s:7:"viewBag";a:14:{s:5:"title";s:35:"Дисконтная система";s:3:"url";s:10:"/discount/";s:6:"layout";s:8:"discount";s:9:"is_hidden";s:1:"0";s:17:"navigation_hidden";s:1:"0";s:10:"meta_title";s:165:"Акции и специальные предложения на бронирование гостиниц и мини-отелей на час Петербурга.";s:16:"meta_description";s:286:"Скидки в отелях Санкт-Петербурга. Отели на час с широким выбором акций и специальных предложений на аренду и бронирование номеров с джакузи по всему городу.";s:16:"block1_img_title";s:38:"/background/discount-preview-photo.jpg";s:13:"block1_text_1";s:164:"Пользуйтесь услугами и сервисом класса премиум со значительными скидками и привилегиями";s:13:"block1_text_2";s:685:"<div class="previw__percents">
+                    <p class="previw__discount-item">5%</p>
+                    <p class="previw__discount-item">10%</p>
+                    <p class="previw__discount-item">15%</p>
+                    <p class="previw__discount-item">20%</p>
+                </div>
+                <div class="previw__summ">
+                    <p class="previw__discount-item">всем новым клиентам</p>
+                    <p class="previw__discount-item">от 20 000 руб</p>
+                    <p class="previw__discount-item">от 50 000 руб</p>
+                    <p class="previw__discount-item">от 100 000 руб</p>
+                </div>";s:12:"block2_title";s:35:"Дисконтная система";s:10:"block2_img";s:24:"/discount-system-img.png";s:11:"block2_text";s:881:"<p class="system__text-item">Мы предоставляем единую дисконтную систему для всех направлений нашей компании. Она носит накопительный характер, в ее основе находится единая магнитная VIP карта.</p>
+                    <p class="system__text-item">
+                        Дисконтную карту можно забронировать по телефону 
+                        <br> 
+                        +7-812-468-77-77.</p>
+                    <p class="system__text-item">Всю подробную информацию, вопросы связанные с поддержкой и обслуживанием дисконтных карт Вы сможете получить ежедневно и круглосуточно.</p>";s:12:"discountlist";a:4:{i:0;a:2:{s:7:"procent";s:2:"5%";s:9:"condition";s:158:"Скидка предоставляется при первичном обращении в любое из предприятий группы «Алекс»";}i:1;a:2:{s:7:"procent";s:3:"10%";s:9:"condition";s:125:"Скидка предоставляется по накоплению суммы в размере 20 тысяч рублей";}i:2;a:2:{s:7:"procent";s:3:"15%";s:9:"condition";s:125:"Скидка предоставляется по накоплению суммы в размере 20 тысяч рублей";}i:3;a:2:{s:7:"procent";s:3:"20%";s:9:"condition";s:124:"Cкидка предоставляется по накоплению сумм в размере 100 тысяч рублей.";}}}s:12:"parsedMarkup";s:0:"";}}

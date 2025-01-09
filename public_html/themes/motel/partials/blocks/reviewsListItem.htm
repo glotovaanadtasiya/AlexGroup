@@ -1,0 +1,25 @@
+description = "Список отзывов"
+
+[viewBag]
+==
+<div class="s-feedback__items">
+          
+{% for review in reviews %}
+	<div class="feedback-item">
+		<div class="h4">{{ review.author }} {%if review.hotel.name %}— про отель {{ review.hotel.name }}{%endif%}</div>
+		<!--div class="feedback-item__date">
+                {% set mnths = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %}
+                {{ review.created_at|date("j") }} 
+                {{ mnths[review.created_at|date("n")] }} 
+                {{ review.created_at|date("Y") }}
+		</div-->
+		<br/>
+
+		<div class="plaintext">
+                    {{ review.text | raw }}
+		</div>
+	</div>
+
+          {% endfor %}
+
+</div>

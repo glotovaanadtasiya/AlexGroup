@@ -1,0 +1,268 @@
+1735042086a:1:{s:11:"wedding.htm";a:7:{s:8:"fileName";s:11:"wedding.htm";s:7:"content";s:9943:"[viewBag]
+title = "Молодоженам"
+url = "/wedding/"
+layout = "wedding"
+is_hidden = 0
+navigation_hidden = 0
+meta_title = "Снять номер в мини отель на час с джакузи в Санкт-Петербурге"
+meta_description = "Мини отель на час в Санкт-Петербурге, Гостиница с почасовой оплатой, Снять номер на час в СПб от 900 руб., Апартаменты на час, Отель на час с джакузи в Питере Цена номера в отеле на час в любом районе Saint Petersburg от 2600 руб за 12 часов забронировать по номеру  8 (812) 468-77-77"
+block1_text_1 = "Свадебное предложение"
+block1_text_2 = "Праздничная обстановка романтично оформленного люкса идеально подойдет для молодоженов в самый важный день их семейной жизни. Уникальный интерьер, свадебный антураж, роскошная мебель, – все это создаст необходимую атмосферу первой ночи."
+block2_text_1 = "Почему нас выбирают"
+block2_text_2 = "<p>Мы — единственные отели в городе, где можно снять номера такого уровня на час. При этом уровень обслуживания номеров соответствует гостиницам высшего класса.</p>"
+offer_items[0][offer_items_img] = "/icons/why1.png"
+offer_items[0][offer_item_desc] = "Отели во всех районах города"
+offer_items[0][offer_item_name] = "Всегда поблизости есть наш отель"
+offer_items[1][offer_items_img] = "/icons/why2.svg"
+offer_items[1][offer_item_desc] = "Удобное расположение"
+offer_items[1][offer_item_name] = "Бронирование номеров от двух часов"
+offer_items[2][offer_items_img] = "/icons/why4.svg"
+offer_items[2][offer_item_desc] = "Великолепные интерьеры"
+offer_items[2][offer_item_name] = "Ванны джакузи, дизайнерская мебель, брендовая планировка"
+gallery[0][photo] = "/wedding-slider/IMG_4190.jpg"
+gallery[1][photo] = "/wedding-slider/DEP_3198.JPG"
+gallery[2][photo] = "/wedding-slider/DEP_9161.JPG"
+gallery[3][photo] = "/wedding-slider/DEP_9174.JPG"
+gallery[4][photo] = "/wedding-slider/DEP_9187.JPG"
+gallery[5][photo] = "/wedding-slider/DSC_1420.jpg"
+gallery[6][photo] = "/wedding-slider/IMG_0278.jpg"
+gallery[7][photo] = "/wedding-slider/IMG_0358.jpg"
+gallery[8][photo] = "/wedding-slider/IMG_0406.jpg"
+gallery[9][photo] = "/wedding-slider/IMG_0471.jpg"
+gallery[10][photo] = "/wedding-slider/IMG_3812.jpg"
+gallery[11][photo] = "/wedding-slider/IMG_3920.jpg"
+gallery[12][photo] = "/wedding-slider/IMG_4008.jpg"
+gallery[13][photo] = "/wedding-slider/IMG_4159.jpg"
+gallery[14][photo] = "/wedding-slider/IMG_4250.jpg"
+gallery[15][photo] = "/wedding-slider/IMG_8547.jpg"
+gallery[16][photo] = "/wedding-slider/IMG_8466.jpg"
+gallery[17][photo] = "/wedding-slider/IMG_8346.jpg"
+secial_text = "<p>Приложение MOTELSPB</p>"
+secial_url = "/prilozhenie"
+succes[0][icon] = "/booking-success-pic1.png"
+succes[0][title] = "Бронирование отеля"
+succes[0][subtitle] = "Ваша заявка успешно отправлена. Менеджер службы бронирования свяжется с Вами через несколько минут."
+succes[0][text] = "Огромные номера люкс выполнены в стиле \"Адам и Ева\", с полностью зеркальным пространством, создающим непередаваемые впечатления от пребывания, просторные ванны‑джакузи на подиуме в отдельной спа‑зоне"
+succes[0][text2] = "Огромные номера <br> люкс выполнены в <br> стиле \"Адам и Ева\"!"
+succes[1][icon] = "/booking-success-pic2.png"
+succes[1][title] = "Бронирование отеля"
+succes[1][subtitle] = "Ваша заявка успешно отправлена. Менеджер службы бронирования свяжется с Вами через несколько минут."
+succes[1][text] = "Огромные номера люкс выполнены в стиле \"Адам и Ева\", с полностью зеркальным пространством, создающим непередаваемые впечатления от пребывания, просторные ванны‑джакузи на подиуме в отдельной спа‑зоне"
+succes[1][text2] = "Огромные номера <br> люкс выполнены в <br> стиле \"Адам и Ева\"!"
+succes[2][icon] = "/booking-success-pic3.png"
+succes[2][title] = "Бронирование отеля"
+succes[2][subtitle] = "Ваша заявка успешно отправлена. Менеджер службы бронирования свяжется с Вами через несколько минут."
+succes[2][text] = "Огромные номера люкс выполнены в стиле \"Адам и Ева\", с полностью зеркальным пространством, создающим непередаваемые впечатления от пребывания, просторные ванны‑джакузи на подиуме в отдельной спа‑зоне"
+succes[2][text2] = "Огромные номера <br> люкс выполнены в <br> стиле \"Адам и Ева\"!"
+==
+<div class="main-about__title h1">Свадебный номер Люкс с джакузи или SPA-ванной</div>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="ny-table" style="font-family: ;" width="100%">
+	<thead>
+		<tr>
+			<td style="width: 50%; text-align: center;">Стоимость
+				<br>
+			</td>
+			<td style="width: 50%; text-align: center;"><strong>7 000</strong></td>
+		</tr>
+	</thead>
+</table>
+
+<p>Проведите незабываемую ночь в номере Люкс в одном из наших отелей: <a href="https://alexhotels.ru/hotels/bogatirskiy/">на Богатырском</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/prosvet/">на Просвещения</a>, <a href="https://alexhotels.ru/hotels/southwest/">на Маршала Жукова</a>, <a href="https://alexhotels.ru/hotels/hotel_na_vasilevskom/">на Васильевском</a>, <a href="https://alexhotels.ru/hotels/dibenko/">на Дыбенко</a>, <a href="https://alexhotels.ru/hotels/kupchino/">на Будапештской</a>, <a href="https://alexhotels.ru/hotels/hotel-na-petrogradskoy/">на Петроградской</a>, <a href="https://alexhotels.ru/hotels/hotel-na-kosigina/">на Косыгина</a>, <a href="https://alexhotels.ru/hotels/rybatskoe/">в Рыбацком</a>, <a href="https://alexhotels.ru/hotels/fontanka/">на Фонтанке</a>, <a href="https://alexhotels.ru/hotels/frunzenskaya/">на Фрунзенской</a>, <a href="https://alexhotels.ru/hotels/narvskaya/">на Нарвской</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/zhukovskogo/">на Жуковского</a></p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+<div class="main-about__title h1">Свадебный номер Комфорт с джакузи или SPA- ванной</div>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="ny-table" style="font-family: ;" width="100%">
+	<thead>
+		<tr>
+			<td style="width: 50%; text-align: center;">Стоимость
+				<br>
+			</td>
+			<td style="width: 50%; text-align: center;"><strong>6 500</strong></td>
+		</tr>
+	</thead>
+</table>
+
+<p>Проведите незабываемую ночь в номере Комфорт с джакузи или СПА-ванной в одном из наших отелей: <a href="https://alexhotels.ru/hotels/zvezdnaya/">на Звездной</a>, <a href="https://alexhotels.ru/hotels/hotel_na_vasilevskom/">на Васильевском</a>, <a href="https://alexhotels.ru/hotels/prosvet/">на Просвещения</a>, <a href="https://alexhotels.ru/hotels/rybatskoe/">в Рыбацком</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/dibenko/">на Дыбенко</a></p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+<div class="main-about__title h1">Наше предложение включает в себя</div>
+<div>
+
+	<ul class="dash-ul">
+		<li>Поздний выезд из отеля;</li>
+		<li>Проживание в номере с джакузи или SPA-ванной;</li>
+		<li>Фруктовая корзина;</li>
+		<li>Бутылка шампанского;</li>
+		<li>Украшение композициями из свечей и лепестков;</li>
+		<li>Украшение воздушными шарами;</li>
+		<li>Изысканное постельное белье;</li>
+		<li>Бесплатный завтрак в номер</li>
+	</ul>
+
+	<p>*В отеле на Косыгина вместо шампанского предоставляется сок.</p>
+	<br>
+
+	<p style="text-align: center;"><a class="hotel-total-box__booking-btn button button_medium button_ghost" href="https://alexhotels.ru/hotels/">Забронировать</a></p>
+</div>";s:5:"mtime";i:1654862901;s:6:"markup";s:4064:"<div class="main-about__title h1">Свадебный номер Люкс с джакузи или SPA-ванной</div>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="ny-table" style="font-family: ;" width="100%">
+	<thead>
+		<tr>
+			<td style="width: 50%; text-align: center;">Стоимость
+				<br>
+			</td>
+			<td style="width: 50%; text-align: center;"><strong>7 000</strong></td>
+		</tr>
+	</thead>
+</table>
+
+<p>Проведите незабываемую ночь в номере Люкс в одном из наших отелей: <a href="https://alexhotels.ru/hotels/bogatirskiy/">на Богатырском</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/prosvet/">на Просвещения</a>, <a href="https://alexhotels.ru/hotels/southwest/">на Маршала Жукова</a>, <a href="https://alexhotels.ru/hotels/hotel_na_vasilevskom/">на Васильевском</a>, <a href="https://alexhotels.ru/hotels/dibenko/">на Дыбенко</a>, <a href="https://alexhotels.ru/hotels/kupchino/">на Будапештской</a>, <a href="https://alexhotels.ru/hotels/hotel-na-petrogradskoy/">на Петроградской</a>, <a href="https://alexhotels.ru/hotels/hotel-na-kosigina/">на Косыгина</a>, <a href="https://alexhotels.ru/hotels/rybatskoe/">в Рыбацком</a>, <a href="https://alexhotels.ru/hotels/fontanka/">на Фонтанке</a>, <a href="https://alexhotels.ru/hotels/frunzenskaya/">на Фрунзенской</a>, <a href="https://alexhotels.ru/hotels/narvskaya/">на Нарвской</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/zhukovskogo/">на Жуковского</a></p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+<div class="main-about__title h1">Свадебный номер Комфорт с джакузи или SPA- ванной</div>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="ny-table" style="font-family: ;" width="100%">
+	<thead>
+		<tr>
+			<td style="width: 50%; text-align: center;">Стоимость
+				<br>
+			</td>
+			<td style="width: 50%; text-align: center;"><strong>6 500</strong></td>
+		</tr>
+	</thead>
+</table>
+
+<p>Проведите незабываемую ночь в номере Комфорт с джакузи или СПА-ванной в одном из наших отелей: <a href="https://alexhotels.ru/hotels/zvezdnaya/">на Звездной</a>, <a href="https://alexhotels.ru/hotels/hotel_na_vasilevskom/">на Васильевском</a>, <a href="https://alexhotels.ru/hotels/prosvet/">на Просвещения</a>, <a href="https://alexhotels.ru/hotels/rybatskoe/">в Рыбацком</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/dibenko/">на Дыбенко</a></p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+<div class="main-about__title h1">Наше предложение включает в себя</div>
+<div>
+
+	<ul class="dash-ul">
+		<li>Поздний выезд из отеля;</li>
+		<li>Проживание в номере с джакузи или SPA-ванной;</li>
+		<li>Фруктовая корзина;</li>
+		<li>Бутылка шампанского;</li>
+		<li>Украшение композициями из свечей и лепестков;</li>
+		<li>Украшение воздушными шарами;</li>
+		<li>Изысканное постельное белье;</li>
+		<li>Бесплатный завтрак в номер</li>
+	</ul>
+
+	<p>*В отеле на Косыгина вместо шампанского предоставляется сок.</p>
+	<br>
+
+	<p style="text-align: center;"><a class="hotel-total-box__booking-btn button button_medium button_ghost" href="https://alexhotels.ru/hotels/">Забронировать</a></p>
+</div>";s:4:"code";N;s:7:"viewBag";a:16:{s:5:"title";s:22:"Молодоженам";s:3:"url";s:9:"/wedding/";s:6:"layout";s:7:"wedding";s:9:"is_hidden";s:1:"0";s:17:"navigation_hidden";s:1:"0";s:10:"meta_title";s:109:"Снять номер в мини отель на час с джакузи в Санкт-Петербурге";s:16:"meta_description";s:471:"Мини отель на час в Санкт-Петербурге, Гостиница с почасовой оплатой, Снять номер на час в СПб от 900 руб., Апартаменты на час, Отель на час с джакузи в Питере Цена номера в отеле на час в любом районе Saint Petersburg от 2600 руб за 12 часов забронировать по номеру  8 (812) 468-77-77";s:13:"block1_text_1";s:41:"Свадебное предложение";s:13:"block1_text_2";s:439:"Праздничная обстановка романтично оформленного люкса идеально подойдет для молодоженов в самый важный день их семейной жизни. Уникальный интерьер, свадебный антураж, роскошная мебель, – все это создаст необходимую атмосферу первой ночи.";s:13:"block2_text_1";s:36:"Почему нас выбирают";s:13:"block2_text_2";s:300:"<p>Мы — единственные отели в городе, где можно снять номера такого уровня на час. При этом уровень обслуживания номеров соответствует гостиницам высшего класса.</p>";s:11:"offer_items";a:3:{i:0;a:3:{s:15:"offer_items_img";s:15:"/icons/why1.png";s:15:"offer_item_desc";s:53:"Отели во всех районах города";s:15:"offer_item_name";s:61:"Всегда поблизости есть наш отель";}i:1;a:3:{s:15:"offer_items_img";s:15:"/icons/why2.svg";s:15:"offer_item_desc";s:39:"Удобное расположение";s:15:"offer_item_name";s:65:"Бронирование номеров от двух часов";}i:2;a:3:{s:15:"offer_items_img";s:15:"/icons/why4.svg";s:15:"offer_item_desc";s:43:"Великолепные интерьеры";s:15:"offer_item_name";s:105:"Ванны джакузи, дизайнерская мебель, брендовая планировка";}}s:7:"gallery";a:18:{i:0;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_4190.jpg";}i:1;a:1:{s:5:"photo";s:28:"/wedding-slider/DEP_3198.JPG";}i:2;a:1:{s:5:"photo";s:28:"/wedding-slider/DEP_9161.JPG";}i:3;a:1:{s:5:"photo";s:28:"/wedding-slider/DEP_9174.JPG";}i:4;a:1:{s:5:"photo";s:28:"/wedding-slider/DEP_9187.JPG";}i:5;a:1:{s:5:"photo";s:28:"/wedding-slider/DSC_1420.jpg";}i:6;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_0278.jpg";}i:7;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_0358.jpg";}i:8;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_0406.jpg";}i:9;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_0471.jpg";}i:10;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_3812.jpg";}i:11;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_3920.jpg";}i:12;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_4008.jpg";}i:13;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_4159.jpg";}i:14;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_4250.jpg";}i:15;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_8547.jpg";}i:16;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_8466.jpg";}i:17;a:1:{s:5:"photo";s:28:"/wedding-slider/IMG_8346.jpg";}}s:11:"secial_text";s:36:"<p>Приложение MOTELSPB</p>";s:10:"secial_url";s:12:"/prilozhenie";s:6:"succes";a:3:{i:0;a:5:{s:4:"icon";s:25:"/booking-success-pic1.png";s:5:"title";s:35:"Бронирование отеля";s:8:"subtitle";s:184:"Ваша заявка успешно отправлена. Менеджер службы бронирования свяжется с Вами через несколько минут.";s:4:"text";s:371:"Огромные номера люкс выполнены в стиле "Адам и Ева", с полностью зеркальным пространством, создающим непередаваемые впечатления от пребывания, просторные ванны‑джакузи на подиуме в отдельной спа‑зоне";s:5:"text2";s:103:"Огромные номера <br> люкс выполнены в <br> стиле "Адам и Ева"!";}i:1;a:5:{s:4:"icon";s:25:"/booking-success-pic2.png";s:5:"title";s:35:"Бронирование отеля";s:8:"subtitle";s:184:"Ваша заявка успешно отправлена. Менеджер службы бронирования свяжется с Вами через несколько минут.";s:4:"text";s:371:"Огромные номера люкс выполнены в стиле "Адам и Ева", с полностью зеркальным пространством, создающим непередаваемые впечатления от пребывания, просторные ванны‑джакузи на подиуме в отдельной спа‑зоне";s:5:"text2";s:103:"Огромные номера <br> люкс выполнены в <br> стиле "Адам и Ева"!";}i:2;a:5:{s:4:"icon";s:25:"/booking-success-pic3.png";s:5:"title";s:35:"Бронирование отеля";s:8:"subtitle";s:184:"Ваша заявка успешно отправлена. Менеджер службы бронирования свяжется с Вами через несколько минут.";s:4:"text";s:371:"Огромные номера люкс выполнены в стиле "Адам и Ева", с полностью зеркальным пространством, создающим непередаваемые впечатления от пребывания, просторные ванны‑джакузи на подиуме в отдельной спа‑зоне";s:5:"text2";s:103:"Огромные номера <br> люкс выполнены в <br> стиле "Адам и Ева"!";}}}s:12:"parsedMarkup";s:4064:"<div class="main-about__title h1">Свадебный номер Люкс с джакузи или SPA-ванной</div>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="ny-table" style="font-family: ;" width="100%">
+	<thead>
+		<tr>
+			<td style="width: 50%; text-align: center;">Стоимость
+				<br>
+			</td>
+			<td style="width: 50%; text-align: center;"><strong>7 000</strong></td>
+		</tr>
+	</thead>
+</table>
+
+<p>Проведите незабываемую ночь в номере Люкс в одном из наших отелей: <a href="https://alexhotels.ru/hotels/bogatirskiy/">на Богатырском</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/prosvet/">на Просвещения</a>, <a href="https://alexhotels.ru/hotels/southwest/">на Маршала Жукова</a>, <a href="https://alexhotels.ru/hotels/hotel_na_vasilevskom/">на Васильевском</a>, <a href="https://alexhotels.ru/hotels/dibenko/">на Дыбенко</a>, <a href="https://alexhotels.ru/hotels/kupchino/">на Будапештской</a>, <a href="https://alexhotels.ru/hotels/hotel-na-petrogradskoy/">на Петроградской</a>, <a href="https://alexhotels.ru/hotels/hotel-na-kosigina/">на Косыгина</a>, <a href="https://alexhotels.ru/hotels/rybatskoe/">в Рыбацком</a>, <a href="https://alexhotels.ru/hotels/fontanka/">на Фонтанке</a>, <a href="https://alexhotels.ru/hotels/frunzenskaya/">на Фрунзенской</a>, <a href="https://alexhotels.ru/hotels/narvskaya/">на Нарвской</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/zhukovskogo/">на Жуковского</a></p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+<div class="main-about__title h1">Свадебный номер Комфорт с джакузи или SPA- ванной</div>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="ny-table" style="font-family: ;" width="100%">
+	<thead>
+		<tr>
+			<td style="width: 50%; text-align: center;">Стоимость
+				<br>
+			</td>
+			<td style="width: 50%; text-align: center;"><strong>6 500</strong></td>
+		</tr>
+	</thead>
+</table>
+
+<p>Проведите незабываемую ночь в номере Комфорт с джакузи или СПА-ванной в одном из наших отелей: <a href="https://alexhotels.ru/hotels/zvezdnaya/">на Звездной</a>, <a href="https://alexhotels.ru/hotels/hotel_na_vasilevskom/">на Васильевском</a>, <a href="https://alexhotels.ru/hotels/prosvet/">на Просвещения</a>, <a href="https://alexhotels.ru/hotels/rybatskoe/">в Рыбацком</a>, <a href="https://alexhotels.ru/hotels/muzestva/">на Мужества</a>, <a href="https://alexhotels.ru/hotels/dibenko/">на Дыбенко</a></p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+
+<p>
+	<br>
+</p>
+<div class="main-about__title h1">Наше предложение включает в себя</div>
+<div>
+
+	<ul class="dash-ul">
+		<li>Поздний выезд из отеля;</li>
+		<li>Проживание в номере с джакузи или SPA-ванной;</li>
+		<li>Фруктовая корзина;</li>
+		<li>Бутылка шампанского;</li>
+		<li>Украшение композициями из свечей и лепестков;</li>
+		<li>Украшение воздушными шарами;</li>
+		<li>Изысканное постельное белье;</li>
+		<li>Бесплатный завтрак в номер</li>
+	</ul>
+
+	<p>*В отеле на Косыгина вместо шампанского предоставляется сок.</p>
+	<br>
+
+	<p style="text-align: center;"><a class="hotel-total-box__booking-btn button button_medium button_ghost" href="https://alexhotels.ru/hotels/">Забронировать</a></p>
+</div>";}}

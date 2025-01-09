@@ -1,0 +1,4 @@
+title: 'Сортировка отелей'
+modelClass: Serenity\Motel\Models\Hotel
+toolbar:
+    buttons: reorder_toolbar

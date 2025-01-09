@@ -1,0 +1,1581 @@
+1735040902a:1:{s:8:"menu.htm";a:7:{s:8:"fileName";s:8:"menu.htm";s:7:"content";s:40355:"description = "Шаблон страницы меню"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+use Serenity\Motel\Models\Menu;
+function onInit()
+{
+    $this["breakfast"] = Menu::where("type", "breakfast")->first();
+    $this['sandwiches'] = Menu::where('type', 'sandwiches')->first();
+    $this['cakes'] = Menu::where('type', 'cakes')->first();
+    $this['sparkling_wine'] = Menu::where('type', 'sparkling_wine')->first();
+    $this['sparkling_wine_2'] = Menu::where('type', 'sparkling_wine_2')->first();
+    $this['wines_half_bottles'] = Menu::where('type', 'wines_half_bottles')->first(); 
+    $this['wines_half_bottles_white'] = Menu::where('type', 'wines_half_bottles_white')->first(); 
+    $this['wines_half_bottles_red'] = Menu::where('type', 'wines_half_bottles_red')->first(); 
+    $this['vodka'] = Menu::where('type', 'vodka')->first();
+    $this['vermut'] = Menu::where('type', 'vermut')->first();
+    $this['cognac'] = Menu::where('type', 'cognac')->first();
+    $this['whiskey'] = Menu::where('type', 'whiskey')->first();
+	$this['rum'] = Menu::where('type', 'rum')->first();
+	$this['gin'] = Menu::where('type', 'gin')->first();
+    $this['cigarets'] = Menu::where('type', 'cigarets')->first(); 
+    $this['beer'] = Menu::where('type', 'beer')->first();
+    $this['nonalco'] = Menu::where('type', 'nonalco')->first(); 
+    $this['hotdrinks'] = Menu::where('type', 'hotdrinks')->first(); 
+    $this['snacks'] = Menu::where('type', 'snacks')->first(); 
+	$this['accessories'] = Menu::where('type', 'accessories')->first(); 
+	
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Меню отелей с почасовой формой оплаты в СПБ </title>
+  <meta name="description" content="Забронировать отель на час с джакузи с включенным питанием, Меню нашей гостиницы на час, ужин в отеле с хорошим питанием «Мотель» можно заказать круглосуточно в любом отеле города.">
+  <meta name="keywords" content="меню отеля на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+  <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}?{{ "now"|date("YmdH") }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme headertheme">
+      <div class="section s-menu">      
+        <!-- Sky -->
+        <div class="s-menu__stars starry-sky-canvas">
+          <div class="starry-sky js-starry-sky" data-stars-amount="40"></div>
+        </div>
+        <!-- /Sky -->
+        
+        <!-- Flame offer block (desktop) -->
+        <div class="s-menu__offer">
+          {% partial "blocks/special_offer" %}
+        </div>
+		
+		<div class="button-wrap">
+            <a href="/stocks/" class="s-reviews__btn button button_ghost button_medium" style="margin-top: 0; margin-bottom: 70px;">Акции</a>
+          </div>
+		  
+		  
+        <!-- /Flame offer block (desktop) -->
+        <div class="s-menu__container container">
+          <h1 class="s-menu__title h1">Меню отелей</h1>  
+        </div>
+        
+        <!-- Tabs -->
+        <div class="s-menu__tabs tabs js-tabs">         
+          <!-- Tabs Buttons -->
+          <div class="menu-tabs-switches-wrap tabs__switches-wrap">
+            <div class="s-menu__container tabs__switches-container container">
+              <div class="menu-tabs-switches tabs__switches">
+				
+                <div class="tabs__switch js-tabs__switch active" data-menu-type="alco">Алкогольные напитки</div>
+				
+                <div class="tabs__switch js-tabs__switch" data-menu-type="kitchen" style="/*display: none;*/">Кухня</div>
+				
+				<div class="tabs__switch js-tabs__switch" data-menu-type="drink">Безалкогольные напитки</div>
+				<div class="tabs__switch js-tabs__switch" data-menu-type="choco" style="/*display: none;*/">Шоколад и снэки</div>
+				<!--<div class="tabs__switch js-tabs__switch" data-menu-type="accessories">Аксессуары</div>-->
+				
+              </div>
+            </div>
+          </div>         
+          <!-- /Tabs Buttons -->
+          
+
+         <div class="tabs__contents">	
+		 
+<!--------------------------------- alco Tab --------------------------------------------------->
+             <div class="menu-tabs-content tabs__content js-tabs__content active" data-menu-type="alco">
+              <div class="s-menu__container container">
+				<p style="text-align: center;">В отеле на Косыгина алкогольная продукция не реализуется!<br><br><br><br></p>
+                <div class="s-menu__content">
+                  
+					<!-- Menu Category sparkling_wine -->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+                        <!-- Retina image -->
+						<img src="{{ sparkling_wine.image.path }}" class="menu-group__pic">
+                        <!--<img src="/themes/motel/assets/img/menu/shampanskoe-2-bokala.png" srcset="/themes/motel/assets/img/menu/shampanskoe-2-bokala@1.5x.png 1.5x,/themes/motel/assets/img/menu/shampanskoe-2-bokala@2x.png 2x" class="menu-group__pic menu-group__pic_champagne">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ sparkling_wine.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in sparkling_wine.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->		
+					
+					
+						
+				    <!-- Menu Category sparkling_wine_2 -->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+                        <!-- Retina image -->
+						<img src="{{ sparkling_wine_2.image.path }}" class="menu-group__pic">
+                        <!--<img src="/themes/motel/assets/img/menu/shampanskoe-2-bokala.png" srcset="/themes/motel/assets/img/menu/shampanskoe-2-bokala@1.5x.png 1.5x,/themes/motel/assets/img/menu/shampanskoe-2-bokala@2x.png 2x" class="menu-group__pic menu-group__pic_champagne">-->
+                      </div>
+					   <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">Игристые вина в&nbsp;полубутылках 0,18л</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in sparkling_wine_2.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+					
+					
+                    
+                    <!-- Menu Category wines_half_bottles-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ wines_half_bottles.image.path }}" class="menu-group__pic">
+                        <!--<img src="/themes/motel/assets/img/menu/bokal-krasnogo.png" 
+                        srcset="/themes/motel/assets/img/menu/bokal-krasnogo@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/bokal-krasnogo@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_red">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ wines_half_bottles.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in wines_half_bottles.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>   
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+					
+					
+                    <!-- Menu Category wines_half_bottles_white-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ wines_half_bottles_white.image.path }}" class="menu-group__pic">
+                        <!-- Retina image <img src="/themes/motel/assets/img/menu/bokal-belogo.png" srcset="/themes/motel/assets/img/menu/bokal-belogo@1.5x.png 1.5x,/themes/motel/assets/img/menu/bokal-belogo@2x.png 2x" class="menu-group__pic menu-group__pic_white">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+              
+                        <div class="menu-group__title h4">{{ wines_half_bottles_white.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in wines_half_bottles_white.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->					
+                    
+					
+                    <!-- Menu Category wines_half_bottles_red-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ wines_half_bottles_red.image.path }}" class="menu-group__pic">
+                        <!-- Retina image
+                        <img src="/themes/motel/assets/img/menu/konjachnyj.png" 
+                        srcset="/themes/motel/assets/img/menu/konjachnyj@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/konjachnyj@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_cognac"> -->
+                      </div>
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ wines_half_bottles_red.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in wines_half_bottles_red.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+					
+                    <!-- Menu Category vodka-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ vodka.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/shot.png" 
+                        srcset="/themes/motel/assets/img/menu/shot@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/shot@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_vodka">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ vodka.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in vodka.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                 
+                    <!-- Menu Category cognac-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ cognac.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/viski.png" 
+                        srcset="/themes/motel/assets/img/menu/viski@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/viski@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_whiskey">-->
+                      </div>                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ cognac.name }}</div>
+                        <div class="menu-group__pos-group">
+                         {% for position in cognac.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->		
+						
+                    <!-- Menu Category whiskey-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ whiskey.image.path }}" class="menu-group__pic">
+                      </div>                      
+					  <div class="menu-group__content menu-group__content_narrow"> 
+                        
+						<div class="menu-group__title h4">{{ whiskey.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in whiskey.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+						
+
+                    <!-- Menu Category rum-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ rum.image.path }}" class="menu-group__pic">
+                      </div>                      
+					  <div class="menu-group__content menu-group__content_narrow"> 
+                        
+						<div class="menu-group__title h4">{{ rum.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in rum.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+
+					<!-- Menu Category gin-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ gin.image.path }}" class="menu-group__pic">
+                      </div>                      
+					  <div class="menu-group__content menu-group__content_narrow"> 
+                        
+						<div class="menu-group__title h4">{{ gin.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in gin.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+				
+                    
+                    <!-- Menu Category vermut-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ vermut.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/vermut.png" 
+                        srcset="/themes/motel/assets/img/menu/vermut@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/vermut@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_vermouth">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ vermut.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in vermut.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                    <!-- Menu Category beer-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ beer.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/pivo.png" 
+                        srcset="/themes/motel/assets/img/menu/pivo@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/pivo@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_beer">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ beer.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in beer.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+					
+                    <!-- Menu Category -->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+                      </div>
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ cigarets.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in cigarets.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->					
+				  
+                </div>
+              </div>
+            </div>
+<!--------------------------------------- /alco Tab Content -------------------------------------->
+
+
+<!--------------------------------------- Kitchen Tab Content -------------------------------------->   
+            <div class="menu-tabs-content tabs__content js-tabs__content active" data-menu-type="kitchen">
+              <div class="s-menu__container container">
+                <div class="s-menu__content">
+
+                    <!-- Menu Category breakfast-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic">
+						<img src="{{ breakfast.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/kasha.png" 
+                        srcset="/themes/motel/assets/img/menu/kasha@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/kasha@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_kasha">
+
+                        <img src="/themes/motel/assets/img/menu/bliny.png" 
+                        srcset="/themes/motel/assets/img/menu/bliny@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/bliny@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_bliny">-->
+                      </div>
+                      
+                      <div class="menu-group__content">
+                        <div class="menu-group__title h4">{{ breakfast.name }}</div>
+                        <div class="menu-group__pos-group">
+                        {% for position in breakfast.menu_list %}
+                          <!-- Position -->
+                          <div class="menu-group__pos">
+                            <div class="menu-group__pos-name">
+                              {{ position.group_menu_list }}
+                            </div>
+                            <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                          </div> 
+                          <!-- /Position -->
+                        {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                    <!-- Menu Category sandwiches-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic">
+						<img src="{{ sandwiches.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/sendvich.png" 
+                        srcset="/themes/motel/assets/img/menu/sendvich@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/sendvich@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_sandwich">-->
+                      </div>
+                      
+                      <div class="menu-group__content">
+                        <div class="menu-group__title h4">{{ sandwiches.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in sandwiches.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                  
+                    <!-- Menu Category cakes-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic">
+						<img src="{{ cakes.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/pirozhnoe.png" 
+                        srcset="/themes/motel/assets/img/menu/pirozhnoe@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/pirozhnoe@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_cake">
+
+                        <img src="/themes/motel/assets/img/menu/frukty.png" 
+                        srcset="/themes/motel/assets/img/menu/frukty@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/frukty@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_fruits">-->
+                      </div>
+                      
+                      <div class="menu-group__content">
+                        <div class="menu-group__title h4">{{ cakes.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in cakes.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                          
+						  <!--
+                          <img src="/themes/motel/assets/img/menu/frukty.png" 
+                          srcset="/themes/motel/assets/img/menu/frukty@1.5x.png 1.5x,
+                          /themes/motel/assets/img/menu/frukty@2x.png 2x"                          
+                          alt="" 
+                          class="menu-group__pic menu-group__pic_fruits-mob">-->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+
+                </div>
+              </div>
+            </div>
+<!--------------------------------------- /Kitchen Tab Content --------------------------------------> 
+
+
+
+<!--------------------------------------- drink Tab Content -------------------------------------->         
+		  <div class="tabs__contents">
+            <div class="menu-tabs-content tabs__content js-tabs__content active" data-menu-type="drink">
+              <div class="s-menu__container container">
+                <div class="s-menu__content">	
+				
+                    <!-- Menu Category nonalco-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+                        <img src="{{ nonalco.image.path }}" class="menu-group__pic">
+						<!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/voda-2.png" 
+                        srcset="/themes/motel/assets/img/menu/voda-2@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/voda-2@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_water">-->
+                      </div>
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ nonalco.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in nonalco.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                    <!-- Menu Category hotdrinks-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ hotdrinks.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/sok.png" 
+                        srcset="/themes/motel/assets/img/menu/sok@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/sok@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_juice">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ hotdrinks.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in hotdrinks.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->				
+				
+                </div>
+              </div>
+            </div>
+          </div>				
+<!--------------------------------------- /drink Tab Content -------------------------------------->   
+
+
+
+            
+<!--------------------------------------- choco Tab Content -------------------------------------->  
+            <div class="menu-tabs-content tabs__content js-tabs__content" data-menu-type="choco">
+              <div class="s-menu__container container">
+                <div class="s-menu__content">
+
+				  
+                    <!-- Menu Category snacks-->
+                    <div class="menu-group">
+                      <!--
+					  <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ snacks.image.path }}" class="menu-group__pic">
+                      </div>					  -->
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ snacks.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in snacks.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+					
+                    <img class="s-menu__illustration" src="/themes/motel/assets/img/about-pic.png"  srcset="/themes/motel/assets/img/about-pic@2x.png 2x" alt="">
+					
+
+                </div>
+              </div>
+            </div>
+<!--------------------------------------- /choco Tab Content -------------------------------------->  		
+
+
+<!--------------------------------------- choco Tab Content -------------------------------------->  
+            <div class="menu-tabs-content tabs__content js-tabs__content" data-menu-type="accessories"  style="display: none;">
+              <div class="s-menu__container container">
+                <div class="s-menu__content">
+
+				  
+                    <!-- Menu Category -->
+                    <div class="menu-group">
+						<!--
+					  <div class="menu-group__graphic menu-group__graphic_narrow">
+							<img src="{{ accessories.image.path }}" class="menu-group__pic">
+					  </div>-->
+
+					  
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ accessories.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in accessories.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+					
+                    <img class="s-menu__illustration" src="/themes/motel/assets/img/about-pic.png"  srcset="/themes/motel/assets/img/about-pic@2x.png 2x" alt="">
+					
+
+                </div>
+              </div>
+            </div>
+<!--------------------------------------- /choco Tab Content -------------------------------------->  		
+			
+			
+          </div>
+    
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+    {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:5:"mtime";i:1695639522;s:6:"markup";s:38783:"<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Меню отелей с почасовой формой оплаты в СПБ </title>
+  <meta name="description" content="Забронировать отель на час с джакузи с включенным питанием, Меню нашей гостиницы на час, ужин в отеле с хорошим питанием «Мотель» можно заказать круглосуточно в любом отеле города.">
+  <meta name="keywords" content="меню отеля на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+  <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}?{{ "now"|date("YmdH") }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+  
+  
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme headertheme">
+      <div class="section s-menu">      
+        <!-- Sky -->
+        <div class="s-menu__stars starry-sky-canvas">
+          <div class="starry-sky js-starry-sky" data-stars-amount="40"></div>
+        </div>
+        <!-- /Sky -->
+        
+        <!-- Flame offer block (desktop) -->
+        <div class="s-menu__offer">
+          {% partial "blocks/special_offer" %}
+        </div>
+		
+		<div class="button-wrap">
+            <a href="/stocks/" class="s-reviews__btn button button_ghost button_medium" style="margin-top: 0; margin-bottom: 70px;">Акции</a>
+          </div>
+		  
+		  
+        <!-- /Flame offer block (desktop) -->
+        <div class="s-menu__container container">
+          <h1 class="s-menu__title h1">Меню отелей</h1>  
+        </div>
+        
+        <!-- Tabs -->
+        <div class="s-menu__tabs tabs js-tabs">         
+          <!-- Tabs Buttons -->
+          <div class="menu-tabs-switches-wrap tabs__switches-wrap">
+            <div class="s-menu__container tabs__switches-container container">
+              <div class="menu-tabs-switches tabs__switches">
+				
+                <div class="tabs__switch js-tabs__switch active" data-menu-type="alco">Алкогольные напитки</div>
+				
+                <div class="tabs__switch js-tabs__switch" data-menu-type="kitchen" style="/*display: none;*/">Кухня</div>
+				
+				<div class="tabs__switch js-tabs__switch" data-menu-type="drink">Безалкогольные напитки</div>
+				<div class="tabs__switch js-tabs__switch" data-menu-type="choco" style="/*display: none;*/">Шоколад и снэки</div>
+				<!--<div class="tabs__switch js-tabs__switch" data-menu-type="accessories">Аксессуары</div>-->
+				
+              </div>
+            </div>
+          </div>         
+          <!-- /Tabs Buttons -->
+          
+
+         <div class="tabs__contents">	
+		 
+<!--------------------------------- alco Tab --------------------------------------------------->
+             <div class="menu-tabs-content tabs__content js-tabs__content active" data-menu-type="alco">
+              <div class="s-menu__container container">
+				<p style="text-align: center;">В отеле на Косыгина алкогольная продукция не реализуется!<br><br><br><br></p>
+                <div class="s-menu__content">
+                  
+					<!-- Menu Category sparkling_wine -->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+                        <!-- Retina image -->
+						<img src="{{ sparkling_wine.image.path }}" class="menu-group__pic">
+                        <!--<img src="/themes/motel/assets/img/menu/shampanskoe-2-bokala.png" srcset="/themes/motel/assets/img/menu/shampanskoe-2-bokala@1.5x.png 1.5x,/themes/motel/assets/img/menu/shampanskoe-2-bokala@2x.png 2x" class="menu-group__pic menu-group__pic_champagne">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ sparkling_wine.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in sparkling_wine.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->		
+					
+					
+						
+				    <!-- Menu Category sparkling_wine_2 -->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+                        <!-- Retina image -->
+						<img src="{{ sparkling_wine_2.image.path }}" class="menu-group__pic">
+                        <!--<img src="/themes/motel/assets/img/menu/shampanskoe-2-bokala.png" srcset="/themes/motel/assets/img/menu/shampanskoe-2-bokala@1.5x.png 1.5x,/themes/motel/assets/img/menu/shampanskoe-2-bokala@2x.png 2x" class="menu-group__pic menu-group__pic_champagne">-->
+                      </div>
+					   <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">Игристые вина в&nbsp;полубутылках 0,18л</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in sparkling_wine_2.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+					
+					
+                    
+                    <!-- Menu Category wines_half_bottles-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ wines_half_bottles.image.path }}" class="menu-group__pic">
+                        <!--<img src="/themes/motel/assets/img/menu/bokal-krasnogo.png" 
+                        srcset="/themes/motel/assets/img/menu/bokal-krasnogo@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/bokal-krasnogo@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_red">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ wines_half_bottles.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in wines_half_bottles.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>   
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+					
+					
+                    <!-- Menu Category wines_half_bottles_white-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ wines_half_bottles_white.image.path }}" class="menu-group__pic">
+                        <!-- Retina image <img src="/themes/motel/assets/img/menu/bokal-belogo.png" srcset="/themes/motel/assets/img/menu/bokal-belogo@1.5x.png 1.5x,/themes/motel/assets/img/menu/bokal-belogo@2x.png 2x" class="menu-group__pic menu-group__pic_white">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+              
+                        <div class="menu-group__title h4">{{ wines_half_bottles_white.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in wines_half_bottles_white.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->					
+                    
+					
+                    <!-- Menu Category wines_half_bottles_red-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ wines_half_bottles_red.image.path }}" class="menu-group__pic">
+                        <!-- Retina image
+                        <img src="/themes/motel/assets/img/menu/konjachnyj.png" 
+                        srcset="/themes/motel/assets/img/menu/konjachnyj@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/konjachnyj@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_cognac"> -->
+                      </div>
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ wines_half_bottles_red.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in wines_half_bottles_red.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+					
+                    <!-- Menu Category vodka-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ vodka.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/shot.png" 
+                        srcset="/themes/motel/assets/img/menu/shot@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/shot@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_vodka">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ vodka.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in vodka.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                 
+                    <!-- Menu Category cognac-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ cognac.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/viski.png" 
+                        srcset="/themes/motel/assets/img/menu/viski@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/viski@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_whiskey">-->
+                      </div>                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ cognac.name }}</div>
+                        <div class="menu-group__pos-group">
+                         {% for position in cognac.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->		
+						
+                    <!-- Menu Category whiskey-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ whiskey.image.path }}" class="menu-group__pic">
+                      </div>                      
+					  <div class="menu-group__content menu-group__content_narrow"> 
+                        
+						<div class="menu-group__title h4">{{ whiskey.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in whiskey.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+						
+
+                    <!-- Menu Category rum-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ rum.image.path }}" class="menu-group__pic">
+                      </div>                      
+					  <div class="menu-group__content menu-group__content_narrow"> 
+                        
+						<div class="menu-group__title h4">{{ rum.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in rum.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+
+					<!-- Menu Category gin-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ gin.image.path }}" class="menu-group__pic">
+                      </div>                      
+					  <div class="menu-group__content menu-group__content_narrow"> 
+                        
+						<div class="menu-group__title h4">{{ gin.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in gin.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+				
+                    
+                    <!-- Menu Category vermut-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ vermut.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/vermut.png" 
+                        srcset="/themes/motel/assets/img/menu/vermut@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/vermut@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_vermouth">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ vermut.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in vermut.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                    <!-- Menu Category beer-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ beer.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/pivo.png" 
+                        srcset="/themes/motel/assets/img/menu/pivo@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/pivo@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_beer">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ beer.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in beer.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+					
+                    <!-- Menu Category -->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+                      </div>
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ cigarets.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in cigarets.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->					
+				  
+                </div>
+              </div>
+            </div>
+<!--------------------------------------- /alco Tab Content -------------------------------------->
+
+
+<!--------------------------------------- Kitchen Tab Content -------------------------------------->   
+            <div class="menu-tabs-content tabs__content js-tabs__content active" data-menu-type="kitchen">
+              <div class="s-menu__container container">
+                <div class="s-menu__content">
+
+                    <!-- Menu Category breakfast-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic">
+						<img src="{{ breakfast.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/kasha.png" 
+                        srcset="/themes/motel/assets/img/menu/kasha@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/kasha@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_kasha">
+
+                        <img src="/themes/motel/assets/img/menu/bliny.png" 
+                        srcset="/themes/motel/assets/img/menu/bliny@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/bliny@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_bliny">-->
+                      </div>
+                      
+                      <div class="menu-group__content">
+                        <div class="menu-group__title h4">{{ breakfast.name }}</div>
+                        <div class="menu-group__pos-group">
+                        {% for position in breakfast.menu_list %}
+                          <!-- Position -->
+                          <div class="menu-group__pos">
+                            <div class="menu-group__pos-name">
+                              {{ position.group_menu_list }}
+                            </div>
+                            <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                          </div> 
+                          <!-- /Position -->
+                        {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                    <!-- Menu Category sandwiches-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic">
+						<img src="{{ sandwiches.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/sendvich.png" 
+                        srcset="/themes/motel/assets/img/menu/sendvich@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/sendvich@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_sandwich">-->
+                      </div>
+                      
+                      <div class="menu-group__content">
+                        <div class="menu-group__title h4">{{ sandwiches.name }}</div>
+                        <div class="menu-group__pos-group">
+                            {% for position in sandwiches.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                  
+                    <!-- Menu Category cakes-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic">
+						<img src="{{ cakes.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/pirozhnoe.png" 
+                        srcset="/themes/motel/assets/img/menu/pirozhnoe@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/pirozhnoe@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_cake">
+
+                        <img src="/themes/motel/assets/img/menu/frukty.png" 
+                        srcset="/themes/motel/assets/img/menu/frukty@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/frukty@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_fruits">-->
+                      </div>
+                      
+                      <div class="menu-group__content">
+                        <div class="menu-group__title h4">{{ cakes.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in cakes.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                          
+						  <!--
+                          <img src="/themes/motel/assets/img/menu/frukty.png" 
+                          srcset="/themes/motel/assets/img/menu/frukty@1.5x.png 1.5x,
+                          /themes/motel/assets/img/menu/frukty@2x.png 2x"                          
+                          alt="" 
+                          class="menu-group__pic menu-group__pic_fruits-mob">-->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+
+                </div>
+              </div>
+            </div>
+<!--------------------------------------- /Kitchen Tab Content --------------------------------------> 
+
+
+
+<!--------------------------------------- drink Tab Content -------------------------------------->         
+		  <div class="tabs__contents">
+            <div class="menu-tabs-content tabs__content js-tabs__content active" data-menu-type="drink">
+              <div class="s-menu__container container">
+                <div class="s-menu__content">	
+				
+                    <!-- Menu Category nonalco-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+                        <img src="{{ nonalco.image.path }}" class="menu-group__pic">
+						<!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/voda-2.png" 
+                        srcset="/themes/motel/assets/img/menu/voda-2@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/voda-2@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_water">-->
+                      </div>
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ nonalco.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in nonalco.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+                    <!-- Menu Category hotdrinks-->
+                    <div class="menu-group">
+                      <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ hotdrinks.image.path }}" class="menu-group__pic">
+                        <!-- Retina image 
+                        <img src="/themes/motel/assets/img/menu/sok.png" 
+                        srcset="/themes/motel/assets/img/menu/sok@1.5x.png 1.5x,
+                        /themes/motel/assets/img/menu/sok@2x.png 2x"                          
+                        alt="" 
+                        class="menu-group__pic menu-group__pic_juice">-->
+                      </div>
+                      
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ hotdrinks.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in hotdrinks.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->				
+				
+                </div>
+              </div>
+            </div>
+          </div>				
+<!--------------------------------------- /drink Tab Content -------------------------------------->   
+
+
+
+            
+<!--------------------------------------- choco Tab Content -------------------------------------->  
+            <div class="menu-tabs-content tabs__content js-tabs__content" data-menu-type="choco">
+              <div class="s-menu__container container">
+                <div class="s-menu__content">
+
+				  
+                    <!-- Menu Category snacks-->
+                    <div class="menu-group">
+                      <!--
+					  <div class="menu-group__graphic menu-group__graphic_narrow">
+						<img src="{{ snacks.image.path }}" class="menu-group__pic">
+                      </div>					  -->
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ snacks.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in snacks.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+					
+                    <img class="s-menu__illustration" src="/themes/motel/assets/img/about-pic.png"  srcset="/themes/motel/assets/img/about-pic@2x.png 2x" alt="">
+					
+
+                </div>
+              </div>
+            </div>
+<!--------------------------------------- /choco Tab Content -------------------------------------->  		
+
+
+<!--------------------------------------- choco Tab Content -------------------------------------->  
+            <div class="menu-tabs-content tabs__content js-tabs__content" data-menu-type="accessories"  style="display: none;">
+              <div class="s-menu__container container">
+                <div class="s-menu__content">
+
+				  
+                    <!-- Menu Category -->
+                    <div class="menu-group">
+						<!--
+					  <div class="menu-group__graphic menu-group__graphic_narrow">
+							<img src="{{ accessories.image.path }}" class="menu-group__pic">
+					  </div>-->
+
+					  
+                      <div class="menu-group__content menu-group__content_narrow">
+                        <div class="menu-group__title h4">{{ accessories.name }}</div>
+                        <div class="menu-group__pos-group">
+                          {% for position in accessories.menu_list %}
+                              <!-- Position -->
+                              <div class="menu-group__pos">
+                                <div class="menu-group__pos-name menu-group__pos-name_narrow">
+                                  {{ position.group_menu_list }}
+                                </div>
+                                <div class="menu-group__pos-price h4">{{ position.price }}</div>
+                              </div> 
+                              <!-- /Position -->
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Menu Category -->
+                    
+					
+                    <img class="s-menu__illustration" src="/themes/motel/assets/img/about-pic.png"  srcset="/themes/motel/assets/img/about-pic@2x.png 2x" alt="">
+					
+
+                </div>
+              </div>
+            </div>
+<!--------------------------------------- /choco Tab Content -------------------------------------->  		
+			
+			
+          </div>
+    
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+  
+    {% partial "basic/scripts" %}
+  
+</body>
+</html>";s:4:"code";s:1460:"use Serenity\Motel\Models\Menu;
+function onInit()
+{
+    $this["breakfast"] = Menu::where("type", "breakfast")->first();
+    $this['sandwiches'] = Menu::where('type', 'sandwiches')->first();
+    $this['cakes'] = Menu::where('type', 'cakes')->first();
+    $this['sparkling_wine'] = Menu::where('type', 'sparkling_wine')->first();
+    $this['sparkling_wine_2'] = Menu::where('type', 'sparkling_wine_2')->first();
+    $this['wines_half_bottles'] = Menu::where('type', 'wines_half_bottles')->first(); 
+    $this['wines_half_bottles_white'] = Menu::where('type', 'wines_half_bottles_white')->first(); 
+    $this['wines_half_bottles_red'] = Menu::where('type', 'wines_half_bottles_red')->first(); 
+    $this['vodka'] = Menu::where('type', 'vodka')->first();
+    $this['vermut'] = Menu::where('type', 'vermut')->first();
+    $this['cognac'] = Menu::where('type', 'cognac')->first();
+    $this['whiskey'] = Menu::where('type', 'whiskey')->first();
+	$this['rum'] = Menu::where('type', 'rum')->first();
+	$this['gin'] = Menu::where('type', 'gin')->first();
+    $this['cigarets'] = Menu::where('type', 'cigarets')->first(); 
+    $this['beer'] = Menu::where('type', 'beer')->first();
+    $this['nonalco'] = Menu::where('type', 'nonalco')->first(); 
+    $this['hotdrinks'] = Menu::where('type', 'hotdrinks')->first(); 
+    $this['snacks'] = Menu::where('type', 'snacks')->first(); 
+	$this['accessories'] = Menu::where('type', 'accessories')->first(); 
+	
+}";s:11:"description";s:38:"Шаблон страницы меню";s:10:"staticPage";a:2:{s:10:"useContent";s:1:"1";s:7:"default";s:1:"0";}}}

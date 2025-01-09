@@ -1,0 +1,378 @@
+fields:
+    name:
+        label: Название
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    full_name:
+        label: 'Полное название (не обязательно)'
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    slug:
+        label: URL
+        span: storm
+        cssClass: col-sm-2
+        preset:
+            field: name
+            type: slug
+        type: text
+    min_price:
+        label: 'Минимальная цена (не обязательно)'
+        span: storm
+        cssClass: col-sm-2
+        type: number
+    min_price_tarif_name:
+        label: 'Название тарифа для мин. цены'
+        span: storm
+        cssClass: col-sm-2
+        type: text
+    new:
+        label: 'Новый?'
+        span: storm
+        cssClass: col-sm-3
+        type: checkbox
+    low_price:
+        label: 'Цены снижены?'
+        span: storm
+        cssClass: col-sm-3
+        type: checkbox
+    meta_title:
+        label: 'Title страницы (SEO)'
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    meta_description:
+        label: 'description страницы (SEO)'
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    description:
+        label: 'Описание отеля'
+        size: ''
+        span: full
+        type: richeditor
+    seo_text:
+        label: 'SEO текст'
+        size: ''
+        span: full
+        type: richeditor		
+    address:
+        label: Адрес
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    coordinates:
+        label: Координаты
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    metro:
+        label: Метро
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    metro_line:
+        label: 'Линия метро'
+        options:
+            1: '1'
+            2: '2'
+            3: '3'
+            4: '4'
+            5: '5'
+        span: storm
+        cssClass: col-sm-3
+        type: dropdown
+    phone:
+        label: Телефон
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    rating:
+        label: Рейтинг
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    yandex_map_link:
+        label: 'Ссылка на Яндекс карту'
+        cssClass: col-sm-3
+        span: storm
+        type: text
+    google_map_link:
+        label: 'Ссылка на Google карту'
+        span: storm
+        cssClass: col-sm-3
+        type: text
+    slider:
+        label: Слайдер
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: full
+        type: fileupload
+tabs:
+    fields:
+        standart_prop:
+            label: Стандарт
+            prompt: Добавить
+            maxItems: '1'
+            span: full
+            type: repeater
+            tab: Стандарт
+            form:
+                fields:
+                    tariffs:
+                        label: Тарифы
+                        prompt: Добавить
+                        span: full
+                        type: repeater
+                        form:
+                            fields:
+                                price_hide:
+                                    label: 'Скрыть'
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: checkbox
+                                price_name:
+                                    label: Название
+                                    span: storm
+                                    cssClass: col-sm-2
+                                    type: text
+                                sun_thu:
+                                    label: Вс-Чт
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                fri_sat:
+                                    label: Пт-Сб
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                price_desc:
+                                    label: Описание
+                                    size: ''
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                period:
+                                    label: Период
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                type:
+                                    label: 'Тип тарифа'
+                                    options:
+                                        day: day
+                                        hour: hour
+                                        prolongation: prolongation
+                                    showSearch: 0
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: dropdown
+                                best_price:
+                                    label: 'Лучшая цена'
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: checkbox
+                    standart_photos:
+                        label: 'Фото номеров'
+                        mode: image
+                        prompt: Добавить
+                        useCaption: true
+                        thumbOptions:
+                            mode: crop
+                            extension: auto
+                        span: full
+                        type: fileupload
+                    type_description:
+                        label: Описание
+                        size: large
+                        span: full
+                        type: textarea
+        suite_prop:
+            label: Полу-люкс
+            prompt: Добавить
+            maxItems: '1'
+            span: full
+            type: repeater
+            tab: Полу-люкс
+            form:
+                fields:
+                    tariffs:
+                        label: Тарифы
+                        prompt: Добавить
+                        span: full
+                        type: repeater
+                        form:
+                            fields:
+                                price_hide:
+                                    label: 'Скрыть'
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: checkbox
+                                price_name:
+                                    label: Название
+                                    span: storm
+                                    cssClass: col-sm-2
+                                    type: text
+                                sun_thu:
+                                    label: Вс-Чт
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                fri_sat:
+                                    label: Пт-Сб
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                price_desc:
+                                    label: Описание
+                                    size: ''
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                period:
+                                    label: Период
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                type:
+                                    label: 'Тип тарифа'
+                                    options:
+                                        day: day
+                                        hour: hour
+                                        prolongation: prolongation
+                                    showSearch: 0
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: dropdown
+                                best_price:
+                                    label: 'Лучшая цена'
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: checkbox
+                    suite_photos:
+                        label: 'Фото номеров'
+                        mode: image
+                        prompt: Добавить
+                        useCaption: true
+                        thumbOptions:
+                            mode: crop
+                            extension: auto
+                        span: full
+                        type: fileupload
+                    type_description:
+                        label: Описание
+                        size: large
+                        span: full
+                        type: textarea
+        lux_prop:
+            label: Люкс
+            prompt: Добавить
+            maxItems: '1'
+            span: full
+            type: repeater
+            tab: Люкс
+            form:
+                fields:
+                    tariffs:
+                        label: Тарифы
+                        prompt: Добавить
+                        span: full
+                        type: repeater
+                        form:
+                            fields:
+                                price_hide:
+                                    label: 'Скрыть'
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: checkbox
+                                price_name:
+                                    label: Название
+                                    span: storm
+                                    cssClass: col-sm-2
+                                    type: text
+                                sun_thu:
+                                    label: Вс-Чт
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                fri_sat:
+                                    label: Пт-Сб
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                price_desc:
+                                    label: Описание
+                                    size: ''
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                period:
+                                    label: Период
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: text
+                                type:
+                                    label: 'Тип тарифа'
+                                    options:
+                                        day: day
+                                        hour: hour
+                                        prolongation: prolongation
+                                    showSearch: 0
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: dropdown
+                                best_price:
+                                    label: 'Лучшая цена'
+                                    span: storm
+                                    cssClass: col-sm-1
+                                    type: checkbox
+                    lux_photos:
+                        label: 'Фото номеров'
+                        mode: image
+                        prompt: Добавить
+                        useCaption: true
+                        thumbOptions:
+                            mode: crop
+                            extension: auto
+                        span: full
+                        type: fileupload
+                    type_description:
+                        label: Описание
+                        size: large
+                        span: full
+                        type: textarea
+secondaryTabs:
+    fields:
+        how_to_get_to_map:
+            label: Карта
+            mode: image
+            imageWidth: '200'
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: 'Как добраться'
+        how_to_get_to_photo:
+            label: 'Фото местности'
+            mode: image
+            imageWidth: '200'
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: auto
+            type: fileupload
+            tab: 'Как добраться'
+        comment_how_to_get_to:
+            label: 'Комментарий как добраться'
+            size: ''
+            cssClass: col-sm-4
+            span: storm
+            type: richeditor
+            tab: 'Как добраться'

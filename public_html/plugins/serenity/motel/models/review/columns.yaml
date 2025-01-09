@@ -1,0 +1,30 @@
+columns:
+    id:
+        label: ID
+        type: number
+        sortable: true
+    name:
+        label: Заголовок
+        type: text
+        searchable: true
+    author:
+        label: Автор
+        type: text
+        searchable: true
+    created_at:
+        label: Создан
+        type: date
+        invisible: true
+    updated_at:
+        label: Обновлён
+        type: datetime
+        invisible: true
+    active:
+        label: Активный
+        type: switch
+    hotel_id:
+        label: Отель
+        type: text
+    text:
+        label: Текст
+        type: text

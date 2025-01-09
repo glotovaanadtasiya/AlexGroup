@@ -1,0 +1,4 @@
+title: Rooms
+modelClass: Serenity\Motel\Models\Room
+toolbar:
+    buttons: reorder_toolbar

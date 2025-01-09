@@ -1,0 +1,139 @@
+1735042528a:1:{s:18:"blocks/faqList.htm";a:6:{s:8:"fileName";s:18:"blocks/faqList.htm";s:7:"content";s:3704:"[viewBag]
+==
+{% set records = faqList.records %}
+        {% set displayColumn = faqList.displayColumn %}
+        {% set noRecordsMessage = faqList.noRecordsMessage %}
+        {% set detailsPage = faqList.detailsPage %}
+        {% set detailsKeyColumn = faqList.detailsKeyColumn %}
+        {% set detailsUrlParameter = faqList.detailsUrlParameter %}
+        <div class="question__container container">
+              <div class="question__head-text">
+                    <h1 class="question__headline h1">Часто задаваемые вопросы</h1>
+                    <div class="question__subheading">
+                        <p>Мы составили список часто задаваемых вопросов по проживанию в наших отелях</p>
+                    </div>
+              </div>
+              <div class="question__question-container" id="all-posts-content">
+              {% partial 'blocks/faqListForeach' %}
+                
+            </div>
+        </div>
+        
+        <div class="question__pagination">
+        <div class="container">
+          <div class="question__pagination-row row">
+            <div class="question__pagination-col col-xl-2"></div>
+            <div class="question__pagination-col col-xl-8">
+              {% if records.lastPage > 1 %}
+                <!-- Pagination -->
+                <div class="pagination">
+                  <div class="pagination__container">
+                    <div class="pagination__box d-none d-md-flex">
+                      
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}" {% if records.currentPage == 1 %}class="disabled"{% endif %}>
+                        <div class="pagination__prev">
+                          <img src="/themes/motel/assets/img/pagination-arrow-prev.svg" alt="" class="pagination__arrow-prev js-svg">
+                          <span class="pagination__prev-text">Предыдущая</span>
+                        </div>
+                      </a>
+                      
+                      <div class="pagination__numbers">
+                      
+                      {% for page in 1..records.lastPage %}
+                          <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}" class="pagination__number-item {% if records.currentPage == page %}active{% endif %}">{{ page }}</a>
+                      {% endfor %}
+                      </div>
+                      
+					  {% if not records.lastPage <= records.currentPage %}
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}" >
+                        <div class="pagination__next">
+                          <span class="pagination__next-text">Следующая</span>
+                          <img src="/themes/motel/assets/img/pagination-arrow-next.svg" alt="" class="pagination__arrow-next js-svg">
+                        </div>
+                      </a>
+					  {% endif %}
+                      
+                    </div>
+                    <div id="load-more-button">
+                        <button class="pagination__more-btn d-md-none" data-request="onLoadMore" data-request-data="page: 1">
+                          <span class="pagination__more-btn-text">
+                            ЕЩЕ
+                          </span>
+                        </button>
+                    </div>
+                  </div>              
+                </div>
+                <!-- /Pagination -->
+                {% endif %}
+            </div>          
+          </div>
+        </div>
+      </div>";s:5:"mtime";i:1660057764;s:6:"markup";s:3689:"{% set records = faqList.records %}
+        {% set displayColumn = faqList.displayColumn %}
+        {% set noRecordsMessage = faqList.noRecordsMessage %}
+        {% set detailsPage = faqList.detailsPage %}
+        {% set detailsKeyColumn = faqList.detailsKeyColumn %}
+        {% set detailsUrlParameter = faqList.detailsUrlParameter %}
+        <div class="question__container container">
+              <div class="question__head-text">
+                    <h1 class="question__headline h1">Часто задаваемые вопросы</h1>
+                    <div class="question__subheading">
+                        <p>Мы составили список часто задаваемых вопросов по проживанию в наших отелях</p>
+                    </div>
+              </div>
+              <div class="question__question-container" id="all-posts-content">
+              {% partial 'blocks/faqListForeach' %}
+                
+            </div>
+        </div>
+        
+        <div class="question__pagination">
+        <div class="container">
+          <div class="question__pagination-row row">
+            <div class="question__pagination-col col-xl-2"></div>
+            <div class="question__pagination-col col-xl-8">
+              {% if records.lastPage > 1 %}
+                <!-- Pagination -->
+                <div class="pagination">
+                  <div class="pagination__container">
+                    <div class="pagination__box d-none d-md-flex">
+                      
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}" {% if records.currentPage == 1 %}class="disabled"{% endif %}>
+                        <div class="pagination__prev">
+                          <img src="/themes/motel/assets/img/pagination-arrow-prev.svg" alt="" class="pagination__arrow-prev js-svg">
+                          <span class="pagination__prev-text">Предыдущая</span>
+                        </div>
+                      </a>
+                      
+                      <div class="pagination__numbers">
+                      
+                      {% for page in 1..records.lastPage %}
+                          <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}" class="pagination__number-item {% if records.currentPage == page %}active{% endif %}">{{ page }}</a>
+                      {% endfor %}
+                      </div>
+                      
+					  {% if not records.lastPage <= records.currentPage %}
+                      <a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}" >
+                        <div class="pagination__next">
+                          <span class="pagination__next-text">Следующая</span>
+                          <img src="/themes/motel/assets/img/pagination-arrow-next.svg" alt="" class="pagination__arrow-next js-svg">
+                        </div>
+                      </a>
+					  {% endif %}
+                      
+                    </div>
+                    <div id="load-more-button">
+                        <button class="pagination__more-btn d-md-none" data-request="onLoadMore" data-request-data="page: 1">
+                          <span class="pagination__more-btn-text">
+                            ЕЩЕ
+                          </span>
+                        </button>
+                    </div>
+                  </div>              
+                </div>
+                <!-- /Pagination -->
+                {% endif %}
+            </div>          
+          </div>
+        </div>
+      </div>";s:4:"code";N;s:7:"viewBag";a:0:{}}}

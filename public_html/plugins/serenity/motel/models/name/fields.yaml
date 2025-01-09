@@ -1,0 +1,12 @@
+fields:
+    name:
+        label: Имя
+        span: auto
+        type: text
+    gender:
+        label: Пол
+        options:
+            men: Мужчина
+            women: Женщина
+        span: auto
+        type: dropdown

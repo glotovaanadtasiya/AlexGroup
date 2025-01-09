@@ -1,0 +1,17 @@
+name: Имена
+modelClass: Serenity\Motel\Models\Name
+form: $/serenity/motel/models/name/fields.yaml
+defaultRedirect: serenity/motel/names
+create:
+    title: 'Создание имени'
+    redirect: 'serenity/motel/names/update/:id'
+    redirectClose: serenity/motel/names
+    flashSave: 'Имя создано'
+update:
+    title: 'Редактирование имени'
+    redirect: serenity/motel/names
+    redirectClose: serenity/motel/names
+    flashSave: 'Имя сохранено'
+    flashDelete: 'Имя удалено'
+preview:
+    title: 'Просмотр имени'

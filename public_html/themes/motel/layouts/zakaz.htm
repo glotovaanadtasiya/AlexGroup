@@ -1,0 +1,440 @@
+description = "Test шаблон заказа"
+
+[staticPage]
+useContent = 1
+default = 0
+==
+<?php
+use Serenity\Motel\Models\Hotel;
+use Serenity\Motel\Models\Name;
+
+
+
+
+function onStart()
+{
+
+    $this['hotels'] = Hotel::all();
+	
+	/*
+	echo "<pre>";
+	print_r ($this['hotels'] );
+	echo "</pre>";
+	
+	$url = "http://178.130.14.194:8095/WebBook/api1_1.php"; //
+	
+	$data = [
+		"action"=> "start",
+		"auth"=> [
+			"login"=> "guest",
+			"pass"=> ""
+			],
+		"app_token"=> "9EFD4B81-DDEA-4805-A221-49E37E2AD387"
+	];
+
+	
+	$postdata = json_encode($data);
+
+	$ch = curl_init($url); 
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	$result = json_decode($result, true);
+	echo "<pre>";
+	print_r ($result);
+	echo "</pre>";*/
+
+
+}
+
+
+
+
+
+function onChangeHotel(){
+    $hotel_id = Input::get('hotel_id');
+    //$hotel_type = Input::get('hotel_type');
+    
+    $hotel = Hotel::find($hotel_id);
+    if($hotel){
+        return [
+            //'.find-room__field select' => $this->renderPartial('blocks/bookingTimeSelect.htm', ['hotel' => $hotel, 'type' => $hotel_type]),
+            '[name="roomtype-select"]' => $this->renderPartial('blocks/roomtypeselect.htm', ['hotel' => $hotel]),
+        ];
+    }
+}
+
+function onSubmitBooking(){
+    
+    
+    $vars = [
+		'type' => 1, /*запись в crm*/
+		'connect-type' => Input::get('connect-type'), 
+        'booking_hotel_select' => Input::get('booking-hotel-select'), 
+        'booking_roomtype_select' => Input::get('booking-roomtype-select'), 
+        'arrival_date' => Input::get('arrival_date'),
+        'booking_time_select' => Input::get('booking-time-select'),
+        'booking_rp_select' => Input::get('booking-rp-select'),
+        'fname' => Input::get('fname'),
+        'phone' => Input::get('phone'),
+		'booking_hours' => Input::get('booking-hours'),
+		'booking_minutes' => Input::get('booking-minutes'),
+		'booking_smocking' => Input::get('booking-smocking'),
+		'email' => Input::get('email')
+		
+        ];
+		
+		
+	/*отправка в crm*/
+	
+	$url = 'http://suz.motelspb.com/_321/backend/save.php';
+	$params = $vars;
+	$result = file_get_contents($url, false, stream_context_create(array(
+    'http' => array(
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/x-www-form-urlencoded',
+        'content' => http_build_query($params)
+		)
+	)));
+
+	
+	
+	
+    Mail::send('serenity.motel.booking', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+
+    });
+    
+    $name = Name::where('name', Input::get('fname'));
+	
+	
+
+	
+    
+	/*логирование данных*/
+	$file_log = $_SERVER["DOCUMENT_ROOT"] . "/1/log.log";
+	date_default_timezone_set('Europe/Moscow');
+    $fw = fopen($file_log, "a");
+	fwrite($fw, date("H:i:s  d.m.y")." from site VARS " . var_export($vars, true));	
+    fclose($fw);
+	/**/
+
+    return [
+        '@.modals' => $this->renderPartial('blocks/successPopup.htm', ['name' => $name]),
+    ];
+    
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+{variable name="block1_text_1" label="Заголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_2" label="Подзаголовок" tab="Блок 1" type="textarea"}{/variable}
+{variable name="block1_text_3" label="Текст" tab="Блок 1" type="textarea"}{/variable}
+
+{variable name="block2_text_1" label="Заголовок" tab="Блок 2" type="textarea"}{/variable}
+{variable name="block2_text_2" label="Текст" tab="Блок 2" type="textarea"}{/variable}
+
+{repeater name="offer_items" prompt="Добавить" tab="Блок 2"}
+    {variable name="offer_items_img" label="Иконка" type="mediafinder" mode="image"}{/variable}
+    {variable name="offer_item_desc" label="Текст" type="text"}{/variable}
+    {variable name="offer_item_name" label="Название" type="text"}{/variable}
+{/repeater}
+
+{repeater name="gallery" prompt="Добавить фото" tab="Галерея"}
+  {variable name="photo" label="Галерея" type="mediafinder" mode="image"}{/variable}
+{/repeater}
+
+{variable name="secial_title" label="Заголовок" tab="Спецпредложение" type="text"}{/variable}
+{variable name="secial_text" label="Текст" tab="Спецпредложение" type="richeditor"}{/variable}
+{variable name="secial_url" label="Ссылка" tab="Спецпредложение" type="text"}{/variable}
+
+{repeater name="succes" prompt="Добавить" tab="Бронирование" maxItems="3"}
+    {variable name="icon" label="Иконка" type="mediafinder" mode="image"}{/variable}
+    {variable name="title" label="Заголовок" type="text"}{/variable}
+    {variable name="subtitle" label="Подзаголовок" type="text"}{/variable}
+    {variable name="text" label="Текст" type="textarea"}{/variable}
+    {variable name="text2" label="Текст 2" type="textarea"}{/variable}
+{/repeater}
+
+{variable name="seo_text" label="SEO текст" tab="SEO текст" type="richeditor"}{/variable}
+
+{variable name="linkblock" label="Блок ссылок" tab="Блок ссылок" type="richeditor"}{/variable}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+
+
+  <title>{% if this.page.meta_title %}{{ this.page.meta_title }}{% else %}Снять номер в мини отель на час с джакузи в Санкт-Петербурге{% endif %}</title>
+  <meta name="description" content="{% if this.page.meta_description %}{{ this.page.meta_description }}{% else %}Мини отель на час в Санкт-Петербурге, Гостиница с почасовой оплатой, Снять номер на час в СПб, Апартаменты на час, Отель на час с джакузи в Питере Цена номера в отеле на час в любом районе Saint Petersburg 1900 руб за 12 часов забронировать по номеру  8 (812) 468-77-77{% endif %}">
+  
+  
+  <meta name="keywords" content="Отель на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="google-site-verification" content="eIupZehJt_v6i1-Ze7VwR5x-DhtRdIP1Zz8jfpmnBfo" />
+  <meta name="yandex-verification" content="399ee3ca9aaabaaf" />
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+  <meta name="apple-itunes-app" content="app-id=1029435175">
+  <meta name="google-play-app" content="app-id=com.wideweb.motelspb">
+  <link rel="stylesheet" href="/themes/motel/assets/css/jquery.smartbanner.css" type="text/css" media="screen">
+
+  <meta name="cmsmagazine" content="368f23d768f15ec06b6bc7e64cf9a5b7" />
+  
+ <link rel="stylesheet" href="/themes/motel/assets/css/main.min.css" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+ 
+  
+
+  
+   
+    
+    
+<!-- Booking Popup -->
+    <div class="booking js-booking new22032021" id="booking">
+      <div class="darkcommontheme darkblurtheme">
+          <!-- Stars -->
+          <div class="booking__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50">              
+            </div>
+          </div>
+          <!-- /Stars -->
+          <div class="booking__inner section">
+            <div class="booking__container container">
+              <div class="booking__content">
+                <div class="booking__title h1">Бронирование отеля</div>
+                
+                <form class="booking__form" data-request="onSubmitBooking"
+                        			        data-request-validate
+                        			        data-request-success="$.magnificPopup.close(); openSuccessPopup(); if(isCheck('connect-type').value==1) startChat(); "
+
+                        			        >
+                  <div class="booking__form-content">
+                    <div class="booking__col">
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-hotel-select" required>
+                            <option disabled hidden value="">Отель</option>
+                            {% for hotel in hotels %}
+                            <option data-hotel-id="{{hotel.id}}" value="{{hotel.slug}}">{{hotel.name}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-roomtype-select" required>
+                            <option disabled hidden value="">Тип номера</option>
+                            <option selected value="standard">Cтандарт</option>
+                            <option value="suite">Полу-люкс</option>
+                            <option value="lux">Люкс</option>
+                          </select>
+                        </div>
+                      </div>
+					  
+					  
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+						  <div class="booking-line-title">Время заезда</div>
+						  <div class="floatright">
+							<option disabled hidden value="">часов</option>
+							<select class="booking__select select select_bot-border select-notfullwidth" name="booking-hours">
+								{% for i in 0..23 %}
+								<option value="{% if i<10 %}0{% endif %}{{ i }}">{% if i<10 %}0{% endif %}{{ i }}</option>
+								{% endfor %}
+							</select>
+							:
+							<select class="booking__select select select_bot-border  select-notfullwidth" name="booking-minutes">
+								{% for i in 0..11 %}
+								<option value="{% if i<2 %}0{% endif %}{{ i*5 }}">{% if i<2 %}0{% endif %}{{ i*5 }}</option>
+								{% endfor %}
+							</select>
+						  </div>
+                        </div>
+                      </div>
+
+                      
+                      <div class="booking__field form-field">
+                        <input type="text" class="booking__input js-datepicker input select select_bot-border" placeholder="Дата заезда" name="arrival_date" required>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-time-select" required>                            
+                            <option disabled hidden value="">Время бронирования</option>
+                            {% for standart_prop in hotels.first.standart_prop %}
+                                {% for standart_price in standart_prop.tariffs %}
+									{% if not standart_price.price_hide %}
+									<option value="{{ standart_price.price_name }}" {% if loop.first %}selected{% endif %}>{{ standart_price.price_name }}</option>
+									{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-rp-select">                                                  
+                            <option disabled selected hidden>Романтическое оформление номера</option>
+
+                            <option>Без романтического предложения</option>
+                            <option data-price="1500" value="Bronze">Романт. предл. Bronze (1500р)</option>
+                            <option data-price="1200" value="Silver">Романт. предл. Silver (1200р)</option>
+                            <option data-price="2000" value="Gold">Романт. предл. Gold (2000р)</option>
+                          </select>
+                        </div>
+                      </div>
+					  
+					  
+					  <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+                          <select class="booking__select select select_bot-border" name="booking-smocking">
+                            <option disabled hidden selected value="">Номер для курящих?</option>
+                            <option>не важно</option>
+                            <option>для курящих</option>
+                            <option>для не курящих</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      
+                    </div>
+                    <div class="booking__col">
+                      <div class="booking__field form-field">
+                        <input type="text" class="booking__input input" placeholder="Имя" name="fname" required>
+                      </div>
+                      
+                      <div class="booking__field form-field">
+                        <input type="tel" class="booking__input js-phone-mask input" placeholder="Телефон" name="phone" required>
+                      </div>
+					  
+					  <div class="booking__field form-field">
+                        <input type="email" class="booking__input input" placeholder="E-mail" name="email">
+                      </div>
+					  
+					  
+					  <div class="booking__field form-field">
+                        <div class="booking__select-wrap select-wrap">
+						  <h3>Подтверждение бронирования</h3>
+						  <p class="radiobutton-line"><input name="connect-type" type="radio" id="r1" value="0" checked="checked"> <label for="r1">По телефону</label></p>
+						  <p class="radiobutton-line"><input name="connect-type" type="radio" id="r2" value="1"> <label for="r2">Онлайн (в чате)</label></p>
+						  
+						  <style>
+						  .radiobutton-line {margin: 10px 0; font-size: 20px;}
+						  </style>
+
+						  <!--
+						 <select class="booking__select select select_bot-border" name="connect-type">
+                            <option disabled hidden selected value="">Подтвердить бронирование</option>
+                            <option value="phone">Подтверждение по телефону</option>
+                            <option value="chat">Подтверждение Online (в чате)</option>
+                          </select>
+						  -->
+                        </div>
+                      </div>				  
+                      
+					  
+					  
+                      <div class="booking__price">
+                        <span class="booking__price-title">Итого</span>
+                        
+                        <span class="booking__price-sum">
+                          <span class="booking__price-num">5 000</span>
+                          <span class="booking__price-currency">рублей</span>
+                        </span>
+                      </div>
+					  
+
+						  
+					  
+                      
+                      <div class="booking__send-wrap">
+                        <button onclick=" yaCounter23472043.reachGoal('bronSubmit'); ga('send', 'pageview','/bronSubmit'); fbq('track','bronSubmit'); return true;" class="booking__send-btn button button_ghost">Бронировать</button>
+                      </div>
+                      
+                      <div class="booking__check-wrap">
+                        <label class="checkbox">
+                          <input type="checkbox" class="checkbox__input visually-hidden" required="" checked="">
+                          <span class="checkbox__content">
+                            Нажимая кнопку «Бронировать» Вы даете согласие на обработку своих персональных данных и соглашаетесь 
+                            с <a href="/privacy-policy/" class="checkbox__link" target="_blank">политикой конфиденциальности</a>
+                          </span>
+                        </label>
+                      </div>
+                      
+                    </div>
+                  </div>            
+                </form>
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+    <!-- /Booking Popup -->	
+	
+	
+	
+
+  
+
+  {% partial "basic/scripts" %}
+  
+  <script>
+    $('[name="hotel-select"]').on('change', function(){
+        $.request('onChangeHotel', {data: {hotel_id: $(this).find('option:selected').attr('hotelid')}})
+    });
+  </script>
+  
+</body>
+</html>

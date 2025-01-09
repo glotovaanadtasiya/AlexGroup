@@ -1,0 +1,158 @@
+description = "Шаблон страницы скидки и акции"
+==
+<?php
+use Serenity\Motel\Models\Stock;
+use Serenity\Motel\Models\Service;
+use Serenity\Motel\Models\Offer;
+function onInit()
+{
+    $this['services'] = Service::all();
+    $this['offers'] = Offer::all();
+
+    $stock = Stock::where('slug', $this->param('slug'))->first();
+    if(!$stock)
+        return $this->controller->run('404');
+    
+    $this['stock'] = $stock;
+}
+
+function onSubmitContactForm(){
+    
+    
+    $vars = [
+        'name' => Input::get('name'),
+        'phone' => Input::get('phone'),
+        'email' => Input::get('email'),
+        'question' => Input::get('question'),
+        ];
+    Mail::send('serenity.motel.contactform', $vars, function($message){
+        $message->to('4687777@alex-group.net', 'Администратор');
+        $message->subject('Новая заявка на бронирование номера');
+    });
+    
+   Flash::success('Вопрос отправлен');
+    
+    return [
+        'ok' => 1,
+    ];
+    
+}
+?>
+==
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="utf-8">
+  <!-- <base href="/"> -->
+  
+  <title>Акции и специальные предложения на бронирование гостиниц и мини-отелей на час Петербурга.</title>
+  <meta name="description" content="Скидки в отелях Санкт-Петербурга. Отели на час с широким выбором акций и специальных предложений на аренду и бронирование номеров с джакузи по всему городу.">
+  <meta name="keywords" content="акции в отелях на час">    
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- Basic Images Start -->
+  <meta property="og:image" content="path/to/image.jpg">
+  <link rel="icon" href="{{ 'assets/img/favicon/favicon.ico'|theme }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-touch-icon-180x180.png'|theme }}">
+  <link rel="mask-icon" href="{{ 'assets/img/favicon/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
+  <!-- Basic Images End -->
+  
+  <!-- Custom Browsers Color Start -->
+  <meta name="theme-color" content="#1D1D1D">
+  <!-- Custom Browsers Color End -->
+  
+ <link rel="stylesheet" href="{{ 'assets/css/main.min.css'|theme }}" />
+ 
+{% partial "basic/head-scripts" %} 
+
+</head>
+
+<body class="js-body">
+  
+  <div class="darkcommontheme headertheme">
+    <div class="header-group">
+    
+        <!-- Header -->
+        {% partial "basic/header" %}    
+        
+    </div>
+  </div>
+
+  
+  <!-- Main content -->
+  <main class="main">
+    <div class="darkcommontheme darktheme">
+      <div class="s-stock-top section" style="background-image: url({{ stock.img_title.path }})">
+        <div class="s-stock-top__container container">
+          <div class="s-stock-top__box">
+            <h1 class="s-stock-top__title h1">{{ stock.name }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="section s-stock-info">       
+        
+        <!-- Flame offer block (desktop) -->
+        <div class="s-stock-info__offer">
+          {% partial "blocks/special_offer" %}
+        </div>
+        <!-- /Flame offer block (desktop) -->
+        <div class="container container_narrow">
+          <div class="s-stock-info__text plaintext">
+          {{ stock.content | raw }}
+          </div>
+
+            {% if stock.view_add_service == true %}
+            <div class="s-stock-info__title h4">Дополнительные услуги</div>
+            {% partial "blocks/additional_services_table" services=services offers=offers %}
+            {% endif %}
+            
+            </div>
+            
+            {% if stock.slider == true %}
+                <!-- Rooms Carousel -->
+                <div class="s-stock-info__carousel">
+                  <div class="rooms-carousel">
+                    <div class="rooms-carousel__container container">
+                      <div class="rooms-carousel__inner js-rooms-carousel owl-carousel">
+                       {% for slide in stock.slider %}
+                          <div class="rooms-carousel__item">
+                            <div class="rooms-carousel__photo">
+                              <img src="{{ slide.img | media }}" alt="" class="rooms-carousel__img">
+                            </div>
+                            <div class="rooms-carousel__title">{{ slide.text | raw }}</div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Rooms Carousel -->
+             {% endif %}
+
+            <div class="container">
+
+              <div class="s-stock-info__btn-wrap button-wrap">
+                <a href="/hotels/" class="s-stock-info__choose-btn button button_ghost">Выбрать отель</a>
+              </div>
+            </div>
+
+      </div>
+    </div>
+
+  </main>
+  <!-- /Main content -->
+  
+  
+  <!-- Footer -->
+  {% partial "basic/footer" %}
+  <!-- /Footer -->
+
+  
+  {% partial "basic/scripts" %}
+  
+  
+</body>
+</html>

@@ -1,0 +1,73 @@
+1735042528a:1:{s:27:"blocks/faq_list_on_main.htm";a:6:{s:8:"fileName";s:27:"blocks/faq_list_on_main.htm";s:7:"content";s:1267:"[viewBag]
+==
+<?php
+use Serenity\Motel\Models\Question;
+function onStart()
+{
+    
+    $this['questions'] = Question::take(3)->get();
+    
+}
+?>
+==
+<div class="s-faq-prev section">
+          
+          <div class="s-faq-prev__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+          </div>
+          
+          <div class="s-faq-prev__container container">
+            <div class="s-faq-prev__title h2">Часто задаваемые <br> вопросы</div>
+            
+            <div class="s-faq-prev__row row">
+              {% for question in questions %}
+              <div class="s-faq-prev__col col-md-4">
+                <div class="s-faq-prev__item">
+                  <div class="s-faq-prev__question h4">{{ question.question }}</div>
+                  <div class="s-faq-prev__answer">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% endfor %}
+              
+              
+            </div>
+            
+            <div class="button-wrap">
+              <a href="/faq/" class="s-faq-prev__btn button button_ghost button_medium">Все вопросы</a>
+            </div>
+            
+          </div> 
+        </div>";s:5:"mtime";i:1589270757;s:6:"markup";s:1116:"<div class="s-faq-prev section">
+          
+          <div class="s-faq-prev__stars starry-sky-canvas">
+            <div class="starry-sky js-starry-sky" data-stars-amount="50"></div>
+          </div>
+          
+          <div class="s-faq-prev__container container">
+            <div class="s-faq-prev__title h2">Часто задаваемые <br> вопросы</div>
+            
+            <div class="s-faq-prev__row row">
+              {% for question in questions %}
+              <div class="s-faq-prev__col col-md-4">
+                <div class="s-faq-prev__item">
+                  <div class="s-faq-prev__question h4">{{ question.question }}</div>
+                  <div class="s-faq-prev__answer">{{ question.answer }}</div>
+                </div>
+              </div>
+              {% endfor %}
+              
+              
+            </div>
+            
+            <div class="button-wrap">
+              <a href="/faq/" class="s-faq-prev__btn button button_ghost button_medium">Все вопросы</a>
+            </div>
+            
+          </div> 
+        </div>";s:4:"code";s:125:"use Serenity\Motel\Models\Question;
+function onStart()
+{
+    
+    $this['questions'] = Question::take(3)->get();
+    
+}";s:7:"viewBag";a:0:{}}}

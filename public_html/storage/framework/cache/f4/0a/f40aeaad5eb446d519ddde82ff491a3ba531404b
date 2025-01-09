@@ -1,0 +1,150 @@
+1735042086a:1:{s:11:"article.htm";a:9:{s:8:"fileName";s:11:"article.htm";s:7:"content";s:3234:"title = "Новость"
+url = "/news/post/:slug/"
+layout = "news-article"
+is_hidden = 0
+==
+<?php
+use Serenity\Motel\Models\NewsPost;
+function onInit()
+{
+    $post = NewsPost::where('slug', $this->param('slug'))->first();
+    if(!$post)
+        return $this->controller->run('404');
+    
+    $this['post'] = $post;
+}
+?>
+==
+{% set mnths = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %}
+
+<h1 class="a-news__title h5">{{ post.name }}</h1>
+        <div class="a-news__date">
+          {{ post.created_at|date("j") }} 
+          {{ mnths[post.created_at|date("n")] }} 
+          {{ post.created_at|date("Y") }}
+        </div>
+        <div class="a-news__photo">
+          <img src="{{ post.img_title.path }}" alt="" class="a-news__photo-inner img-responsive">
+        </div>
+        <div class="a-news__text plaintext">
+          {{ post.content | raw }}
+        </div>
+		
+
+		     {% if post.slider == true %}
+                <div class="s-stock-info__carousel">
+                  <div class="rooms-carousel">
+                    <div class="rooms-carousel__container container">
+                      <div class="rooms-carousel__inner js-rooms-carousel owl-carousel">
+                       {% for slide in post.slider %}
+                          <div class="rooms-carousel__item">
+                            <div class="rooms-carousel__photo">
+                              <img src="{{ slide.img | media }}" alt="" class="rooms-carousel__img">
+                            </div>
+                            <div class="rooms-carousel__title">{{ slide.text | raw }}</div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             {% endif %}
+			 
+        
+
+        <div class="a-news__pagination">
+          <!-- Pagination -->
+          <div class="pagination">
+            <div class="pagination__container">
+              <div class="pagination__box">
+                <a href="/news/post/{{ post.nextPost.slug }}/" {% if post.nextPost.slug == false %}class="disabled"{% endif %}>
+                  <div class="pagination__prev">
+                    <img src="/themes/motel/assets/img/pagination-arrow-prev.svg" alt="" class="pagination__arrow-prev js-svg">
+                    <span class="pagination__prev-text">Предыдущая</span>
+                  </div>
+                </a>    
+                <div class="pagination__numbers">
+                </div>
+				{% if not post.previousPost.slug == false %}
+                <a href="/news/post/{{ post.previousPost.slug }}/" >
+                  <div class="pagination__next">
+                    <span class="pagination__next-text">Следующая</span>
+                    <img src="/themes/motel/assets/img/pagination-arrow-next.svg" alt="" class="pagination__arrow-next js-svg">
+                  </div>
+                </a>
+				{% endif %}
+              </div>
+            </div>              
+          </div>
+          <!-- /Pagination -->
+        </div>";s:5:"mtime";i:1660057865;s:6:"markup";s:2903:"{% set mnths = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %}
+
+<h1 class="a-news__title h5">{{ post.name }}</h1>
+        <div class="a-news__date">
+          {{ post.created_at|date("j") }} 
+          {{ mnths[post.created_at|date("n")] }} 
+          {{ post.created_at|date("Y") }}
+        </div>
+        <div class="a-news__photo">
+          <img src="{{ post.img_title.path }}" alt="" class="a-news__photo-inner img-responsive">
+        </div>
+        <div class="a-news__text plaintext">
+          {{ post.content | raw }}
+        </div>
+		
+
+		     {% if post.slider == true %}
+                <div class="s-stock-info__carousel">
+                  <div class="rooms-carousel">
+                    <div class="rooms-carousel__container container">
+                      <div class="rooms-carousel__inner js-rooms-carousel owl-carousel">
+                       {% for slide in post.slider %}
+                          <div class="rooms-carousel__item">
+                            <div class="rooms-carousel__photo">
+                              <img src="{{ slide.img | media }}" alt="" class="rooms-carousel__img">
+                            </div>
+                            <div class="rooms-carousel__title">{{ slide.text | raw }}</div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             {% endif %}
+			 
+        
+
+        <div class="a-news__pagination">
+          <!-- Pagination -->
+          <div class="pagination">
+            <div class="pagination__container">
+              <div class="pagination__box">
+                <a href="/news/post/{{ post.nextPost.slug }}/" {% if post.nextPost.slug == false %}class="disabled"{% endif %}>
+                  <div class="pagination__prev">
+                    <img src="/themes/motel/assets/img/pagination-arrow-prev.svg" alt="" class="pagination__arrow-prev js-svg">
+                    <span class="pagination__prev-text">Предыдущая</span>
+                  </div>
+                </a>    
+                <div class="pagination__numbers">
+                </div>
+				{% if not post.previousPost.slug == false %}
+                <a href="/news/post/{{ post.previousPost.slug }}/" >
+                  <div class="pagination__next">
+                    <span class="pagination__next-text">Следующая</span>
+                    <img src="/themes/motel/assets/img/pagination-arrow-next.svg" alt="" class="pagination__arrow-next js-svg">
+                  </div>
+                </a>
+				{% endif %}
+              </div>
+            </div>              
+          </div>
+          <!-- /Pagination -->
+        </div>";s:4:"code";s:226:"use Serenity\Motel\Models\NewsPost;
+function onInit()
+{
+    $post = NewsPost::where('slug', $this->param('slug'))->first();
+    if(!$post)
+        return $this->controller->run('404');
+    
+    $this['post'] = $post;
+}";s:5:"title";s:14:"Новость";s:3:"url";s:17:"/news/post/:slug/";s:6:"layout";s:12:"news-article";s:9:"is_hidden";s:1:"0";}}

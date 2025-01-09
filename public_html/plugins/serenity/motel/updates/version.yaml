@@ -1,0 +1,155 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table serenity_motel_hotels'
+    - builder_table_create_serenity_motel_hotels.php
+1.0.3:
+    - 'Created table serenity_motel_rooms'
+    - builder_table_create_serenity_motel_rooms.php
+1.0.4:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels.php
+1.0.5:
+    - 'Created table serenity_motel_questions'
+    - builder_table_create_serenity_motel_questions.php
+1.0.6:
+    - 'Created table serenity_motel_reviews'
+    - builder_table_create_serenity_motel_reviews.php
+1.0.7:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_2.php
+1.0.8:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_3.php
+1.0.9:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_4.php
+1.0.10:
+    - 'Updated table serenity_motel_reviews'
+    - builder_table_update_serenity_motel_reviews.php
+1.0.11:
+    - 'Updated table serenity_motel_questions'
+    - builder_table_update_serenity_motel_questions.php
+1.0.12:
+    - 'Updated table serenity_motel_questions'
+    - builder_table_update_serenity_motel_questions_2.php
+1.0.13:
+    - 'Updated table serenity_motel_reviews'
+    - builder_table_update_serenity_motel_reviews_2.php
+1.0.14:
+    - 'Updated table serenity_motel_reviews'
+    - builder_table_update_serenity_motel_reviews_3.php
+1.0.15:
+    - 'Created table serenity_motel_news_posts'
+    - builder_table_create_serenity_motel_news_posts.php
+1.0.16:
+    - 'Updated table serenity_motel_reviews'
+    - builder_table_update_serenity_motel_reviews_4.php
+1.0.17:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_5.php
+1.0.18:
+    - 'Created table serenity_motel_discounts'
+    - builder_table_create_serenity_motel_discounts.php
+1.0.19:
+    - 'Updated table serenity_motel_discounts'
+    - builder_table_update_serenity_motel_stocks.php
+1.0.20:
+    - 'Updated table serenity_motel_stocks'
+    - builder_table_update_serenity_motel_stocks_2.php
+1.0.21:
+    - 'Updated table serenity_motel_stocks'
+    - builder_table_update_serenity_motel_stocks_3.php
+1.0.22:
+    - 'Created table serenity_motel_names'
+    - builder_table_create_serenity_motel_names.php
+1.0.23:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_6.php
+1.0.24:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_7.php
+1.0.25:
+    - 'Updated table serenity_motel_reviews'
+    - builder_table_update_serenity_motel_reviews_5.php
+1.0.26:
+    - 'Updated table serenity_motel_reviews'
+    - builder_table_update_serenity_motel_reviews_6.php
+1.0.27:
+    - 'Updated table serenity_motel_stocks'
+    - builder_table_update_serenity_motel_stocks_4.php
+1.0.28:
+    - 'Created table serenity_motel_services'
+    - builder_table_create_serenity_motel_services.php
+1.0.29:
+    - 'Created table serenity_motel_offers'
+    - builder_table_create_serenity_motel_offers.php
+1.0.30:
+    - 'Created table serenity_motel_offer_service'
+    - builder_table_create_serenity_motel_offer_service.php
+1.0.31:
+    - 'Updated table serenity_motel_services'
+    - builder_table_update_serenity_motel_services.php
+1.0.32:
+    - 'Updated table serenity_motel_offers'
+    - builder_table_update_serenity_motel_offers.php
+1.0.33:
+    - 'Drop table serenity_motel_offer_service'
+    - builder_table_delete_serenity_motel_offer_service.php
+1.0.34:
+    - 'Created table serenity_motel_offer_service'
+    - builder_table_create_serenity_motel_offer_service_2.php
+1.0.35:
+    - 'Updated table serenity_motel_stocks'
+    - builder_table_update_serenity_motel_stocks_5.php
+1.0.36:
+    - 'Created table serenity_motel_menu'
+    - builder_table_create_serenity_motel_menu.php
+1.0.37:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_8.php
+1.0.38:
+    - 'Updated table serenity_motel_stocks'
+    - builder_table_update_serenity_motel_stocks_6.php
+1.0.39:
+    - 'Updated table serenity_motel_stocks'
+    - builder_table_update_serenity_motel_stocks_7.php
+1.0.40:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_9.php
+1.0.41:
+    - 'Updated table serenity_motel_stocks'
+    - builder_table_update_serenity_motel_stocks_8.php
+1.0.42:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_10.php
+1.0.43:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_11.php
+1.0.44:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_12.php
+1.0.45:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_13.php
+1.0.46:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_14.php
+1.0.47:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_15.php
+1.0.48:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_16.php
+1.0.49:
+    - 'Updated table serenity_motel_stocks'
+    - builder_table_update_serenity_motel_stocks_9.php
+1.0.50:
+    - 'Updated table serenity_motel_news_posts'
+    - builder_table_update_serenity_motel_news_posts.php
+1.0.51:
+    - 'Updated table serenity_motel_news_posts'
+    - builder_table_update_serenity_motel_news_posts_2.php
+1.0.52:
+    - 'Updated table serenity_motel_hotels'
+    - builder_table_update_serenity_motel_hotels_17.php
